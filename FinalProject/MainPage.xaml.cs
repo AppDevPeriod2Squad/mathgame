@@ -1,4 +1,6 @@
-﻿namespace FinalProject
+﻿// hi there sigmas!
+
+namespace FinalProject
 {
     public partial class MainPage : ContentPage
     {
