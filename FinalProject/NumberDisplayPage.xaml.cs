@@ -9,11 +9,7 @@ namespace FinalProject
         {
             InitializeComponent();
 
-            var number = new Number
-            {
-                Val = 5, // Example value, also only value with ten frames rn
-            };
-            number.UpdateImageToTenFrames();
+            var number = new Number(val: 5, imageType: ImageType.TenFrames);
             number.Display(ParentLayout);
         }
     }

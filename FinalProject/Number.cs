@@ -8,34 +8,26 @@ namespace FinalProject
 {
     public class Number : Displayable
     {
-        private SpriteManager spriteManager = new SpriteManager();
-        private int val;
+        private readonly SpriteManager spriteManager = new SpriteManager();
 
-        private int myVar;
-
-
-
-        public int Val
-        {
-            get { return val; }
-            set
-            {
-                val = value;
-                ImageSource = spriteManager.GetTenFramesImage(val); // use ten frames by default
-            }
-        }
-        private ImageSource? imageSource;
-        public override ImageSource ImageSource
-        {
-            get { return imageSource; }
-            set { imageSource = value; }
-        }
-
+        public int Val { get; set; }
+        public override ImageSource? ImageSource { get; set; }
         public override string? Text { get; set; }
+        public Number(int val = 0, string? text = null, ImageType imageType = ImageType.None)
+        {
+            Val = val;
+            Text = text;
+            UpdateImageSource(imageType);
+        }
 
-        public void UpdateImageToTenFrames()
-        { 
-            ImageSource = spriteManager.GetTenFramesImage(Val);
+        private void UpdateImageSource(ImageType imageType)
+        {
+            ImageSource = imageType switch
+            {
+                ImageType.TenFrames => spriteManager.GetTenFramesImage(Val),
+                ImageType.Dice => spriteManager.GetDiceImage(Val),
+                _ => null
+            };
         }
     }
 }
