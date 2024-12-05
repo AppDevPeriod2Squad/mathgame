@@ -1,4 +1,5 @@
 ﻿using Microsoft.Maui.Controls;
+using Microsoft.Maui.Layouts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,14 +14,16 @@ namespace FinalProject
         public virtual string? Text { get; set; } = string.Empty;
 
         public virtual void Display(
-            Layout parentLayout,
-            // bunch of default parameters
-            double imageHeight = 200,
-            double imageWidth = 200,
-            LayoutOptions? horizontalOptions = null,
-            LayoutOptions? verticalOptions = null,
-            int textFontSize=18
-        )
+            // default parameters
+           Layout parentLayout,
+           double imageHeight = 200,
+           double imageWidth = 200,
+           LayoutOptions? horizontalOptions = null,
+           LayoutOptions? verticalOptions = null,
+           int textFontSize = 18,
+           string? absoluteLayoutBounds = null,
+           AbsoluteLayoutFlags absoluteLayoutFlags = AbsoluteLayoutFlags.None
+       )
         {
             // assign value ONLY if already null, used to correctly implement default parameter
             horizontalOptions ??= LayoutOptions.Center;
@@ -47,7 +50,6 @@ namespace FinalProject
 
                 stackLayout.Children.Add(image);
             }
-
             // add a Label control if the Text is not null or empty
             if (!string.IsNullOrWhiteSpace(Text))
             {
@@ -60,8 +62,32 @@ namespace FinalProject
                 });
             }
 
-            // add the StackLayout to the parent layout
-            parentLayout.Children.Add(stackLayout);
+            // checks if parentlayout is absolutelayout, and if it is will assign new variable "absoluteLayout" to parentlayout
+            if (parentLayout is AbsoluteLayout absoluteLayout && !string.IsNullOrWhiteSpace(absoluteLayoutBounds))
+            {
+                var bounds = ParseBounds(absoluteLayoutBounds);
+                AbsoluteLayout.SetLayoutBounds(stackLayout, bounds);
+                AbsoluteLayout.SetLayoutFlags(stackLayout, absoluteLayoutFlags);
+                absoluteLayout.Children.Add(stackLayout);
+            }
+            else
+            {
+                parentLayout.Children.Add(stackLayout);
+            }
+        }
+
+        private Rect ParseBounds(string bounds)
+        {
+            var parts = bounds.Split(',');
+            if (parts.Length != 4)
+                throw new ArgumentException("absoluteLayoutBounds must be a comma-separated string with four values.");
+
+            return new Rect(
+                double.Parse(parts[0]),
+                double.Parse(parts[1]),
+                double.Parse(parts[2]),
+                double.Parse(parts[3])
+            );
         }
     }
 }
