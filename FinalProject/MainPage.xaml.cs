@@ -4,10 +4,12 @@ namespace FinalProject
 {
     public partial class MainPage : ContentPage
     {
+        int count;
 
         public MainPage()
         {
             InitializeComponent();
+            count = 0;
         }
 
         private void OnCounterClicked(object sender, EventArgs e)

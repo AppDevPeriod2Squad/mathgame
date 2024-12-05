@@ -58,12 +58,14 @@ namespace FinalProject
         private int xp;
         public int XP
         {
-            get { return xp;}
-            set { if (xp != value) { xp = value; OnPropertyChanged("XP") } 
+            get { return xp; }
+            set
+            {
+                if (xp != value) { xp = value; OnPropertyChanged("XP"); }
+            }
+
+
         }
-
-
-
 
     }
 }
