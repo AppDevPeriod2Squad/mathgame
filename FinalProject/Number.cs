@@ -35,7 +35,6 @@ namespace FinalProject
 
         public void UpdateImageToTenFrames()
         { 
-            // Update the ImageSource to use the ten frames representation
             ImageSource = spriteManager.GetTenFramesImage(Val);
         }
     }

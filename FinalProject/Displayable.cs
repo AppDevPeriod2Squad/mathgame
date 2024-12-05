@@ -20,23 +20,23 @@ namespace FinalProject
                 Spacing = 15
             };
 
-            // Add an Image control if the ImageSource is not null
+            // add an Image control if the ImageSource is not null
             if (ImageSource != null)
             {
                 var image = new Image
                 {
                     Source = ImageSource,
-                    Aspect = Aspect.AspectFit, // Maintain aspect ratio and fit within the available space
-                    HeightRequest = 200, // Set desired height
-                    WidthRequest = 200,  // Set desired width
-                    HorizontalOptions = LayoutOptions.Center, // Center horizontally
-                    VerticalOptions = LayoutOptions.Center   // Center vertically
+                    Aspect = Aspect.AspectFit, 
+                    HeightRequest = 200, // set desired height, NEED TO ADD FUNCTIONALITY TO ALLOW CHANGES TO THIS
+                    WidthRequest = 200,  // set desired width, NEED TO ADD FUNCTIONALITY TO ALLOW CHANGES TO THIS
+                    HorizontalOptions = LayoutOptions.Center, // Center horizontally, NEED TO ADD FUNCTIONALITY TO ALLOW CHANGES TO THIS
+                    VerticalOptions = LayoutOptions.Center   // Center vertically, NEED TO ADD FUNCTIONALITY TO ALLOW CHANGES TO THIS
                 };
 
                 stackLayout.Children.Add(image);
             }
 
-            // Add a Label control if the Text is not null or empty
+            // add a Label control if the Text is not null or empty
             if (!string.IsNullOrWhiteSpace(Text))
             {
                 stackLayout.Children.Add(new Label
@@ -48,7 +48,6 @@ namespace FinalProject
                 });
             }
 
-            // Add the StackLayout to the parent layout
             parentLayout.Children.Add(stackLayout);
         }
     }
