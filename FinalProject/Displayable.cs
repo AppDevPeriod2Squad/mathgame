@@ -12,8 +12,20 @@ namespace FinalProject
         public virtual ImageSource? ImageSource { get; set; } = null;
         public virtual string Text { get; set; } = string.Empty;
 
-        public virtual void Display(Layout parentLayout)
+        public virtual void Display(
+            Layout parentLayout,
+            // bunch of default parameters
+            double imageHeight = 200,
+            double imageWidth = 200,
+            LayoutOptions? horizontalOptions = null,
+            LayoutOptions? verticalOptions = null,
+            int textFontSize=18
+        )
         {
+            // assign value ONLY if already null, used to correctly implement default parameter
+            horizontalOptions ??= LayoutOptions.Center;
+            verticalOptions ??= LayoutOptions.Center;
+
             var stackLayout = new StackLayout
             {
                 Padding = new Thickness(20),
@@ -26,11 +38,11 @@ namespace FinalProject
                 var image = new Image
                 {
                     Source = ImageSource,
-                    Aspect = Aspect.AspectFit, 
-                    HeightRequest = 200, // set desired height, NEED TO ADD FUNCTIONALITY TO ALLOW CHANGES TO THIS
-                    WidthRequest = 200,  // set desired width, NEED TO ADD FUNCTIONALITY TO ALLOW CHANGES TO THIS
-                    HorizontalOptions = LayoutOptions.Center, // Center horizontally, NEED TO ADD FUNCTIONALITY TO ALLOW CHANGES TO THIS
-                    VerticalOptions = LayoutOptions.Center   // Center vertically, NEED TO ADD FUNCTIONALITY TO ALLOW CHANGES TO THIS
+                    Aspect = Aspect.AspectFit,
+                    HeightRequest = imageHeight,
+                    WidthRequest = imageWidth,
+                    HorizontalOptions = horizontalOptions.Value,
+                    VerticalOptions = verticalOptions.Value
                 };
 
                 stackLayout.Children.Add(image);
@@ -44,10 +56,11 @@ namespace FinalProject
                     Text = Text,
                     HorizontalOptions = LayoutOptions.Center,
                     VerticalOptions = LayoutOptions.Center,
-                    FontSize = 18
+                    FontSize = textFontSize
                 });
             }
 
+            // add the StackLayout to the parent layout
             parentLayout.Children.Add(stackLayout);
         }
     }
