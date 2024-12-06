@@ -12,6 +12,7 @@ namespace FinalProject
     {
         public virtual ImageSource? ImageSource { get; set; } = null;
         public virtual string? Text { get; set; } = string.Empty;
+        public Layout StackLayout { get; set; }
 
         public virtual void Display(
             // default parameters
@@ -31,7 +32,7 @@ namespace FinalProject
             horizontalOptions ??= LayoutOptions.Center;
             verticalOptions ??= LayoutOptions.Center;
 
-            var stackLayout = new StackLayout
+            StackLayout = new StackLayout
             {
                 Padding = new Thickness(padding),
                 Spacing = spacing
@@ -50,12 +51,12 @@ namespace FinalProject
                     VerticalOptions = verticalOptions.Value
                 };
 
-                stackLayout.Children.Add(image);
+                StackLayout.Children.Add(image);
             }
             // add a Label control if the Text is not null or empty
             if (!string.IsNullOrWhiteSpace(Text))
             {
-                stackLayout.Children.Add(new Label
+                StackLayout.Children.Add(new Label
                 {
                     Text = Text,
                     HorizontalOptions = LayoutOptions.Center,
@@ -68,13 +69,13 @@ namespace FinalProject
             if (parentLayout is AbsoluteLayout absoluteLayout && !string.IsNullOrWhiteSpace(absoluteLayoutBounds))
             {
                 var bounds = ParseBounds(absoluteLayoutBounds);
-                AbsoluteLayout.SetLayoutBounds(stackLayout, bounds);
-                AbsoluteLayout.SetLayoutFlags(stackLayout, absoluteLayoutFlags);
-                absoluteLayout.Children.Add(stackLayout);
+                AbsoluteLayout.SetLayoutBounds(StackLayout, bounds);
+                AbsoluteLayout.SetLayoutFlags(StackLayout, absoluteLayoutFlags);
+                absoluteLayout.Children.Add(StackLayout);
             }
             else
             {
-                parentLayout.Children.Add(stackLayout);
+                parentLayout.Children.Add(StackLayout);
             }
         }
 
