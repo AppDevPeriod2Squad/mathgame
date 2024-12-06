@@ -12,9 +12,9 @@ namespace FinalProject
     {
         public virtual ImageSource? ImageSource { get; set; } = null;
         public virtual string? Text { get; set; } = string.Empty;
-        public Layout StackLayout { get; set; }
+        public Layout stackLayout { get; set; }
 
-        public StackLayout MauiSource { get; private set; } = new StackLayout();
+        public Layout MauiSource { get; private set; } = new StackLayout();
 
 
         public virtual void Display(
@@ -36,7 +36,7 @@ namespace FinalProject
             horizontalOptions ??= LayoutOptions.Center;
             verticalOptions ??= LayoutOptions.Center;
 
-            StackLayout = new StackLayout
+            stackLayout = new StackLayout
             {
                 Padding = new Thickness(padding),
                 Spacing = spacing,
@@ -57,12 +57,12 @@ namespace FinalProject
                     VerticalOptions = verticalOptions.Value
                 };
 
-                StackLayout.Children.Add(image);
+                stackLayout.Children.Add(image);
             }
             // add a Label control if the Text is not null or empty
             if (!string.IsNullOrWhiteSpace(Text))
             {
-                StackLayout.Children.Add(new Label
+                stackLayout.Children.Add(new Label
                 {
                     Text = Text,
                     HorizontalOptions = LayoutOptions.Center,
@@ -75,13 +75,13 @@ namespace FinalProject
             if (parentLayout is AbsoluteLayout absoluteLayout && !string.IsNullOrWhiteSpace(absoluteLayoutBounds))
             {
                 var bounds = ParseBounds(absoluteLayoutBounds);
-                AbsoluteLayout.SetLayoutBounds(StackLayout, bounds);
-                AbsoluteLayout.SetLayoutFlags(StackLayout, absoluteLayoutFlags);
-                absoluteLayout.Children.Add(StackLayout);
+                AbsoluteLayout.SetLayoutBounds(stackLayout, bounds);
+                AbsoluteLayout.SetLayoutFlags(stackLayout, absoluteLayoutFlags);
+                absoluteLayout.Children.Add(stackLayout);
             }
             else
             {
-                parentLayout.Children.Add(StackLayout);
+                parentLayout.Children.Add(stackLayout);
             }
             MauiSource = stackLayout; // update Displayable field to reflect stackLayout code
         }
