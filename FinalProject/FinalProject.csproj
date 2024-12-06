@@ -57,18 +57,18 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
-		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+	  <None Remove="Resources\Images\dice_1.png" />
+	  <None Remove="Resources\Images\dice_2.png" />
+	  <None Remove="Resources\Images\dice_3.png" />
+	  <None Remove="Resources\Images\dice_4.png" />
+	  <None Remove="Resources\Images\dice_5.png" />
+	  <None Remove="Resources\Images\dice_6.png" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="calebstuff\App.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="calebstuff\TestDrawer.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
+		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
 	</ItemGroup>
 
 </Project>
