@@ -10,7 +10,7 @@ namespace FinalProject
     public abstract class Displayable
     {
         public virtual ImageSource? ImageSource { get; set; } = null;
-        public virtual string Text { get; set; } = string.Empty;
+        public virtual string? Text { get; set; } = string.Empty;
 
         public virtual void Display(
             Layout parentLayout,
