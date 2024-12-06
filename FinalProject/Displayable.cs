@@ -13,19 +13,19 @@ namespace FinalProject
         public virtual ImageSource? ImageSource { get; set; } = null;
         public virtual string? Text { get; set; } = string.Empty;
         public Layout StackLayout { get; set; }
-
         public virtual void Display(
-            // default parameters
+           // default parameters
            Layout parentLayout,
-           int padding=20,
-           int spacing=15,
+           int padding = 20,
+           int spacing = 15,
            double imageHeight = 200,
            double imageWidth = 200,
            LayoutOptions? horizontalOptions = null,
            LayoutOptions? verticalOptions = null,
            int textFontSize = 18,
            string? absoluteLayoutBounds = null,
-           AbsoluteLayoutFlags absoluteLayoutFlags = AbsoluteLayoutFlags.None
+           AbsoluteLayoutFlags absoluteLayoutFlags = AbsoluteLayoutFlags.None,
+           Boolean addToParentLayout = true
        )
         {
             // assign value ONLY if already null, used to correctly implement default parameter
@@ -64,7 +64,11 @@ namespace FinalProject
                     FontSize = textFontSize
                 });
             }
-
+            // checks if wants to actually add the Layout to parent layout 
+            if (!addToParentLayout)
+            {
+                return;
+            }
             // checks if parentlayout is absolutelayout, and if it is will assign new variable "absoluteLayout" to parentlayout
             if (parentLayout is AbsoluteLayout absoluteLayout && !string.IsNullOrWhiteSpace(absoluteLayoutBounds))
             {

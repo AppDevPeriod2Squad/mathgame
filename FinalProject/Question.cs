@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.Maui.Layouts;
 using System;
 
 namespace FinalProject
@@ -6,35 +7,27 @@ namespace FinalProject
     public class QuestionAndAnswers : Displayable
     {
         public List<Number> AnswerOptions { get; set; }
-        public Displayable Question {  get; set; }
-
-        public QuestionAndAnswers(List<int> numberOptions = null, ImageType imageType = ImageType.None, int[] questionSize = null, int[] promptSize=null,String questionPrompt="BASE PROMPT"): base()
+        public Displayable Question { get; set; }
+        public List<Displayable> OptionsList { get; set; }
+        public HorizontalStackLayout OptionsLayout { get; set; }
+        public void Display(Layout parentLayout,List<Displayable> choices,int padding = 20, int spacing = 15, double imageHeight = 200, double imageWidth = 200, LayoutOptions? horizontalOptions = null, LayoutOptions? verticalOptions = null, int textFontSize = 18, string? absoluteLayoutBounds = null, AbsoluteLayoutFlags absoluteLayoutFlags = AbsoluteLayoutFlags.None, Boolean addToParentLayout=true)
         {
-            if (questionSize == null)
-            {
-                questionSize = new int[] {Width/3,Height/3}; // default question size
-            }
-            if (promptSize == null)
-            {
-                promptSize = new int[] { Width / 3, Height / 3 }; // default question size
-            }
-            SetOptions(numberOptions, imageType, questionSize);
-
+            // maybe implement better way of doing Args in the future?? like a dictionary with the variable name key as smth idk
+            // this just is super messy and long
+            base.Display(parentLayout, padding, spacing, imageHeight, imageWidth, horizontalOptions, verticalOptions, textFontSize, absoluteLayoutBounds, absoluteLayoutFlags,addToParentLayout);
+            DisplayOptions(parentLayout,choices);
         }
-        private void SetQuestionPrompt(String promptString, int[] promptSize)
+        public void DisplayOptions(Layout parentLayout,List<Displayable> choices,int optionHeight = 100, int optionWidth = 100)
         {
-            // make a text class after kiran implements the Displayable constructor
-            Question = new Text(x: x + Width / 2, y: 0, width: promptSize[0], height: promptSize[1]);
-        }
-        private void SetOptions(List<int> nums,ImageType numType, int[] size)
-        {
-            AnswerOptions = new List<Number>();
-            int y = yStart + Height - size[1];
-            for (int xIndex = 0; x < nums.Count; x++)
+            OptionsList = choices;
+            
+            OptionsLayout = new HorizontalStackLayout();
+            foreach (var choice in OptionsList)
             {
-                int x = xStart + xIndex * size[0];
-                AnswerOptions.Add(new Number(val: nums[x], imageType: numType, width: size[0], height: size[1],y:y,x:x));
+                choice.Display(parentLayout,imageHeight:optionHeight,imageWidth:optionWidth,addToParentLayout:false);
+                OptionsLayout.Add(choice.StackLayout);
             }
+            parentLayout.Add(OptionsLayout);
         }
 
     }
