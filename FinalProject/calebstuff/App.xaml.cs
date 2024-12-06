@@ -1,4 +1,4 @@
-﻿namespace FinalProject
+﻿namespace MathGame
 {
     public partial class App : Application
     {
@@ -6,7 +6,7 @@
         {
             InitializeComponent();
 
-            MainPage = new NumberDisplayPage();
+            MainPage = new TestDrawer();
         }
     }
 }
