@@ -16,6 +16,8 @@ namespace FinalProject
         public virtual void Display(
             // default parameters
            Layout parentLayout,
+           int padding=20,
+           int spacing=15,
            double imageHeight = 200,
            double imageWidth = 200,
            LayoutOptions? horizontalOptions = null,
@@ -31,8 +33,8 @@ namespace FinalProject
 
             var stackLayout = new StackLayout
             {
-                Padding = new Thickness(20),
-                Spacing = 15
+                Padding = new Thickness(padding),
+                Spacing = spacing
             };
 
             // add an Image control if the ImageSource is not null
