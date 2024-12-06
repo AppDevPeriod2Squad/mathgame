@@ -10,9 +10,10 @@ namespace FinalProject
             InitializeComponent();
 
             var number = new Number(val: 5, imageType: ImageType.TenFrames);
-            var number2 = new Number(val: 2, imageType: ImageType.Dice);
+            var number2 = new Number(val: 5, imageType: ImageType.Dice);
             number.Display(ParentLayout);
-            number2.Display(ParentLayout);
+
+            
 
         }
     }

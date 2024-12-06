@@ -13,13 +13,17 @@ namespace FinalProject
         public virtual ImageSource? ImageSource { get; set; } = null;
         public virtual string? Text { get; set; } = string.Empty;
 
+        public StackLayout MauiSource { get; private set; } = new StackLayout();
+
+
         public virtual void Display(
             // default parameters
            Layout parentLayout,
-           int padding=20,
-           int spacing=15,
+           int padding=10,
+           int spacing=5,
            double imageHeight = 200,
            double imageWidth = 200,
+           StackOrientation stackLayoutOrientation=StackOrientation.Vertical,
            LayoutOptions? horizontalOptions = null,
            LayoutOptions? verticalOptions = null,
            int textFontSize = 18,
@@ -34,7 +38,9 @@ namespace FinalProject
             var stackLayout = new StackLayout
             {
                 Padding = new Thickness(padding),
-                Spacing = spacing
+                Spacing = spacing,
+                Orientation=stackLayoutOrientation,
+                
             };
 
             // add an Image control if the ImageSource is not null
@@ -76,6 +82,7 @@ namespace FinalProject
             {
                 parentLayout.Children.Add(stackLayout);
             }
+            MauiSource = stackLayout; // update Displayable field to reflect stackLayout code
         }
 
         private Rect ParseBounds(string bounds)
