@@ -1,4 +1,5 @@
 ﻿using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.Internals;
 using Microsoft.Maui.Layouts;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,9 @@ namespace FinalProject
            int textFontSize = 18,
            string? absoluteLayoutBounds = null,
            AbsoluteLayoutFlags absoluteLayoutFlags = AbsoluteLayoutFlags.None,
-           Boolean addToParentLayout = true
+           Boolean addToParentLayout = true,
+           ViewType viewType = ViewType.Image, // image by default
+           EventHandler onClickEvent = null
        )
         {
             // assign value ONLY if already null, used to correctly implement default parameter
@@ -46,17 +49,39 @@ namespace FinalProject
             // add an Image control if the ImageSource is not null
             if (ImageSource != null)
             {
-                var image = new Image
-                {
-                    Source = ImageSource,
-                    Aspect = Aspect.AspectFit,
-                    HeightRequest = imageHeight,
-                    WidthRequest = imageWidth,
-                    HorizontalOptions = horizontalOptions.Value,
-                    VerticalOptions = verticalOptions.Value
-                };
 
-                stackLayout.Children.Add(image);
+                // adds the certain View to stackLayout depending on what viewType
+                switch (viewType)
+                {
+                    case ViewType.Image:
+                        var image = new Image
+                        {
+                            Source = ImageSource,
+                            Aspect = Aspect.AspectFit,
+                            HeightRequest = imageHeight,
+                            WidthRequest = imageWidth,
+                            HorizontalOptions = horizontalOptions.Value,
+                            VerticalOptions = verticalOptions.Value
+                        };
+                        stackLayout.Children.Add(image);
+                        break;
+                    case ViewType.ImageButton:
+                        var button = new ImageButton
+                        {
+                            HeightRequest = imageHeight,
+                            WidthRequest = imageWidth,
+                            HorizontalOptions = horizontalOptions.Value,
+                            VerticalOptions = verticalOptions.Value,
+                            Source=ImageSource,
+                            Aspect=Aspect.AspectFit,   
+                        };
+                        button.Clicked += onClickEvent;
+                        stackLayout.Children.Add(button);
+                        break;
+                    case ViewType.None:
+                        break;
+                }
+                
             }
             // add a Label control if the Text is not null or empty
             if (!string.IsNullOrWhiteSpace(Text))

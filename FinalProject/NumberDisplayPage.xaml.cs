@@ -16,7 +16,7 @@ namespace FinalProject
 
             var numberOptions = new List<Displayable> { new Number(val: 1, imageType: ImageType.Dice), new Number(val: 5, imageType: ImageType.Dice), new Number(val: 4, imageType: ImageType.Dice) };
             var question = new QuestionAndAnswers(numberOptions);
-            question.Display(ParentLayout);
+            question.Display(ParentLayout,imageHeight:300,imageWidth:300);
             question.MauiSource.BackgroundColor = Color.FromRgb(100, 0, 0);
         }
     }
