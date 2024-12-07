@@ -34,7 +34,7 @@ namespace FinalProject
             horizontalOptions ??= LayoutOptions.Center;
             verticalOptions ??= LayoutOptions.Center;
 
-            stackLayout = new StackLayout
+            var stackLayout = new StackLayout
             {
                 Padding = new Thickness(padding),
                 Spacing = spacing,
