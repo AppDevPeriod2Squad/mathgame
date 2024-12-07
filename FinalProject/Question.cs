@@ -23,21 +23,24 @@ namespace FinalProject
         }
         public void DisplayOptions(Layout parentLayout,double optionHeight = -1)
         {
-            if (optionHeight < 0)
+            // Calculates the widths for each individual answer and setup
+            if (optionHeight < 0) // sets the default height to 1/3 of the total question's height
             {
                 optionHeight = (MauiSource.HeightRequest - MauiSource.Padding.VerticalThickness) / 3;
             }
             OptionsLayout = new HorizontalStackLayout();
             double totalOptionsWidth = MauiSource.WidthRequest - MauiSource.Padding.HorizontalThickness;
-            //- SpacingBetweenQuestions*OptionsList.Count
             double optionWidth = (totalOptionsWidth - SpacingBetweenQuestions * (OptionsList.Count-1)) / OptionsList.Count;
             OptionsLayout.Spacing = SpacingBetweenQuestions;
-            //OptionsLayout.Margin = MarginOfQuestions;
+
+            // Creates the Displayable but doesn't put in on screen to avoid errors
             foreach (var choice in OptionsList)
             {
                 choice.Display(parentLayout,imageHeight:optionHeight,imageWidth:optionWidth,addToParentLayout:false);
                 OptionsLayout.Add(choice.MauiSource);
             }
+
+            // Creates an intermediate AbsoluteLayout to correctly position the VerticalStackLayout 
             AbsoluteLayout intermediaryLayout = new AbsoluteLayout();
             AbsoluteLayout.SetLayoutBounds(OptionsLayout, new Rect(0, optionHeight*2, totalOptionsWidth, optionHeight));
             AbsoluteLayout.SetLayoutFlags(OptionsLayout, AbsoluteLayoutFlags.None);
