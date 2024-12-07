@@ -3,9 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FinalProject.NumberDisplayPage"
              Title="Number Display">
-    <AbsoluteLayout x:Name="ParentLayout"
+    <VerticalStackLayout x:Name="ParentLayout"
                          Padding="20"
                          >
         <!-- Content will be dynamically added here (displayable.cs)-->
-    </AbsoluteLayout>
+    </VerticalStackLayout>
 </ContentPage>
