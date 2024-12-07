@@ -39,7 +39,8 @@ namespace FinalProject
                 Padding = new Thickness(padding),
                 Spacing = spacing,
                 Orientation=stackLayoutOrientation,
-                
+                HeightRequest=imageHeight,
+                WidthRequest=imageWidth
             };
 
             // add an Image control if the ImageSource is not null
