@@ -18,32 +18,25 @@ namespace FinalProject
         public virtual void Display(
            // default parameters
            Layout parentLayout,
-           int padding=10,
-           int spacing=5,
-           double imageHeight = 200,
-           double imageWidth = 200,
-           StackOrientation stackLayoutOrientation=StackOrientation.Vertical,
-           LayoutOptions? horizontalOptions = null,
-           LayoutOptions? verticalOptions = null,
-           int textFontSize = 18,
-           string? absoluteLayoutBounds = null,
-           AbsoluteLayoutFlags absoluteLayoutFlags = AbsoluteLayoutFlags.None,
-           Boolean addToParentLayout = true,
-           ViewType viewType = ViewType.Image, // image by default
-           EventHandler onClickEvent = null
+           DisplayableArgs? args = null
        )
         {
+            // if args is not set
+            if (args == null)
+            {
+                args = new DisplayableArgs();
+            }
             // assign value ONLY if already null, used to correctly implement default parameter
-            horizontalOptions ??= LayoutOptions.Center;
-            verticalOptions ??= LayoutOptions.Center;
+            args.HorizontalOptions ??= LayoutOptions.Center;
+            args.VerticalOptions ??= LayoutOptions.Center;
 
             var stackLayout = new StackLayout
             {
-                Padding = new Thickness(padding),
-                Spacing = spacing,
-                Orientation=stackLayoutOrientation,
-                HeightRequest=imageHeight,
-                WidthRequest=imageWidth
+                Padding = new Thickness(args.Padding),
+                Spacing = args.Spacing,
+                Orientation= args.StackLayoutOrientation,
+                HeightRequest= args.ImageHeight,
+                WidthRequest= args.ImageWidth
             };
 
             // add an Image control if the ImageSource is not null
@@ -51,31 +44,31 @@ namespace FinalProject
             {
 
                 // adds the certain View to stackLayout depending on what viewType
-                switch (viewType)
+                switch (args.ViewType)
                 {
                     case ViewType.Image:
                         var image = new Image
                         {
                             Source = ImageSource,
                             Aspect = Aspect.AspectFit,
-                            HeightRequest = imageHeight,
-                            WidthRequest = imageWidth,
-                            HorizontalOptions = horizontalOptions.Value,
-                            VerticalOptions = verticalOptions.Value
+                            HeightRequest = args.ImageHeight,
+                            WidthRequest = args.ImageWidth,
+                            HorizontalOptions = args.HorizontalOptions.Value,
+                            VerticalOptions = args.VerticalOptions.Value
                         };
                         stackLayout.Children.Add(image);
                         break;
                     case ViewType.ImageButton:
                         var button = new ImageButton
                         {
-                            HeightRequest = imageHeight,
-                            WidthRequest = imageWidth,
-                            HorizontalOptions = horizontalOptions.Value,
-                            VerticalOptions = verticalOptions.Value,
+                            HeightRequest = args.ImageHeight,
+                            WidthRequest = args.ImageWidth,
+                            HorizontalOptions = args.HorizontalOptions.Value,
+                            VerticalOptions = args.VerticalOptions.Value,
                             Source=ImageSource,
                             Aspect=Aspect.AspectFit,   
                         };
-                        button.Clicked += onClickEvent;
+                        button.Clicked += args.ClickedEventHandler;
                         stackLayout.Children.Add(button);
                         break;
                     case ViewType.None:
@@ -91,21 +84,21 @@ namespace FinalProject
                     Text = Text,
                     HorizontalOptions = LayoutOptions.Center,
                     VerticalOptions = LayoutOptions.Center,
-                    FontSize = textFontSize
+                    FontSize = args.TextFontSize
                 });
             }
             MauiSource = stackLayout; // update Displayable field to reflect stackLayout code
             // checks if wants to actually add the Layout to parent layout 
-            if (!addToParentLayout)
+            if (!args.AddToParentLayout)
             {
                 return;
             }
             // checks if parentlayout is absolutelayout, and if it is will assign new variable "absoluteLayout" to parentlayout
-            if (parentLayout is AbsoluteLayout absoluteLayout && !string.IsNullOrWhiteSpace(absoluteLayoutBounds))
+            if (parentLayout is AbsoluteLayout absoluteLayout && !string.IsNullOrWhiteSpace(args.AbsoluteLayoutBounds))
             {
-                var bounds = ParseBounds(absoluteLayoutBounds);
+                var bounds = ParseBounds(args.AbsoluteLayoutBounds);
                 AbsoluteLayout.SetLayoutBounds(stackLayout, bounds);
-                AbsoluteLayout.SetLayoutFlags(stackLayout, absoluteLayoutFlags);
+                AbsoluteLayout.SetLayoutFlags(stackLayout, args.AbsoluteLayoutFlags);
                 absoluteLayout.Children.Add(stackLayout);
             }
             else

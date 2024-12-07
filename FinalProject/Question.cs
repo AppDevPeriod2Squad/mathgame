@@ -16,10 +16,14 @@ namespace FinalProject
             OptionsList = choices;
             SpacingBetweenQuestions = spacingBetweenQuestions;
         }
-        public override void Display(Layout parentLayout, int padding = 10, int spacing = 5, double imageHeight = 200, double imageWidth = 200, StackOrientation stackLayoutOrientation = StackOrientation.Vertical, LayoutOptions? horizontalOptions = null, LayoutOptions? verticalOptions = null, int textFontSize = 18, string? absoluteLayoutBounds = null, AbsoluteLayoutFlags absoluteLayoutFlags = AbsoluteLayoutFlags.None, bool addToParentLayout = true)
+        public override void Display(Layout parentLayout,DisplayableArgs? args=null)
         {
-            base.Display(parentLayout, padding, spacing, imageHeight, imageWidth, stackLayoutOrientation, horizontalOptions, verticalOptions, textFontSize, absoluteLayoutBounds, absoluteLayoutFlags, addToParentLayout);
+            base.Display(parentLayout,args);
             DisplayOptions(parentLayout);
+        }
+        public void ButtonClicked(Object sender, EventArgs e)
+        {
+            // add functionality later
         }
         public void DisplayOptions(Layout parentLayout,double optionHeight = -1)
         {
@@ -36,7 +40,14 @@ namespace FinalProject
             // Creates the Displayable but doesn't put in on screen to avoid errors
             foreach (var choice in OptionsList)
             {
-                choice.Display(parentLayout,imageHeight:optionHeight,imageWidth:optionWidth,addToParentLayout:false);
+                choice.Display(parentLayout, new DisplayableArgs(
+                    imageHeight: optionHeight,
+                    imageWidth: optionWidth,
+                    addToParentLayout: false,
+                    viewType: ViewType.ImageButton,
+                    clickedEventHandler:new EventHandler((sender, e) => ButtonClicked(this, new EventArgs()))
+                    )
+                    );
                 OptionsLayout.Add(choice.MauiSource);
             }
 
