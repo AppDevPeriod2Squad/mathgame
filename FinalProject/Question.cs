@@ -6,56 +6,67 @@ namespace FinalProject
 {
     public class QuestionAndAnswers : Displayable
     {
-        public List<Number> AnswerOptions { get; set; }
-        public Displayable Question { get; set; }
-        public List<Displayable> OptionsList { get; set; }
-        public HorizontalStackLayout OptionsLayout { get; set; }
+        public List<Number>? AnswerOptions { get; set; }
+        public Displayable? Question { get; set; }
+        public List<Displayable>? OptionsList { get; set; }
+        public GroupOfDisplayables? OptionsDisplay { get; set; }
         public int SpacingBetweenQuestions { get; set; }
         public QuestionAndAnswers(List<Displayable> choices, int spacingBetweenQuestions = 30)
         {
-            OptionsList = choices;
+            if (choices == null)
+            {
+                throw new Exception("choices can't be null");
+            }
+            // is a list of Displayables but will actually be a list of GroupOfDisplayables
+            if (choices.Count == 0 || !(choices[0] is GroupOfDisplayables))
+            {
+                OptionsList = new List<Displayable>();
+                foreach (Displayable choice in choices)
+                {
+                    OptionsList.Add(new GroupOfDisplayables(new List<Displayable>() { choice }));
+                }
+            }
+            else
+            {
+                // to convert choices to a List of GroupOfDisplayables
+                OptionsList = new List<Displayable>();
+                foreach (GroupOfDisplayables choice in choices)
+                {
+                    List<Displayable> group = new List<Displayable>();
+                    foreach (Displayable individualDisplayable in choice.DisplayableGroup)
+                    {
+                        group.Add(individualDisplayable);
+                    }
+                    OptionsList.Add(new GroupOfDisplayables(group));
+                }
+            }
             SpacingBetweenQuestions = spacingBetweenQuestions;
         }
         public override void Display(Layout parentLayout,DisplayableArgs? args=null)
         {
             base.Display(parentLayout,args);
-            DisplayOptions(parentLayout);
+            DisplayOptions(parentLayout,args);
         }
         public void ButtonClicked(Object sender, EventArgs e)
         {
             // add functionality later
         }
-        public void DisplayOptions(Layout parentLayout,double optionHeight = -1)
+        public void DisplayOptions(Layout parentLayout,DisplayableArgs? args,double optionHeight = -1)
         {
             // Calculates the widths for each individual answer and setup
             if (optionHeight < 0) // sets the default height to 1/3 of the total question's height
             {
                 optionHeight = (MauiSource.HeightRequest - MauiSource.Padding.VerticalThickness) / 3;
             }
-            OptionsLayout = new HorizontalStackLayout();
-            double totalOptionsWidth = MauiSource.WidthRequest - MauiSource.Padding.HorizontalThickness;
-            double optionWidth = (totalOptionsWidth - SpacingBetweenQuestions * (OptionsList.Count-1)) / OptionsList.Count;
-            OptionsLayout.Spacing = SpacingBetweenQuestions;
-
-            // Creates the Displayable but doesn't put in on screen to avoid errors
-            foreach (var choice in OptionsList)
-            {
-                choice.Display(parentLayout, new DisplayableArgs(
-                    imageHeight: optionHeight,
-                    imageWidth: optionWidth,
-                    addToParentLayout: false,
-                    viewType: ViewType.ImageButton,
-                    clickedEventHandler:new EventHandler((sender, e) => ButtonClicked(this, new EventArgs()))
-                    )
-                    );
-                OptionsLayout.Add(choice.MauiSource);
-            }
-
-            // Creates an intermediate AbsoluteLayout to correctly position the VerticalStackLayout 
+            OptionsDisplay = new GroupOfDisplayables(OptionsList);
+            OptionsDisplay.Display(parentLayout,new DisplayableArgs(imageWidth:args.ImageWidth-args.Padding*2,imageHeight:optionHeight,addToParentLayout:false));
+            OptionsDisplay.MauiSource.BackgroundColor = Color.FromRgb(0, 100, 0);
+            OptionsDisplay.Layout.BackgroundColor = Color.FromRgb(0, 100, 100);
             AbsoluteLayout intermediaryLayout = new AbsoluteLayout();
-            AbsoluteLayout.SetLayoutBounds(OptionsLayout, new Rect(0, optionHeight*2, totalOptionsWidth, optionHeight));
-            AbsoluteLayout.SetLayoutFlags(OptionsLayout, AbsoluteLayoutFlags.None);
-            intermediaryLayout.Children.Add(OptionsLayout);
+            AbsoluteLayout.SetLayoutBounds(OptionsDisplay.MauiSource, new Rect(0, optionHeight*2, MauiSource.WidthRequest, optionHeight));
+            AbsoluteLayout.SetLayoutFlags(OptionsDisplay.MauiSource, AbsoluteLayoutFlags.None);
+            intermediaryLayout.BackgroundColor = Color.FromRgb(0, 0, 100);
+            intermediaryLayout.Children.Add(OptionsDisplay.MauiSource);
             MauiSource.Add(intermediaryLayout);
             
         }
