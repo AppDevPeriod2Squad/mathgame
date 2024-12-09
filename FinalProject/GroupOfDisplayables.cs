@@ -20,20 +20,14 @@ namespace FinalProject
 
         public override void Display(Layout parentLayout, DisplayableArgs? args = null)
         {
-            args.Padding = 0;
             base.Display(parentLayout, args);
-            double a = MauiSource.WidthRequest;
-            Layout = new HorizontalStackLayout();
+            // find better way to do this spacing later
+            Layout = new HorizontalStackLayout() { Spacing = args.Spacing};
+            // -----
             MauiSource.HorizontalOptions = LayoutOptions.Start;
-            //foreach (Displayable d in DisplayableGroup)
-            //{
-            //    d.Display(parentLayout, args);
-            //    Layout.Add(d.MauiSource);
-            //}
             double totalOptionsWidth = MauiSource.WidthRequest - MauiSource.Padding.HorizontalThickness;
             double optionWidth = (totalOptionsWidth - SpacingBetweenDisplayables * (DisplayableGroup.Count-1)) / DisplayableGroup.Count;
             Layout.Spacing = SpacingBetweenDisplayables;
-            double c = MauiSource.WidthRequest;
             // Creates the Displayable but doesn't put in on screen to avoid errors
             foreach (var choice in DisplayableGroup)
             {
@@ -47,7 +41,6 @@ namespace FinalProject
                     );
                 Layout.Add(choice.MauiSource);
             }
-            double b = MauiSource.WidthRequest;
             MauiSource.Add(Layout);
         }
     }

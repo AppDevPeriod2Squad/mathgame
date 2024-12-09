@@ -59,7 +59,14 @@ namespace FinalProject
                 optionHeight = (MauiSource.HeightRequest - MauiSource.Padding.VerticalThickness) / 3;
             }
             OptionsDisplay = new GroupOfDisplayables(OptionsList);
-            OptionsDisplay.Display(parentLayout,new DisplayableArgs(imageWidth:args.ImageWidth-args.Padding*2,imageHeight:optionHeight,addToParentLayout:false));
+            // find a better way to copy the args without using the original args later
+            args.ImageHeight = optionHeight;
+            args.ImageWidth -= args.Padding * 2;
+            args.AddToParentLayout = false;
+            args.Padding = 0;
+            args.Spacing = 0;
+            OptionsDisplay.Display(parentLayout,args);
+            // ----------------------------------------------------------------------
             OptionsDisplay.MauiSource.BackgroundColor = Color.FromRgb(0, 100, 0);
             OptionsDisplay.Layout.BackgroundColor = Color.FromRgb(0, 100, 100);
             AbsoluteLayout intermediaryLayout = new AbsoluteLayout();
