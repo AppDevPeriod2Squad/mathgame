@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using IImage = Microsoft.Maui.Graphics.IImage;
-using Image = System.Drawing.Image;
 namespace MathGame.Sprites
 {
     public class SpriteManager

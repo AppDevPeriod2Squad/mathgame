@@ -1,4 +1,5 @@
 ﻿using SQLite;
+using SQLiteNetExtensions.Attributes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -53,16 +54,22 @@ namespace FinalProject
             set { if (pennies != value) { pennies = value; OnPropertyChanged("Pennies"); } }
         }
 
-        private List<Background> backgrounds;
+        [TextBlob("StringsBlobbed")]
+        private List<string> backgrounds { get; set; }
 
         private int xp;
         public int XP
         {
             get { return xp;}
-            set { if (xp != value) { xp = value; OnPropertyChanged("XP") } 
+            set { if (xp != value) { xp = value; OnPropertyChanged("XP"); } } 
         }
 
-
+        private string picture;
+        public string Picture
+        {
+            get { return picture; }
+            set { if (picture != value) { picture = value; OnPropertyChanged("Picture"); } }
+        }
 
 
     }
