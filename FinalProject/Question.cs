@@ -65,7 +65,7 @@ namespace FinalProject
             args.AddToParentLayout = false;
             args.Padding = 0;
             args.Spacing = 0;
-            OptionsDisplay.Display(parentLayout,args);
+            OptionsDisplay.Display(parentLayout, args);
             // ----------------------------------------------------------------------
             OptionsDisplay.MauiSource.BackgroundColor = Color.FromRgb(0, 100, 0);
             OptionsDisplay.Layout.BackgroundColor = Color.FromRgb(0, 100, 100);

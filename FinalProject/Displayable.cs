@@ -87,7 +87,7 @@ namespace FinalProject
                     FontSize = args.TextFontSize
                 });
             }
-            
+            MauiSource = stackLayout;
             // checks if wants to actually add the Layout to parent layout 
             if (!args.AddToParentLayout)
             {
@@ -105,7 +105,7 @@ namespace FinalProject
             {
                 parentLayout.Children.Add(stackLayout);
             }
-            MauiSource = stackLayout; // update Displayable field to reflect stackLayout code
+             // update Displayable field to reflect stackLayout code
         }
 
         private Rect ParseBounds(string bounds)

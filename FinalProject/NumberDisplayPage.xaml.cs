@@ -19,8 +19,8 @@ namespace FinalProject
             var numbersGroups = new List<Displayable>() { new GroupOfDisplayables(numbers), new GroupOfDisplayables(numbers) , new GroupOfDisplayables(numbers) };
             var question = new QuestionAndAnswers(numberOptions);
             var question2 = new QuestionAndAnswers(numbersGroups);
-            question.Display(ParentLayout,new DisplayableArgs(imageHeight:100,imageWidth:600));
-            question2.Display(ParentLayout, new DisplayableArgs(imageHeight: 500, imageWidth: 1000,spacing:30));
+            //question.Display(ParentLayout, new DisplayableArgs(imageHeight: 100, imageWidth: 600));
+            question2.Display(ParentLayout, new DisplayableArgs(imageHeight: 500, imageWidth: 1000, spacing: 30));
             question.MauiSource.BackgroundColor = Color.FromRgb(100, 0, 0);
         }
     }
