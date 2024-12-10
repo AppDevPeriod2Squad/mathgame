@@ -64,8 +64,11 @@ namespace FinalProject
             set { if (xp != value) { xp = value; OnPropertyChanged("XP"); } } 
         }
 
-
+        private int gamesCompleted;
+        public int GamesCompleted
+        {
+            get { return gamesCompleted; }
+            set { if (gamesCompleted != value) { gamesCompleted = value; OnPropertyChanged("GamesCompleted"); } }
         }
-
     }
 }
