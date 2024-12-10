@@ -26,6 +26,8 @@ namespace FinalProject
             {
                 args = new DisplayableArgs();
             }
+            // added way to set Text property
+            Text = args.Text;
             // assign value ONLY if already null, used to correctly implement default parameter
             args.HorizontalOptions ??= LayoutOptions.Center;
             args.VerticalOptions ??= LayoutOptions.Center;
