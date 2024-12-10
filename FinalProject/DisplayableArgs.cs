@@ -1,4 +1,5 @@
-﻿using Microsoft.Maui.Layouts;
+﻿
+using Microsoft.Maui.Layouts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,7 @@ namespace FinalProject
         public Boolean AddToParentLayout {  get; set; }
         public ViewType ViewType { get; set; }
         public EventHandler? ClickedEventHandler { get; set; }
+        public String? Text { get; set; }
         public DisplayableArgs(int padding = 10,
            int spacing = 5,
            double imageHeight = 200,
@@ -29,12 +31,13 @@ namespace FinalProject
            StackOrientation stackLayoutOrientation = StackOrientation.Vertical,
            LayoutOptions? horizontalOptions = null,
            LayoutOptions? verticalOptions = null,
-           int textFontSize = 18,
+           int textFontSize = 100,
            string? absoluteLayoutBounds = null,
            AbsoluteLayoutFlags absoluteLayoutFlags = AbsoluteLayoutFlags.None,
            Boolean addToParentLayout = true,
            ViewType viewType = ViewType.Image, // image by default
-           EventHandler? clickedEventHandler = null)
+           EventHandler? clickedEventHandler = null,
+           String? text = null)
         {
             Padding = padding;
             Spacing = spacing;
@@ -49,6 +52,11 @@ namespace FinalProject
             AddToParentLayout = addToParentLayout;
             ViewType = viewType;
             ClickedEventHandler = clickedEventHandler;
+            Text = text;
+        }
+        public DisplayableArgs Clone()
+        {
+            return (DisplayableArgs) MemberwiseClone();
         }
     }
 }

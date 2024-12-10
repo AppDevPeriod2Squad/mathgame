@@ -10,8 +10,13 @@ namespace FinalProject
     public class GroupOfDisplayables : Displayable
     {
         public List<Displayable>? DisplayableGroup { get; set; }
-        public HorizontalStackLayout? Layout { get; set; }
         public int SpacingBetweenDisplayables { get; set; }
+        public GroupOfDisplayables(Displayable d, int spacingBetweenDisplayables = 10)
+        {
+            // alternative constructor if you only want one Displayable in a group, for ease
+            DisplayableGroup = new List<Displayable>() { d };
+            SpacingBetweenDisplayables = spacingBetweenDisplayables;
+        }
         public GroupOfDisplayables(List<Displayable>? displayableGroup, int spacingBetweenDisplayables = 10)
         {
             DisplayableGroup = displayableGroup;
@@ -20,28 +25,26 @@ namespace FinalProject
 
         public override void Display(Layout parentLayout, DisplayableArgs? args = null)
         {
-            base.Display(parentLayout, args);
-            // find better way to do this spacing later
-            Layout = new HorizontalStackLayout() { Spacing = args.Spacing};
+            // SETTING SPACING AND PADDING TO 0 CAUSE BUG CAUSED BY NOT ACCOUNTING FOR SMALLER PADDING IN THE GROUP'S GROUPS
+            args.Padding = 0;
+            args.Spacing = 0;
+            SpacingBetweenDisplayables = 0;
             // -----
-            MauiSource.HorizontalOptions = LayoutOptions.Start;
+            base.Display(parentLayout, args);
             double totalOptionsWidth = MauiSource.WidthRequest - MauiSource.Padding.HorizontalThickness;
             double optionWidth = (totalOptionsWidth - SpacingBetweenDisplayables * (DisplayableGroup.Count-1)) / DisplayableGroup.Count;
-            Layout.Spacing = SpacingBetweenDisplayables;
+            //Layout.Spacing = SpacingBetweenDisplayables;
             // Creates the Displayable but doesn't put in on screen to avoid errors
             foreach (var choice in DisplayableGroup)
             {
-                choice.Display(parentLayout, new DisplayableArgs(
-                    imageHeight: MauiSource.HeightRequest,
-                    imageWidth: optionWidth,
-                    addToParentLayout: false,
-                    viewType: ViewType.ImageButton
-                    //clickedEventHandler: new EventHandler((sender, e) => ButtonClicked(this, new EventArgs()))
-                    )
+                DisplayableArgs tempArgs = args.Clone();
+                tempArgs.AddToParentLayout = false;
+                tempArgs.ImageWidth = optionWidth;
+                tempArgs.Spacing = SpacingBetweenDisplayables;
+                choice.Display(MauiSource, tempArgs
                     );
-                Layout.Add(choice.MauiSource);
+                MauiSource.Add(choice.MauiSource);
             }
-            MauiSource.Add(Layout);
         }
     }
 }

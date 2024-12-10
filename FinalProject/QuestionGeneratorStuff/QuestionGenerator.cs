@@ -15,13 +15,21 @@ namespace FinalProject.QuestionGeneratorStuff
         {
 
         }
-        private void GeneratePrompt(QuestionSubType subType, QuestionSuperType superType)
+        private void GeneratePrompt(QuestionSubType subType, QuestionSuperType superType, int numOfNumbersInQuestion = 0,int numOfNumbersInAnswer=1)
         {
-            int numOfNumbersInQuestion = 0;
+            QuestionGeneratorNumberRange range;
             switch (subType)
             {
                 case QuestionSubType.ToTen:
-                    numOfNumbersInQuestion = 2;
+                    range = new QuestionGeneratorNumberRange(0, 10, 1);
+                    break;
+            }
+            switch (superType)
+            {
+                case QuestionSuperType.FindGreatest:
+                    numOfNumbersInAnswer = 1;
+                    numOfNumbersInQuestion = 0;
+                    QuestionPrompt = new Prompt("What is greater?");
                     break;
             }
 
