@@ -64,13 +64,8 @@ namespace FinalProject
             set { if (xp != value) { xp = value; OnPropertyChanged("XP"); } } 
         }
 
-        private string picture;
-        public string Picture
-        {
-            get { return picture; }
-            set { if (picture != value) { picture = value; OnPropertyChanged("Picture"); } }
-        }
 
+        }
 
     }
 }

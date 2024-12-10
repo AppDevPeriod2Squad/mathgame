@@ -1,4 +1,6 @@
 ﻿using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.Internals;
+using Microsoft.Maui.Layouts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,43 +13,69 @@ namespace FinalProject
     {
         public virtual ImageSource? ImageSource { get; set; } = null;
         public virtual string? Text { get; set; } = string.Empty;
+        public Layout MauiSource { get; set; } = new StackLayout();
 
         public virtual void Display(
-            Layout parentLayout,
-            // bunch of default parameters
-            double imageHeight = 200,
-            double imageWidth = 200,
-            LayoutOptions? horizontalOptions = null,
-            LayoutOptions? verticalOptions = null,
-            int textFontSize=18
-        )
+           // default parameters
+           Layout parentLayout,
+           DisplayableArgs? args = null
+       )
         {
+            // if args is not set
+            if (args == null)
+            {
+                args = new DisplayableArgs();
+            }
             // assign value ONLY if already null, used to correctly implement default parameter
-            horizontalOptions ??= LayoutOptions.Center;
-            verticalOptions ??= LayoutOptions.Center;
+            args.HorizontalOptions ??= LayoutOptions.Center;
+            args.VerticalOptions ??= LayoutOptions.Center;
 
             var stackLayout = new StackLayout
             {
-                Padding = new Thickness(20),
-                Spacing = 15
+                Padding = new Thickness(args.Padding),
+                Spacing = args.Spacing,
+                Orientation= args.StackLayoutOrientation,
+                HeightRequest= args.ImageHeight,
+                WidthRequest= args.ImageWidth
             };
 
             // add an Image control if the ImageSource is not null
             if (ImageSource != null)
             {
-                var image = new Image
+
+                // adds the certain View to stackLayout depending on what viewType
+                switch (args.ViewType)
                 {
-                    Source = ImageSource,
-                    Aspect = Aspect.AspectFit,
-                    HeightRequest = imageHeight,
-                    WidthRequest = imageWidth,
-                    HorizontalOptions = horizontalOptions.Value,
-                    VerticalOptions = verticalOptions.Value
-                };
-
-                stackLayout.Children.Add(image);
+                    case ViewType.Image:
+                        var image = new Image
+                        {
+                            Source = ImageSource,
+                            Aspect = Aspect.AspectFit,
+                            HeightRequest = args.ImageHeight,
+                            WidthRequest = args.ImageWidth,
+                            HorizontalOptions = args.HorizontalOptions.Value,
+                            VerticalOptions = args.VerticalOptions.Value
+                        };
+                        stackLayout.Children.Add(image);
+                        break;
+                    case ViewType.ImageButton:
+                        var button = new ImageButton
+                        {
+                            HeightRequest = args.ImageHeight,
+                            WidthRequest = args.ImageWidth,
+                            HorizontalOptions = args.HorizontalOptions.Value,
+                            VerticalOptions = args.VerticalOptions.Value,
+                            Source=ImageSource,
+                            Aspect=Aspect.AspectFit,   
+                        };
+                        button.Clicked += args.ClickedEventHandler;
+                        stackLayout.Children.Add(button);
+                        break;
+                    case ViewType.None:
+                        break;
+                }
+                
             }
-
             // add a Label control if the Text is not null or empty
             if (!string.IsNullOrWhiteSpace(Text))
             {
@@ -56,12 +84,42 @@ namespace FinalProject
                     Text = Text,
                     HorizontalOptions = LayoutOptions.Center,
                     VerticalOptions = LayoutOptions.Center,
-                    FontSize = textFontSize
+                    FontSize = args.TextFontSize
                 });
             }
+            MauiSource = stackLayout;
+            // checks if wants to actually add the Layout to parent layout 
+            if (!args.AddToParentLayout)
+            {
+                return;
+            }
+            // checks if parentlayout is absolutelayout, and if it is will assign new variable "absoluteLayout" to parentlayout
+            if (parentLayout is AbsoluteLayout absoluteLayout && !string.IsNullOrWhiteSpace(args.AbsoluteLayoutBounds))
+            {
+                var bounds = ParseBounds(args.AbsoluteLayoutBounds);
+                AbsoluteLayout.SetLayoutBounds(stackLayout, bounds);
+                AbsoluteLayout.SetLayoutFlags(stackLayout, args.AbsoluteLayoutFlags);
+                absoluteLayout.Children.Add(stackLayout);
+            }
+            else
+            {
+                parentLayout.Children.Add(stackLayout);
+            }
+             // update Displayable field to reflect stackLayout code
+        }
 
-            // add the StackLayout to the parent layout
-            parentLayout.Children.Add(stackLayout);
+        private Rect ParseBounds(string bounds)
+        {
+            var parts = bounds.Split(',');
+            if (parts.Length != 4)
+                throw new ArgumentException("absoluteLayoutBounds must be a comma-separated string with four values.");
+
+            return new Rect(
+                double.Parse(parts[0]),
+                double.Parse(parts[1]),
+                double.Parse(parts[2]),
+                double.Parse(parts[3])
+            );
         }
     }
 }

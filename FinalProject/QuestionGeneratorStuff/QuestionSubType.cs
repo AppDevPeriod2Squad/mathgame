@@ -4,10 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MathGame.Number
+namespace FinalProject.QuestionGeneratorStuff
 {
-    public enum RepresentationType
+    public enum QuestionSubType
     {
-        TENFRAMES,DICE
+        ToTen,
+        None
+
+
     }
 }

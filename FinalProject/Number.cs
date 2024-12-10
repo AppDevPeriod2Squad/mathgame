@@ -10,10 +10,20 @@ namespace FinalProject
     {
         private readonly SpriteManager spriteManager = new SpriteManager();
 
-        public int Val { get; set; }
+        private int val; 
+        public int Val
+        {
+            get { return val; }
+            set
+            {
+                val = value;
+                UpdateImageSource(lastSavedImageType);
+            }
+        }
         public override ImageSource? ImageSource { get; set; }
         public override string? Text { get; set; }
-        public Number(int val = 0, string? text = null, ImageType imageType = ImageType.None)
+        private ImageType lastSavedImageType {  get; set; }
+        public Number(int val = 1, string? text = null, ImageType imageType = ImageType.None)
         {
             Val = val;
             Text = text;
@@ -28,6 +38,7 @@ namespace FinalProject
                 ImageType.Dice => spriteManager.GetDiceImage(Val),
                 _ => null
             };
+            lastSavedImageType = imageType;
         }
     }
 }

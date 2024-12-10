@@ -19,6 +19,10 @@ namespace FinalProject
             string filename = $"{value}.png";
             return ImageSource.FromFile($"dice_{filename}");
         }
+        public ImageSource GetPlus()
+        {
+            return ImageSource.FromFile("plus_1.png");
+        }
 
         public SpriteManager() { }
     }

@@ -5,7 +5,7 @@
              Title="Number Display">
     <VerticalStackLayout x:Name="ParentLayout"
                          Padding="20"
-                         Spacing="15">
+                         >
         <!-- Content will be dynamically added here (displayable.cs)-->
     </VerticalStackLayout>
 </ContentPage>
