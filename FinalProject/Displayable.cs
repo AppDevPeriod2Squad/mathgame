@@ -13,8 +13,9 @@ namespace FinalProject
     {
         public virtual ImageSource? ImageSource { get; set; } = null;
         public virtual string? Text { get; set; } = string.Empty;
-        public Layout MauiSource { get; set; } = new StackLayout();
-
+        public Layout MauiSource { get; set; } = new AbsoluteLayout(); // temp change from StackLayout
+        public double AbsoluteWidth { get { return AbsoluteWidth_; } set { AbsoluteWidth_ = (MauiSource.WidthRequest + MauiSource.Padding.HorizontalThickness);} }
+        private double AbsoluteWidth_;
         public virtual void Display(
            // default parameters
            Layout parentLayout,
@@ -32,7 +33,7 @@ namespace FinalProject
             args.HorizontalOptions ??= LayoutOptions.Center;
             args.VerticalOptions ??= LayoutOptions.Center;
 
-            var stackLayout = new StackLayout
+            Layout stackLayout = new StackLayout
             {
                 Padding = new Thickness(args.Padding),
                 Spacing = args.Spacing,
@@ -89,12 +90,7 @@ namespace FinalProject
                     FontSize = args.TextFontSize
                 });
             }
-            MauiSource = stackLayout;
-            // checks if wants to actually add the Layout to parent layout 
-            if (!args.AddToParentLayout)
-            {
-                return;
-            }
+
             // checks if parentlayout is absolutelayout, and if it is will assign new variable "absoluteLayout" to parentlayout
             if (parentLayout is AbsoluteLayout absoluteLayout && !string.IsNullOrWhiteSpace(args.AbsoluteLayoutBounds))
             {
@@ -102,12 +98,15 @@ namespace FinalProject
                 AbsoluteLayout.SetLayoutBounds(stackLayout, bounds);
                 AbsoluteLayout.SetLayoutFlags(stackLayout, args.AbsoluteLayoutFlags);
                 absoluteLayout.Children.Add(stackLayout);
+                // test code
             }
             else
             {
                 parentLayout.Children.Add(stackLayout);
             }
-             // update Displayable field to reflect stackLayout code
+            MauiSource = stackLayout;
+            // update Displayable field to reflect stackLayout code
+            AbsoluteWidth = MauiSource.WidthRequest + MauiSource.Padding.HorizontalThickness;
         }
 
         private Rect ParseBounds(string bounds)

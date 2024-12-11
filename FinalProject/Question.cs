@@ -10,7 +10,8 @@ namespace FinalProject
         public List<Displayable>? OptionsList { get; set; }
         public GroupOfDisplayables? OptionsDisplay { get; set; }
         public int SpacingBetweenQuestions { get; set; }
-        public QuestionAndAnswers(List<Displayable> choices,Displayable question, int spacingBetweenQuestions = 90)
+        public AbsoluteLayout temp = new AbsoluteLayout();
+        public QuestionAndAnswers(List<Displayable> choices,Displayable question, int spacingBetweenQuestions = 0)
         {
             if (choices == null)
             {
@@ -53,8 +54,10 @@ namespace FinalProject
         }
         public override void Display(Layout parentLayout,DisplayableArgs? args=null)
         {
+            
             base.Display(parentLayout,args);
-            DisplayQuestion(parentLayout,args.Clone());
+            MauiSource.BackgroundColor = Color.FromRgb(0, 0, 100);
+            //DisplayQuestion(parentLayout,args.Clone());
             DisplayOptions(parentLayout,args.Clone());
           
         }
@@ -62,14 +65,19 @@ namespace FinalProject
         {
             // add functionality later
         }
-        private void DisplayQuestion(Layout parentLayout, DisplayableArgs? args,double heightOfQuestion = 100)
+        private void DisplayQuestion(Layout parentLayout, DisplayableArgs? args,double heightOfQuestion = -1)
         {
-            args.AbsoluteLayoutBounds = $"0,{-MauiSource.HeightRequest},{MauiSource.WidthRequest},{heightOfQuestion}";
-            QuestionDisplayable.Display(parentLayout, args);
+            if (heightOfQuestion < 0)
+            {
+                heightOfQuestion = MauiSource.HeightRequest / 4;
+            }
+            args.AbsoluteLayoutBounds = $"0,0,{MauiSource.WidthRequest},{heightOfQuestion}";
+            QuestionDisplayable.Display(temp, args);
             QuestionDisplayable.MauiSource.BackgroundColor = Color.FromRgb(100, 0, 0);
         }
         private void DisplayOptions(Layout parentLayout,DisplayableArgs? args,double optionHeight = -1)
         {
+            MauiSource.Add(temp);
             // Calculates the widths for each individual answer and setup
             if (optionHeight < 0) // sets the default height to 1/3 of the total question's height
             {
@@ -79,9 +87,14 @@ namespace FinalProject
             // find a better way to copy the args without using the original args later
             args.ImageHeight = optionHeight;
             args.StackLayoutOrientation = StackOrientation.Horizontal;
+            args.AbsoluteLayoutBounds = $"0,{MauiSource.HeightRequest-optionHeight},{MauiSource.WidthRequest/2},{optionHeight}";
             //args.
-            OptionsDisplay.Display(MauiSource, args);
-            
+            Displayable d = new Number(imageType:ImageType.Dice,val:4);
+            d.Display(temp, args);
+            OptionsDisplay.Display(temp, args);
+
+            // yo i think it would work if u are able to set the MauiSource to an AbsoluteLayout ????? 
+
         }
 
     }
