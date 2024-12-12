@@ -10,26 +10,8 @@ namespace FinalProject
     public class GroupOfDisplayables : Displayable
     {
         public List<Displayable>? DisplayableGroup { get; set; }
+        public HorizontalStackLayout? Layout { get; set; }
         public int SpacingBetweenDisplayables { get; set; }
-        public new double AbsoluteWidth { get { return AbsoluteWidth_; } set { AbsoluteWidth_ = AbsoluteWidthReq(); } }
-        private double AbsoluteWidth_;
-        private double AbsoluteWidthReq()
-        {
-            double sum = 0;
-            foreach (Displayable d in DisplayableGroup)
-            {
-                sum += d.AbsoluteWidth;
-            }
-            sum += MauiSource.Padding.HorizontalThickness;
-            sum += SpacingBetweenDisplayables * (DisplayableGroup.Count - 1);
-            return sum;
-        }
-        public GroupOfDisplayables(Displayable d, int spacingBetweenDisplayables = 10)
-        {
-            // alternative constructor if you only want one Displayable in a group, for ease
-            DisplayableGroup = new List<Displayable>() { d };
-            SpacingBetweenDisplayables = spacingBetweenDisplayables;
-        }
         public GroupOfDisplayables(List<Displayable>? displayableGroup, int spacingBetweenDisplayables = 10)
         {
             DisplayableGroup = displayableGroup;
@@ -38,26 +20,32 @@ namespace FinalProject
 
         public override void Display(Layout parentLayout, DisplayableArgs? args = null)
         {
-            // SETTING SPACING AND PADDING TO 0 CAUSE BUG CAUSED BY NOT ACCOUNTING FOR SMALLER PADDING IN THE GROUP'S GROUPS
-            args.Padding = 2;
-            args.Spacing = 2;
-            SpacingBetweenDisplayables = args.Spacing;
-            // -----
+            args.Padding = 0;
+            args.StackLayoutOrientation = StackOrientation.Horizontal;
             base.Display(parentLayout, args);
-            double totalOptionsWidth = MauiSource.WidthRequest-args.Padding*3;
-            double optionWidth = (totalOptionsWidth - SpacingBetweenDisplayables * (DisplayableGroup.Count-1)) / DisplayableGroup.Count;
-            //Layout.Spacing = SpacingBetweenDisplayables;
+            double a = MauiSource.WidthRequest;
+            MauiSource.HorizontalOptions = LayoutOptions.Start;
+
+            //foreach (Displayable d in DisplayableGroup)
+            //{
+            //    d.Display(parentLayout, args);
+            //    Layout.Add(d.MauiSource);
+            //}
+            double totalOptionsWidth = Args.ImageWidth;
+            double optionWidth = (totalOptionsWidth) / DisplayableGroup.Count;
+            double c = MauiSource.WidthRequest;
             // Creates the Displayable but doesn't put in on screen to avoid errors
+            DisplayableArgs indivArgs = args.Clone();
+            indivArgs.TransformLayoutBounds($"0,0,{-indivArgs.ImageWidth + optionWidth},0");
             foreach (var choice in DisplayableGroup)
             {
-                DisplayableArgs tempArgs = args.Clone();
-                tempArgs.ImageWidth = optionWidth;
-                tempArgs.Spacing = SpacingBetweenDisplayables;
-                choice.Display(MauiSource, tempArgs
+                choice.Display(AbsLayout, indivArgs
+                    //clickedEventHandler: new EventHandler((sender, e) => ButtonClicked(this, new EventArgs()))
+                    
                     );
-                
+                indivArgs.TransformLayoutBounds($"{optionWidth},0,0,0");
             }
-            MauiSource.BackgroundColor = Color.FromRgb(10, 10, 100);
+            double b = MauiSource.WidthRequest;
         }
     }
 }
