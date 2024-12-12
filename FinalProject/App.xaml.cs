@@ -6,7 +6,7 @@
         {
             InitializeComponent();
 
-            MainPage = new Profile();
+            MainPage = new NumberDisplayPage();
         }
     }
 }
