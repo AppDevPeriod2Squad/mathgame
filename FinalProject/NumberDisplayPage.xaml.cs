@@ -24,7 +24,7 @@ namespace FinalProject
             //question.Display(ParentLayout, new DisplayableArgs(absoluteLayoutBounds: "300,300,600,300"));
             //number.Display(ParentLayout, new DisplayableArgs(absoluteLayoutBounds: "200,0,300,100"));
             //question.MauiSource.BackgroundColor = Color.FromRgb(100, 50, 100);
-            question2.Display(ParentLayout, new DisplayableArgs(absoluteLayoutBounds: "800,300,800,300"));
+            question2.Display(ParentLayout, new DisplayableArgs(absoluteLayoutBounds: "100,100,1200,600"));
             question.MauiSource.BackgroundColor = Color.FromRgb(100, 0, 0);
         }
     }

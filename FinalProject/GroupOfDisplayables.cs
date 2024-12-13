@@ -12,7 +12,7 @@ namespace FinalProject
         public List<Displayable>? DisplayableGroup { get; set; }
         public HorizontalStackLayout? Layout { get; set; }
         public int SpacingBetweenDisplayables { get; set; }
-        public GroupOfDisplayables(List<Displayable>? displayableGroup, int spacingBetweenDisplayables = 10)
+        public GroupOfDisplayables(List<Displayable>? displayableGroup, int spacingBetweenDisplayables = 5)
         {
             DisplayableGroup = displayableGroup;
             SpacingBetweenDisplayables = spacingBetweenDisplayables;
@@ -32,7 +32,7 @@ namespace FinalProject
             //    Layout.Add(d.MauiSource);
             //}
             double totalOptionsWidth = Args.ImageWidth;
-            double optionWidth = (totalOptionsWidth) / DisplayableGroup.Count;
+            double optionWidth = (totalOptionsWidth-SpacingBetweenDisplayables*(DisplayableGroup.Count-1)) / DisplayableGroup.Count;
             double c = MauiSource.WidthRequest;
             // Creates the Displayable but doesn't put in on screen to avoid errors
             DisplayableArgs indivArgs = args.Clone();
@@ -43,7 +43,7 @@ namespace FinalProject
                     //clickedEventHandler: new EventHandler((sender, e) => ButtonClicked(this, new EventArgs()))
                     
                     );
-                indivArgs.TransformLayoutBounds($"{optionWidth},0,0,0");
+                indivArgs.TransformLayoutBounds($"{optionWidth+SpacingBetweenDisplayables},0,0,0");
             }
             double b = MauiSource.WidthRequest;
         }

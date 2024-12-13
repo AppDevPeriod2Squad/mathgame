@@ -30,7 +30,6 @@ namespace FinalProject
             args.Spacing = 0;
             args.Padding = 0;
 
-            Args = args;
             if (args.AbsoluteLayoutBounds != null)
             {
                 Rect bounds = ParseBounds(args.AbsoluteLayoutBounds);
@@ -107,8 +106,8 @@ namespace FinalProject
             if (parentLayout is AbsoluteLayout absoluteLayout && !string.IsNullOrWhiteSpace(args.AbsoluteLayoutBounds))
             {
                 var bounds = ParseBounds(args.AbsoluteLayoutBounds);
-                absoluteLayout.SetLayoutBounds(stackLayout, bounds);
-                absoluteLayout.SetLayoutFlags(stackLayout, args.AbsoluteLayoutFlags);
+                AbsoluteLayout.SetLayoutBounds(stackLayout, bounds);
+                AbsoluteLayout.SetLayoutFlags(stackLayout, args.AbsoluteLayoutFlags);
                 absoluteLayout.Children.Add(stackLayout);
                 AbsLayout = absoluteLayout;
             }
@@ -117,6 +116,7 @@ namespace FinalProject
                 parentLayout.Children.Add(stackLayout);
             }
             MauiSource = stackLayout; // update Displayable field to reflect stackLayout code
+            Args = args;
         }
 
         private Rect ParseBounds(string bounds)

@@ -13,7 +13,7 @@ namespace FinalProject
         public int SpacingBetweenQuestions { get; set; }
         //public AbsoluteLayout temp = new AbsoluteLayout();
         
-        public QuestionAndAnswers(List<Displayable> choices,Displayable question, int spacingBetweenQuestions = 0)
+        public QuestionAndAnswers(List<Displayable> choices,Displayable question, int spacingBetweenQuestions = 60)
         {
             if (choices == null)
             {
@@ -44,6 +44,7 @@ namespace FinalProject
             }
             QuestionDisplayable = question;
             SpacingBetweenQuestions = spacingBetweenQuestions;
+            OptionsDisplay = new GroupOfDisplayables(OptionsList, spacingBetweenDisplayables: spacingBetweenQuestions);
         }
         public override void Display(Layout parentLayout,DisplayableArgs? args=null)
         {
@@ -56,15 +57,17 @@ namespace FinalProject
         public void ButtonClicked(Object sender, EventArgs e)
         {
             // add functionality later
+            MauiSource.WidthRequest += 1;
         }
         private void DisplayQuestion(Layout parentLayout, DisplayableArgs? args,double heightOfQuestion = -1)
         {
             if (heightOfQuestion < 0)
             {
-                heightOfQuestion = Args.ImageHeight / 16;
+                heightOfQuestion = Args.ImageHeight / 6;
             }
             args.StackLayoutOrientation = StackOrientation.Horizontal;
-            args.TransformLayoutBounds($"{args.ImageWidth*2},0,0,{-args.ImageHeight + heightOfQuestion}");
+            args.HorizontalOptions = LayoutOptions.Center;
+            args.TransformLayoutBounds($"0,0,0,{-Args.ImageHeight + heightOfQuestion}");
             QuestionDisplayable.Display(AbsLayout, args);
         }
         private void DisplayOptions(Layout parentLayout,DisplayableArgs? args,double optionHeight = -1)
@@ -74,9 +77,11 @@ namespace FinalProject
             {
                 optionHeight = (Args.ImageHeight - Args.Padding*2) / 3;
             }
-            OptionsDisplay = new GroupOfDisplayables(OptionsList);
+
             // find a better way to copy the args without using the original args later
             args.ImageHeight = optionHeight;
+            args.ClickedEventHandler = new EventHandler((sender,e)=>ButtonClicked(sender,e));
+            args.ViewType = ViewType.ImageButton;
             //args.StackLayoutOrientation = StackOrientation.Horizontal;
             //args.AbsoluteLayoutBounds = $"0,{optionHeight},{Args.ImageWidth},{optionHeight}";
             //args.AbsoluteLayoutBounds = $"0,0,100,100";
