@@ -1,4 +1,5 @@
 
+using FinalProject.QuestionGeneratorStuff;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Storage;
 
@@ -24,6 +25,9 @@ namespace FinalProject
             //question.Display(ParentLayout, new DisplayableArgs(absoluteLayoutBounds: "300,300,600,300"));
             //number.Display(ParentLayout, new DisplayableArgs(absoluteLayoutBounds: "200,0,300,100"));
             //question.MauiSource.BackgroundColor = Color.FromRgb(100, 50, 100);
+            QuestionGenerator generator = new QuestionGenerator();
+
+            question2 = generator.GeneratePromptQuestionSuperType(QuestionSuperType.FindGreatest, potentialTypes: new List<ImageType>() { ImageType.Dice });
             question2.Display(ParentLayout, new DisplayableArgs(absoluteLayoutBounds: "100,100,1200,600"));
             question.MauiSource.BackgroundColor = Color.FromRgb(100, 0, 0);
         }

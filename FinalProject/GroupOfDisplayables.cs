@@ -12,6 +12,7 @@ namespace FinalProject
         public List<Displayable>? DisplayableGroup { get; set; }
         public HorizontalStackLayout? Layout { get; set; }
         public int SpacingBetweenDisplayables { get; set; }
+        
         public GroupOfDisplayables(List<Displayable>? displayableGroup, int spacingBetweenDisplayables = 5)
         {
             DisplayableGroup = displayableGroup;

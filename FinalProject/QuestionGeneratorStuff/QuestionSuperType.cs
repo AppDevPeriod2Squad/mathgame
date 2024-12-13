@@ -8,6 +8,6 @@ namespace FinalProject.QuestionGeneratorStuff
 {
     public enum QuestionSuperType
     {
-        Addition, Subtraction, DigitIdentification, None
+        Addition, Subtraction, DigitIdentification,FindGreatest, None
     }
 }
