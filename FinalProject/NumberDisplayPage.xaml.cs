@@ -31,5 +31,12 @@ namespace FinalProject
             question2.Display(ParentLayout, new DisplayableArgs(absoluteLayoutBounds: "100,100,1200,600"));
             question.MauiSource.BackgroundColor = Color.FromRgb(100, 0, 0);
         }
+
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+            QuestionGenerator generator = new QuestionGenerator();
+            QuestionAndAnswers question = generator.GeneratePromptQuestionSuperType(QuestionSuperType.FindGreatest, potentialTypes: new List<ImageType>() { ImageType.Dice });
+            question.Display(ParentLayout, new DisplayableArgs(absoluteLayoutBounds: "100,100,1200,600"));
+        }
     }
 }

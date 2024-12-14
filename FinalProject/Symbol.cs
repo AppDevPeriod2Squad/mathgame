@@ -17,7 +17,7 @@ namespace FinalProject
         private readonly SpriteManager spriteManager = new SpriteManager();
 
         public override ImageSource? ImageSource { get; set; }
-        private SymbolType lastSavedSymbolType { get; set; }
+        public SymbolType lastSavedSymbolType { get; set; }
         public Symbol(SymbolType symbolType = SymbolType.None)
         {
             UpdateImageSource(symbolType);

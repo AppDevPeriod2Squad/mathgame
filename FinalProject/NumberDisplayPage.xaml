@@ -7,5 +7,6 @@
                          Padding="20" BackgroundColor="White"
                          >
         <!-- Content will be dynamically added here (displayable.cs)-->
+        <Button Text="gen new question" Clicked="Button_Clicked"/>
     </AbsoluteLayout>
 </ContentPage>

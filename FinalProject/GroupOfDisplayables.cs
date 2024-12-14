@@ -18,6 +18,31 @@ namespace FinalProject
             DisplayableGroup = displayableGroup;
             SpacingBetweenDisplayables = spacingBetweenDisplayables;
         }
+        public double EvaluateEquation()
+        {
+            double tot = 0;
+            Displayable prevDisp = null;
+            foreach (Displayable disp in DisplayableGroup)
+            {
+                if (disp is Number && prevDisp is Symbol)
+                {
+                    Symbol? symbol = prevDisp as Symbol;
+                    Number? number = disp as Number;
+                    switch (symbol.lastSavedSymbolType)
+                    {
+                        case SymbolType.Plus:
+                            tot += number.Val;
+                            break;
+                    }
+                }
+                prevDisp = disp;
+            }
+            if (DisplayableGroup.Count > 0 && DisplayableGroup[0] is Number num)
+            {
+                tot += num.Val;
+            }
+            return tot;
+        }
 
         public override void Display(Layout parentLayout, DisplayableArgs? args = null)
         {
