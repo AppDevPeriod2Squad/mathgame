@@ -50,7 +50,7 @@ namespace FinalProject.QuestionGeneratorStuff
         }
         public QuestionAndAnswers GeneratePromptQuestionSuperType(QuestionSuperType superType, QuestionSubType subType=QuestionSubType.None,List<ImageType> potentialTypes = null, List<SymbolType> possibleSymbolTypes = null)
         {
-            superType = QuestionSuperType.Addition;
+            superType = QuestionSuperType.FindGreatest;
                 //test code
             this.potentialTypes = potentialTypes;
             int numOfNumbersInQuestion = 0;
