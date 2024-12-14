@@ -32,5 +32,14 @@ namespace FinalProject
             };
             lastSavedSymbolType = symbolType;
         }
+
+        public override bool Compare(Displayable d)
+        {
+            if (d is Symbol symbol)
+            {
+                if (symbol.lastSavedSymbolType == lastSavedSymbolType) return true;
+            }
+            return false;
+        }
     }
 }

@@ -27,6 +27,14 @@ namespace FinalProject
             Val = val;
             UpdateImageSource(imageType);
         }
+        public override Boolean Compare(Displayable d)
+        {
+            if (d is Number num)
+            {
+                if (num.Val == val) return true;
+            }
+            return false;
+        }
 
         private void UpdateImageSource(ImageType imageType)
         {

@@ -18,5 +18,10 @@ namespace FinalProject
             args.Text = PromptString; ;
             base.Display(parentLayout, args);
         }
+
+        public override bool Compare(Displayable d)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

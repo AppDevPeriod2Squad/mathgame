@@ -18,6 +18,23 @@ namespace FinalProject
             DisplayableGroup = displayableGroup;
             SpacingBetweenDisplayables = spacingBetweenDisplayables;
         }
+        public GroupOfDisplayables(Displayable displayable,int spacingBetweenDisplayables = 5)
+        {
+            DisplayableGroup = new List<Displayable>() { displayable };
+            SpacingBetweenDisplayables = spacingBetweenDisplayables;
+        }
+        public void GroupClicked(object? sender, EventArgs e)
+        {
+            if (sender is GroupOfDisplayables groupOfDisplayables)
+            {
+                // to send the event notification all the way up the groupofdisplayable chain
+                Args.ClickedEventHandler?.Invoke(sender, new EventArgs());
+            }
+            else
+            {
+                Args.ClickedEventHandler?.Invoke(this, new EventArgs());
+            }
+        }
         public double EvaluateEquation()
         {
             double tot = 0;
@@ -63,6 +80,7 @@ namespace FinalProject
             // Creates the Displayable but doesn't put in on screen to avoid errors
             DisplayableArgs indivArgs = args.Clone();
             indivArgs.TransformLayoutBounds($"0,0,{-indivArgs.ImageWidth + optionWidth},0");
+            indivArgs.ClickedEventHandler = new EventHandler((sender, e) => GroupClicked(sender, e));
             foreach (var choice in DisplayableGroup)
             {
                 choice.Display(AbsLayout, indivArgs
@@ -73,5 +91,24 @@ namespace FinalProject
             }
             double b = MauiSource.WidthRequest;
         }
+        public override bool Compare(Displayable d)
+        {
+            if (d is GroupOfDisplayables g)
+            {
+                if (g.DisplayableGroup.Count != DisplayableGroup.Count) return false;
+
+                for (int i = 0; i < g.DisplayableGroup.Count; i++)
+                {
+                    if (!g.DisplayableGroup[i].Compare(DisplayableGroup[i]))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            return false;
+        }
+
     }
+    
 }

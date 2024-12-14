@@ -21,9 +21,11 @@ namespace FinalProject.QuestionGeneratorStuff
         private GroupOfDisplayables CorrectAnswer {  get; set; }
         private GroupOfDisplayables currentGeneratingGroup;
         private int numOfNumbersInAnswers;
-        public QuestionGenerator(int numOfAnswers = 4, List<ImageType>? potentialAnswerTypes = null, QuestionSuperType superType = QuestionSuperType.None, QuestionSubType subType = QuestionSubType.None)
+        private EventHandler handler;
+        public QuestionGenerator(EventHandler? questionClickedHandler, int numOfAnswers = 4, List<ImageType>? potentialAnswerTypes = null, QuestionSuperType superType = QuestionSuperType.None, QuestionSubType subType = QuestionSubType.None)
         {
             Answers = new List<Displayable>();
+            handler = questionClickedHandler;
 
         }
         private double GetSumMax()
@@ -101,7 +103,7 @@ namespace FinalProject.QuestionGeneratorStuff
             ImageType t = potentialTypes[rand.Next(potentialTypes.Count - 1)];
             Answers[rand.Next(0,Answers.Count-1)] = CorrectAnswer;
 
-            return new QuestionAndAnswers(Answers, QuestionPrompt);
+            return new QuestionAndAnswers(Answers, QuestionPrompt,correctAnswer:CorrectAnswer,questionClickedHandler:handler);
         }
         private GroupOfDisplayables GenQuestionList(Range range)
         {

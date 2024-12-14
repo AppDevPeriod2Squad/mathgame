@@ -11,14 +11,22 @@ namespace FinalProject
         public List<Displayable>? OptionsList { get; set; }
         public GroupOfDisplayables? OptionsDisplay { get; set; }
         public int SpacingBetweenQuestions { get; set; }
+        public GroupOfDisplayables? CorrectAnswer {  get; set; }
+        public EventHandler? questionHandler {  get; set; }
         //public AbsoluteLayout temp = new AbsoluteLayout();
         
-        public QuestionAndAnswers(List<Displayable> choices,Displayable question, int spacingBetweenQuestions = 60)
+        public QuestionAndAnswers(List<Displayable> choices,Displayable question, EventHandler? questionClickedHandler = null, GroupOfDisplayables? correctAnswer = null, int spacingBetweenQuestions = 60)
         {
             if (choices == null)
             {
                 throw new Exception("choices can't be null");
             }
+            if (correctAnswer == null)
+            {
+                CorrectAnswer = new GroupOfDisplayables(new Prompt("LOL NO ANSWER"));
+            }
+            CorrectAnswer = correctAnswer;
+            questionHandler = questionClickedHandler;
             // is a list of Displayables but will actually be a list of GroupOfDisplayables
             if (choices.Count == 0 || !(choices[0] is GroupOfDisplayables))
             {
@@ -57,7 +65,12 @@ namespace FinalProject
         public void ButtonClicked(Object sender, EventArgs e)
         {
             // add functionality later
-            MauiSource.WidthRequest += 1;
+            if (sender is GroupOfDisplayables group1 && CorrectAnswer is GroupOfDisplayables group2)
+            {
+                if (group1.Compare(group2)){
+                    questionHandler?.Invoke(this, e);
+                }
+            }
         }
         private void DisplayQuestion(Layout parentLayout, DisplayableArgs? args,double heightOfQuestion = -1)
         {
@@ -93,5 +106,9 @@ namespace FinalProject
 
         }
 
+        public override bool Compare(Displayable d)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

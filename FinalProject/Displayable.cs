@@ -15,6 +15,7 @@ namespace FinalProject
         public Layout MauiSource { get; set; } = new StackLayout();
         public AbsoluteLayout AbsLayout = new AbsoluteLayout();
         public DisplayableArgs Args { get; set; }
+        public abstract Boolean Compare(Displayable d);
         public virtual void Display(
            // default parameters
            Layout parentLayout,

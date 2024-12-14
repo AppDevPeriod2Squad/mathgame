@@ -25,7 +25,7 @@ namespace FinalProject
             //question.Display(ParentLayout, new DisplayableArgs(absoluteLayoutBounds: "300,300,600,300"));
             //number.Display(ParentLayout, new DisplayableArgs(absoluteLayoutBounds: "200,0,300,100"));
             //question.MauiSource.BackgroundColor = Color.FromRgb(100, 50, 100);
-            QuestionGenerator generator = new QuestionGenerator();
+            QuestionGenerator generator = new QuestionGenerator(new EventHandler((sender, e) => QuestionAnswered(sender, e)));
 
             question2 = generator.GeneratePromptQuestionSuperType(QuestionSuperType.FindGreatest, potentialTypes: new List<ImageType>() { ImageType.Dice });
             question2.Display(ParentLayout, new DisplayableArgs(absoluteLayoutBounds: "100,100,1200,600"));
@@ -34,9 +34,13 @@ namespace FinalProject
 
         private void Button_Clicked(object sender, EventArgs e)
         {
-            QuestionGenerator generator = new QuestionGenerator();
+            QuestionGenerator generator = new QuestionGenerator(new EventHandler((sender,e)=>QuestionAnswered(sender,e)));
             QuestionAndAnswers question = generator.GeneratePromptQuestionSuperType(QuestionSuperType.FindGreatest, potentialTypes: new List<ImageType>() { ImageType.Dice });
             question.Display(ParentLayout, new DisplayableArgs(absoluteLayoutBounds: "100,100,1200,600"));
+        }
+        private void QuestionAnswered(object? sender, EventArgs e)
+        {
+            ParentLayout.Add(new Label() { Text = "THIS IS A PLACEHOLDER ACTION FOR WHEN AN ANSWER IS ANSWERED" });
         }
     }
 }
