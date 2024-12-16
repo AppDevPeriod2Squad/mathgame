@@ -73,7 +73,7 @@ namespace FinalProject.QuestionGeneratorStuff
                     numOfNumbersInQuestion = 0;
                     numOfNumbersInAnswers = 1;
                     potentialAnswerRange = new Range(1,6,changingMax:changingMax=>(CorrectAnswer.EvaluateEquation()-1));
-                    correctAnswerRange = new Range(6, 6);
+                    correctAnswerRange = new Range(2, 6);
                     promptString = "Which is greatest?";
                     numOfAnswers = 4;
                     break;
