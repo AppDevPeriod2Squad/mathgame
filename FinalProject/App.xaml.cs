@@ -6,7 +6,7 @@
         {
             InitializeComponent();
 
-            MainPage = new Shop();
+            MainPage = new NavigationPage(new NavPageTemp());
         }
     }
 }

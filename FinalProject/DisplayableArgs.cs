@@ -1,5 +1,4 @@
-﻿
-using Microsoft.Maui.Layouts;
+﻿using Microsoft.Maui.Layouts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +19,6 @@ namespace FinalProject
         public int TextFontSize {  get; set; }
         public string? AbsoluteLayoutBounds {  get; set; }
         public AbsoluteLayoutFlags AbsoluteLayoutFlags { get; set; }
-        public Boolean AddToParentLayout {  get; set; }
         public ViewType ViewType { get; set; }
         public EventHandler? ClickedEventHandler { get; set; }
         public String? Text { get; set; }
@@ -31,13 +29,12 @@ namespace FinalProject
            StackOrientation stackLayoutOrientation = StackOrientation.Vertical,
            LayoutOptions? horizontalOptions = null,
            LayoutOptions? verticalOptions = null,
-           int textFontSize = 100,
+           int textFontSize = 18,
            string? absoluteLayoutBounds = null,
            AbsoluteLayoutFlags absoluteLayoutFlags = AbsoluteLayoutFlags.None,
-           Boolean addToParentLayout = true,
            ViewType viewType = ViewType.Image, // image by default
-           EventHandler? clickedEventHandler = null,
-           String? text = null)
+           String text = "",
+           EventHandler? clickedEventHandler = null)
         {
             Padding = padding;
             Spacing = spacing;
@@ -49,14 +46,25 @@ namespace FinalProject
             TextFontSize = textFontSize;
             AbsoluteLayoutBounds = absoluteLayoutBounds;
             AbsoluteLayoutFlags = absoluteLayoutFlags;
-            AddToParentLayout = addToParentLayout;
             ViewType = viewType;
             ClickedEventHandler = clickedEventHandler;
             Text = text;
         }
         public DisplayableArgs Clone()
         {
-            return (DisplayableArgs) MemberwiseClone();
+            return (DisplayableArgs)MemberwiseClone();
+        }
+        public void TransformLayoutBounds(String transforms)
+        {
+            var parts = transforms.Split(',');
+            var parts2 = AbsoluteLayoutBounds.Split(',');
+            if (parts.Length != 4 || parts2.Length != 4) {
+                throw new ArgumentException("absoluteLayoutBounds must be a comma-separated string with four values.");
+            }
+            AbsoluteLayoutBounds = $"{double.Parse(parts[0]) + double.Parse(parts2[0])}," +
+                $"{double.Parse(parts[1]) + double.Parse(parts2[1])}," +
+                $"{double.Parse(parts[2]) + double.Parse(parts2[2])}" +
+                $",{double.Parse(parts[3]) + double.Parse(parts2[3])}";
         }
     }
 }

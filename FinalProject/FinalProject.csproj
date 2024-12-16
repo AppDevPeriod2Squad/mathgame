@@ -63,6 +63,8 @@
 	  <None Remove="Resources\Images\dice_4.png" />
 	  <None Remove="Resources\Images\dice_5.png" />
 	  <None Remove="Resources\Images\dice_6.png" />
+	  <None Remove="Resources\Images\dino_happy.png" />
+	  <None Remove="Resources\Images\dino_sad.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -74,10 +76,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="AdditionGame.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="DinoGame.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Shop.xaml">
+	  <MauiXaml Update="NavPageTemp.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

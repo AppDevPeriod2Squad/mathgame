@@ -3,9 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FinalProject.NumberDisplayPage"
              Title="Number Display">
-    <VerticalStackLayout x:Name="ParentLayout"
-                         Padding="20"
+    <AbsoluteLayout x:Name="ParentLayout"
+                         Padding="20" BackgroundColor="White"
                          >
         <!-- Content will be dynamically added here (displayable.cs)-->
-    </VerticalStackLayout>
+        <Button Text="gen new question" Clicked="Button_Clicked"/>
+    </AbsoluteLayout>
 </ContentPage>

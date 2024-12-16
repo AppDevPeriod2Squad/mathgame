@@ -21,13 +21,19 @@ namespace FinalProject
             }
         }
         public override ImageSource? ImageSource { get; set; }
-        public override string? Text { get; set; }
         private ImageType lastSavedImageType {  get; set; }
-        public Number(int val = 1, string? text = null, ImageType imageType = ImageType.None)
+        public Number(int val = 1, ImageType imageType = ImageType.None)
         {
             Val = val;
-            Text = text;
             UpdateImageSource(imageType);
+        }
+        public override Boolean Compare(Displayable d)
+        {
+            if (d is Number num)
+            {
+                if (num.Val == val) return true;
+            }
+            return false;
         }
 
         private void UpdateImageSource(ImageType imageType)

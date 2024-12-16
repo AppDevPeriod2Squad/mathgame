@@ -9,18 +9,19 @@ namespace FinalProject
     public class Prompt : Displayable
     {
         public String PromptString { get; set; }
-        public Prompt(String promptString)
+        public Prompt(String s)
         {
-            PromptString = promptString;
+            PromptString = s;
         }
         public override void Display(Layout parentLayout, DisplayableArgs? args = null)
         {
-            if (args == null)
-            {
-                args = new DisplayableArgs(); 
-            }
-            args.Text = PromptString;
+            args.Text = PromptString; ;
             base.Display(parentLayout, args);
+        }
+
+        public override bool Compare(Displayable d)
+        {
+            throw new NotImplementedException();
         }
     }
 }

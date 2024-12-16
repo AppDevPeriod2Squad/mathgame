@@ -12,34 +12,46 @@ namespace FinalProject
     public abstract class Displayable
     {
         public virtual ImageSource? ImageSource { get; set; } = null;
-        public virtual string? Text { get; set; } = string.Empty;
         public Layout MauiSource { get; set; } = new StackLayout();
-
+        public AbsoluteLayout AbsLayout = new AbsoluteLayout();
+        public DisplayableArgs Args { get; set; }
+        public abstract Boolean Compare(Displayable d);
         public virtual void Display(
            // default parameters
            Layout parentLayout,
            DisplayableArgs? args = null
        )
         {
+            
             // if args is not set
             if (args == null)
             {
                 args = new DisplayableArgs();
             }
-            // added way to set Text property
-            Text = args.Text;
+            args.Spacing = 0;
+            args.Padding = 0;
+
+            if (args.AbsoluteLayoutBounds != null)
+            {
+                Rect bounds = ParseBounds(args.AbsoluteLayoutBounds);
+                args.ImageHeight = bounds.Height;
+                args.ImageWidth = bounds.Width - 2*args.Padding - 2*args.Spacing;
+            }
             // assign value ONLY if already null, used to correctly implement default parameter
             args.HorizontalOptions ??= LayoutOptions.Center;
             args.VerticalOptions ??= LayoutOptions.Center;
 
-            var stackLayout = new StackLayout
+
+            Layout stackLayout;
+            stackLayout = new StackLayout
             {
                 Padding = new Thickness(args.Padding),
                 Spacing = args.Spacing,
-                Orientation= args.StackLayoutOrientation,
-                HeightRequest= args.ImageHeight,
-                WidthRequest= args.ImageWidth
+                Orientation = args.StackLayoutOrientation
             };
+            stackLayout.BackgroundColor = Color.FromRgb(0, 100, 100);
+
+
 
             // add an Image control if the ImageSource is not null
             if (ImageSource != null)
@@ -79,22 +91,18 @@ namespace FinalProject
                 
             }
             // add a Label control if the Text is not null or empty
-            if (!string.IsNullOrWhiteSpace(Text))
+            if (!string.IsNullOrWhiteSpace(args.Text))
             {
                 stackLayout.Children.Add(new Label
                 {
-                    Text = Text,
+                    Text = args.Text,
                     HorizontalOptions = LayoutOptions.Center,
                     VerticalOptions = LayoutOptions.Center,
                     FontSize = args.TextFontSize
                 });
             }
-            MauiSource = stackLayout;
+            
             // checks if wants to actually add the Layout to parent layout 
-            if (!args.AddToParentLayout)
-            {
-                return;
-            }
             // checks if parentlayout is absolutelayout, and if it is will assign new variable "absoluteLayout" to parentlayout
             if (parentLayout is AbsoluteLayout absoluteLayout && !string.IsNullOrWhiteSpace(args.AbsoluteLayoutBounds))
             {
@@ -102,12 +110,14 @@ namespace FinalProject
                 AbsoluteLayout.SetLayoutBounds(stackLayout, bounds);
                 AbsoluteLayout.SetLayoutFlags(stackLayout, args.AbsoluteLayoutFlags);
                 absoluteLayout.Children.Add(stackLayout);
+                AbsLayout = absoluteLayout;
             }
             else
             {
                 parentLayout.Children.Add(stackLayout);
             }
-             // update Displayable field to reflect stackLayout code
+            MauiSource = stackLayout; // update Displayable field to reflect stackLayout code
+            Args = args;
         }
 
         private Rect ParseBounds(string bounds)
