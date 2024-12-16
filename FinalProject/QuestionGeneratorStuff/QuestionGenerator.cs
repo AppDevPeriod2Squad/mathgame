@@ -98,7 +98,7 @@ namespace FinalProject.QuestionGeneratorStuff
                 Answers.Add(GenQuestionList(potentialAnswerRange));
             }
             ImageType t = potentialTypes[rand.Next(potentialTypes.Count - 1)];
-            Answers[rand.Next(0,Answers.Count-1)] = CorrectAnswer;
+            Answers[rand.Next(0,Answers.Count)] = CorrectAnswer;
             promptString = EditPromptString(promptString);
             QuestionPrompt = new Prompt(promptString);
             return new QuestionAndAnswers(Answers, QuestionPrompt,correctAnswer:CorrectAnswer,questionClickedHandler:handler);
