@@ -6,7 +6,7 @@
         {
             InitializeComponent();
 
-            MainPage = new NumberDisplayPage();
+            MainPage = new NavigationPage(new NavPageTemp());
         }
     }
 }

@@ -70,7 +70,11 @@ namespace FinalProject
             if (sender is GroupOfDisplayables group1 && CorrectAnswer is GroupOfDisplayables group2)
             {
                 if (group1.Compare(group2)){
-                    questionHandler?.Invoke(this, e);
+                    questionHandler?.Invoke(this,new QuestionEventArgs(true));
+                }
+                else
+                {
+                    questionHandler?.Invoke(this, new QuestionEventArgs(false));
                 }
             }
         }

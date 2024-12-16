@@ -24,7 +24,6 @@ namespace FinalProject.QuestionGeneratorStuff
         private EventHandler handler;
         public QuestionGenerator(EventHandler? questionClickedHandler, int numOfAnswers = 4, List<ImageType>? potentialAnswerTypes = null, QuestionSuperType superType = QuestionSuperType.None, QuestionSubType subType = QuestionSubType.None)
         {
-            Answers = new List<Displayable>();
             handler = questionClickedHandler;
 
         }
@@ -33,10 +32,10 @@ namespace FinalProject.QuestionGeneratorStuff
             double max = CorrectAnswer.EvaluateEquation();
             double currentTotal = currentGeneratingGroup.EvaluateEquation();
             max -= currentTotal;
-
-           if (max < 0)
+            max--;
+           if (max < 1)
             {
-                max = 0; // TEMP
+                max = 2; // TEMP
             }
             return max;
         }
@@ -48,10 +47,9 @@ namespace FinalProject.QuestionGeneratorStuff
             }
             return 1;
         }
-        public QuestionAndAnswers GeneratePromptQuestionSuperType(QuestionSuperType superType, QuestionSubType subType=QuestionSubType.None,List<ImageType> potentialTypes = null, List<SymbolType> possibleSymbolTypes = null)
+        public QuestionAndAnswers Generate(QuestionSuperType superType, QuestionSubType subType=QuestionSubType.None,List<ImageType> potentialTypes = null, List<SymbolType> possibleSymbolTypes = null)
         {
-            superType = QuestionSuperType.FindGreatest;
-                //test code
+            Answers = new List<Displayable>();
             this.potentialTypes = potentialTypes;
             int numOfNumbersInQuestion = 0;
             numOfNumbersInAnswers = 0;
@@ -84,14 +82,13 @@ namespace FinalProject.QuestionGeneratorStuff
                     numOfNumbersInAnswers = 2;
                     potentialAnswerRange = new Range(1, 6, changingMax: changingMax => (GetSumMax()-1));
                     correctAnswerRange = new Range(1, 6);
-                    promptString = "What is the sum?";
+                    promptString = "What adds up to {replace}?";
                     numOfAnswers = 4;
                     break;
             }
 
 
             // later add functionallity to numOfNumbersInQuestions replacing certain parts of the prompt string
-            QuestionPrompt = new Prompt(promptString);
 
             // generates the answers
             CorrectAnswer = GenQuestionList(correctAnswerRange);
@@ -102,7 +99,8 @@ namespace FinalProject.QuestionGeneratorStuff
             }
             ImageType t = potentialTypes[rand.Next(potentialTypes.Count - 1)];
             Answers[rand.Next(0,Answers.Count-1)] = CorrectAnswer;
-
+            promptString = EditPromptString(promptString);
+            QuestionPrompt = new Prompt(promptString);
             return new QuestionAndAnswers(Answers, QuestionPrompt,correctAnswer:CorrectAnswer,questionClickedHandler:handler);
         }
         private GroupOfDisplayables GenQuestionList(Range range)
@@ -121,6 +119,29 @@ namespace FinalProject.QuestionGeneratorStuff
                 }
             }
             return currentGeneratingGroup;
+        }
+        private String EditPromptString(String prompt)
+        {
+            String editedPrompt = "";
+            bool reading = false;
+            for (int i = 0; i < prompt.Length;i++)
+            {
+                Char c = prompt[i];
+                if (c == '{')
+                {
+                    reading = true;
+                }
+                else if (c == '}')
+                {
+                    reading = false;
+                    editedPrompt += CorrectAnswer.EvaluateEquation();
+                }
+                else if (!reading)
+                {
+                    editedPrompt += c;
+                }
+            }
+            return editedPrompt;
         }
     }
 }
