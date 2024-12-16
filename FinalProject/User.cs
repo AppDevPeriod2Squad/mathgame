@@ -26,6 +26,20 @@ namespace FinalProject
             set { if (name != value) { name = value; OnPropertyChanged("Name"); } }
         }
 
+        private string picture;
+        public string Picture
+        {
+            get { return picture; }
+            set { if (picture != value) { picture = value; OnPropertyChanged("Picture"); } }
+        }
+
+        private string background;
+        public string Background
+        {
+            get { return background; }
+            set { if (background != value) { background = value; OnPropertyChanged("Background"); } }
+        }
+
         private int quarters;
         public int Quarters
         {
@@ -57,6 +71,9 @@ namespace FinalProject
         [TextBlob("StringsBlobbed")]
         private List<string> backgrounds { get; set; }
 
+        [TextBlob("StringsBlobbed")]
+        private List<string> images { get; set; }
+
         private int xp;
         public int XP
         {
@@ -69,6 +86,13 @@ namespace FinalProject
         {
             get { return gamesCompleted; }
             set { if (gamesCompleted != value) { gamesCompleted = value; OnPropertyChanged("GamesCompleted"); } }
+        }
+
+        private int bannerCost;
+        public int BannerCost
+        {
+            get { return bannerCost; }
+            set { if (bannerCost != value) { bannerCost = value; OnPropertyChanged("BannerCost"); } }
         }
     }
 }

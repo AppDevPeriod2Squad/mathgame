@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FinalProject.Shop"
+             Title="Shop">
+    <FlexLayout Direction="Column" AlignItems="Center" BackgroundColor="#127ac7" JustifyContent="Center">
+        <VerticalStackLayout>
+            <ImageButton Source="https://static.vecteezy.com/system/resources/thumbnails/011/016/159/small/realistic-3d-gift-box-cutout-free-png.png" WidthRequest="256" HeightRequest="256"/>
+            <HorizontalStackLayout HorizontalOptions="Center">
+                <Label Text="Cost: 0 cents" FontSize="30" x:Name="PayAmount"/>
+                <Button VerticalOptions="Center" Margin="10,0,0,0" Text="Pay!" x:Name="Pay" IsEnabled="False"/>
+
+            </HorizontalStackLayout>
+            <Grid Padding="0, 20, 0, 0" ColumnSpacing="10" RowSpacing="10"
+RowDefinitions="50, 50"
+ ColumnDefinitions="50, 50, 50, 50" HorizontalOptions="Center">
+                <Image Grid.Column="0" Grid.Row="0" Source="https://kids.usmint.gov/wordpress/wp-content/uploads/2018/05/2018_quarter_o_300x300.png"/>
+                <Button Grid.Column="0" Grid.Row="1" Text="0" Clicked="QuarterAdd" x:Name="quarter"/>
+
+                <Image Grid.Column="1" Grid.Row="0" Source="https://www.blanchardgold.com/wp-content/uploads/2023/10/121045_o.png"/>
+                <Button Grid.Column="1" Grid.Row="1" Text="0" Clicked="DimeAdd" x:Name="dime"/>
+
+                <Image Grid.Column="2" Grid.Row="0" Source="https://www.littletoncoin.com/shop/api/assets/LCCCatalogAssetStore/images/catalog/products/300x300/5221.60_B.png"/>
+                <Button Grid.Column="2" Grid.Row="1" Text="0" Clicked="NickelAdd" x:Name="nickel"/>
+
+                <Image Grid.Column="3" Grid.Row="0" Source="https://png.pngtree.com/png-clipart/20231011/original/pngtree-penny-isolated-clipping-path-dollar-united-picture-image_13112728.png"/>
+                <Button Grid.Column="3" Grid.Row="1" Text="0" Clicked="PennyAdd" x:Name="penny"/>
+            </Grid>
+            <HorizontalStackLayout HorizontalOptions="Center">
+                <Image WidthRequest="64" HeightRequest="64" Source="https://icons.veryicon.com/png/o/miscellaneous/small-face-icon/left-arrow-28.png"/>
+                <Image WidthRequest="64" HeightRequest="64" Source="https://cdn-icons-png.flaticon.com/512/3236/3236907.png"/>
+
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </FlexLayout>
+</ContentPage>
