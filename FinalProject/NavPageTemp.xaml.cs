@@ -15,4 +15,8 @@ public partial class NavPageTemp : ContentPage
     {
         await Navigation.PushAsync(new DinoGame());
     }
+    private async void Profile(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new Profile(new Database()));
+    }
 }

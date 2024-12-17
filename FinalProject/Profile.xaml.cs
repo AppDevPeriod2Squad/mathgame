@@ -11,6 +11,8 @@ public partial class Profile : ContentPage
 
 	public void Setup()
 	{
+		user = new User() { Picture="dino_happy.png"};
+		//temp
 		profileName.Text = user.Name;
 		profilePicture.Source = user.Picture;
 		profileXP.Text = $"{user.XP}\nXP";
