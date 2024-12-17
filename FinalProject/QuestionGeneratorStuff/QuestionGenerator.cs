@@ -25,7 +25,7 @@ namespace FinalProject.QuestionGeneratorStuff
         public QuestionGenerator(EventHandler? questionClickedHandler, int numOfAnswers = 4, List<ImageType>? potentialAnswerTypes = null, QuestionSuperType superType = QuestionSuperType.None, QuestionSubType subType = QuestionSubType.None)
         {
             handler = questionClickedHandler;
-
+            this.potentialTypes = potentialAnswerTypes;
         }
         private double GetSumMax()
         {
@@ -47,10 +47,9 @@ namespace FinalProject.QuestionGeneratorStuff
             }
             return 1;
         }
-        public QuestionAndAnswers Generate(QuestionSuperType superType, QuestionSubType subType=QuestionSubType.None,List<ImageType> potentialTypes = null, List<SymbolType> possibleSymbolTypes = null)
+        public QuestionAndAnswers Generate(QuestionSuperType superType, QuestionSubType subType=QuestionSubType.None, List<SymbolType> possibleSymbolTypes = null)
         {
             Answers = new List<Displayable>();
-            this.potentialTypes = potentialTypes;
             int numOfNumbersInQuestion = 0;
             numOfNumbersInAnswers = 0;
             numOfAnswers = 0;
@@ -97,7 +96,6 @@ namespace FinalProject.QuestionGeneratorStuff
             {
                 Answers.Add(GenQuestionList(potentialAnswerRange));
             }
-            ImageType t = potentialTypes[rand.Next(potentialTypes.Count - 1)];
             Answers[rand.Next(0,Answers.Count)] = CorrectAnswer;
             promptString = EditPromptString(promptString);
             QuestionPrompt = new Prompt(promptString);
@@ -111,7 +109,8 @@ namespace FinalProject.QuestionGeneratorStuff
                 int lowerBound = (int)range.Min;
                 int upperBound = (int)range.Max;
                 int generatedNum = rand.Next(lowerBound, upperBound + 1);
-                ImageType type = potentialTypes[rand.Next(potentialTypes.Count - 1)];
+                ImageType type = potentialTypes[rand.Next(potentialTypes.Count)];
+
                 currentGeneratingGroup.DisplayableGroup.Add(new Number(val: generatedNum, imageType: type));
                 if (i != numOfNumbersInAnswers - 1)
                 {

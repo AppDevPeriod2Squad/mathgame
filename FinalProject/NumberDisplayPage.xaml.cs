@@ -25,17 +25,17 @@ namespace FinalProject
             //question.Display(ParentLayout, new DisplayableArgs(absoluteLayoutBounds: "300,300,600,300"));
             //number.Display(ParentLayout, new DisplayableArgs(absoluteLayoutBounds: "200,0,300,100"));
             //question.MauiSource.BackgroundColor = Color.FromRgb(100, 50, 100);
-            QuestionGenerator generator = new QuestionGenerator(new EventHandler((sender, e) => QuestionAnswered(sender, e)));
+            QuestionGenerator generator = new QuestionGenerator(new EventHandler((sender, e) => QuestionAnswered(sender, e)), potentialAnswerTypes: new List<ImageType>() { ImageType.Dice });
 
-            question2 = generator.Generate(QuestionSuperType.FindGreatest, potentialTypes: new List<ImageType>() { ImageType.Dice });
+            question2 = generator.Generate(QuestionSuperType.FindGreatest);
             question2.Display(ParentLayout, new DisplayableArgs(absoluteLayoutBounds: "100,100,1200,600"));
             question.MauiSource.BackgroundColor = Color.FromRgb(100, 0, 0);
         }
 
         private void Button_Clicked(object sender, EventArgs e)
         {
-            QuestionGenerator generator = new QuestionGenerator(new EventHandler((sender,e)=>QuestionAnswered(sender,e)));
-            QuestionAndAnswers question = generator.Generate(QuestionSuperType.FindGreatest, potentialTypes: new List<ImageType>() { ImageType.Dice });
+            QuestionGenerator generator = new QuestionGenerator(new EventHandler((sender,e)=>QuestionAnswered(sender,e)), potentialAnswerTypes: new List<ImageType>() { ImageType.Dice });
+            QuestionAndAnswers question = generator.Generate(QuestionSuperType.FindGreatest);
             question.Display(ParentLayout, new DisplayableArgs(absoluteLayoutBounds: "100,100,1200,600"));
         }
         private void QuestionAnswered(object? sender, EventArgs e)

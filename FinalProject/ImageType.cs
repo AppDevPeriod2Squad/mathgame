@@ -10,6 +10,7 @@ namespace FinalProject
     {
         None,
         TenFrames,
-        Dice
+        Dice,
+        Food
     }
 }

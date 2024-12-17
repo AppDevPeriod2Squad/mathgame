@@ -9,7 +9,6 @@ namespace FinalProject
     public class Number : Displayable
     {
         private readonly SpriteManager spriteManager = new SpriteManager();
-
         private int val; 
         public int Val
         {
@@ -35,6 +34,17 @@ namespace FinalProject
             }
             return false;
         }
+        public override void Display(Layout parentLayout, DisplayableArgs? args = null)
+        {
+            switch (lastSavedImageType)
+            {
+                case ImageType.Food:
+                    args.Text = val.ToString();
+                    args.TextFontSize = 50;
+                    break;
+            }
+            base.Display(parentLayout, args);
+        }
 
         private void UpdateImageSource(ImageType imageType)
         {
@@ -42,8 +52,13 @@ namespace FinalProject
             {
                 ImageType.TenFrames => spriteManager.GetTenFramesImage(Val),
                 ImageType.Dice => spriteManager.GetDiceImage(Val),
+                ImageType.Food => spriteManager.GetFoodImage(),
+
+
                 _ => null
             };
+  
+
             lastSavedImageType = imageType;
         }
     }
