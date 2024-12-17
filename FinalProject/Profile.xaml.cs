@@ -3,13 +3,23 @@ namespace FinalProject;
 public partial class Profile : ContentPage
 {
 	private User user;
-	public Profile(Database db)
+	public Profile()
 	{
 		InitializeComponent();
-		Setup();
-	}
+		user = new User();
+		user.Name = "Sigma Male";
+		user.Picture = "https://www.newtraderu.com/wp-content/uploads/9-Secret-Strengths-Of-The-Sigma-MaleUnderstanding-The-Lone-Wolf-scaled.jpg";
+		user.XP = 69;
+		user.GamesCompleted = 42;
+		user.Quarters = 2;
+		user.Dimes = 3;
+		user.Nickels = 4;
+		user.Pennies = 5;
+        Setup();
 
-	public void Setup()
+    }
+
+    public void Setup()
 	{
 		profileName.Text = user.Name;
 		profilePicture.Source = user.Picture;
