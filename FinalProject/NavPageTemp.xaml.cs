@@ -17,6 +17,11 @@ public partial class NavPageTemp : ContentPage
     }
     private async void Profile(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new Profile(new Database()));
+        await Navigation.PushAsync(new Profile());
+    }
+
+    private async void Shop(object sender, EventArgs args)
+    {
+        await Navigation.PushAsync(new Shop());
     }
 }

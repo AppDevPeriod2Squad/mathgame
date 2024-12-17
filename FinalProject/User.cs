@@ -1,4 +1,5 @@
 ﻿using SQLite;
+using SQLiteNetExtensions.Attributes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -69,7 +70,6 @@ namespace FinalProject
 
         private List<Background> backgrounds;
         private List<string> images { get; set; }
-        public int GamesCompleted = 0;
         private int xp;
         public int XP
         {
@@ -77,6 +77,18 @@ namespace FinalProject
             set
             {
                 if (xp != value) { xp = value; OnPropertyChanged("XP"); }
+            }
+
+
+        }
+
+        private int gamesCompleted;
+        public int GamesCompleted
+        {
+            get { return gamesCompleted; }
+            set
+            {
+                if (gamesCompleted != value) { gamesCompleted = value; OnPropertyChanged("GamesCompleted"); }
             }
 
 

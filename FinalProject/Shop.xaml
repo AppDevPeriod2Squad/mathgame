@@ -14,7 +14,7 @@
             <Grid Padding="0, 20, 0, 0" ColumnSpacing="10" RowSpacing="10"
 RowDefinitions="50, 50"
  ColumnDefinitions="50, 50, 50, 50" HorizontalOptions="Center">
-                <Image Grid.Column="0" Grid.Row="0" Source="https://kids.usmint.gov/wordpress/wp-content/uploads/2018/05/2018_quarter_o_300x300.png"/>
+                <Image Grid.Column="0" Grid.Row="0" Source="https://libertycoinandcurrency.com/wp-content/uploads/2015/05/bigstock-American-one-quarter-coin-50024975.png"/>
                 <Button Grid.Column="0" Grid.Row="1" Text="0" Clicked="QuarterAdd" x:Name="quarter"/>
 
                 <Image Grid.Column="1" Grid.Row="0" Source="https://www.blanchardgold.com/wp-content/uploads/2023/10/121045_o.png"/>
