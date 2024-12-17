@@ -69,10 +69,8 @@ namespace FinalProject
         }
 
         private List<Background> backgrounds;
-
-        [TextBlob("StringsBlobbed")]
         private List<string> images { get; set; }
-
+        public int GamesCompleted = 0;
         private int xp;
         public int XP
         {
