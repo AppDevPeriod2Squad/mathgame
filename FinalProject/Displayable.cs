@@ -123,6 +123,7 @@ namespace FinalProject
                     
 
                 };
+                stackLayout.Children.Add(label);
             }
             
             // checks if wants to actually add the Layout to parent layout 
@@ -133,15 +134,10 @@ namespace FinalProject
                 AbsoluteLayout.SetLayoutBounds(stackLayout, bounds);
                 AbsoluteLayout.SetLayoutFlags(stackLayout, args.AbsoluteLayoutFlags);
                 absoluteLayout.Children.Add(stackLayout);
-                //AbsoluteLayout.SetLayoutBounds(label, bounds);
-                ////AbsoluteLayout.SetLayoutFlags(label, args.AbsoluteLayoutFlags);
-                ////absoluteLayout.Children.Add(label);
                 AbsLayout = absoluteLayout;
             }
             else
             {
-                
-                stackLayout.Children.Add(label);
                 parentLayout.Children.Add(stackLayout);
             }
             MauiSource = stackLayout; // update Displayable field to reflect stackLayout code
