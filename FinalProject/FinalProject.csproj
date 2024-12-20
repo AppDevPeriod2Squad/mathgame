@@ -58,12 +58,14 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\Fonts\AcademyFilled3D.ttf" />
+	  <None Remove="Resources\Images\background.png" />
 	  <None Remove="Resources\Images\dice_1.png" />
 	  <None Remove="Resources\Images\dice_2.png" />
 	  <None Remove="Resources\Images\dice_3.png" />
 	  <None Remove="Resources\Images\dice_4.png" />
 	  <None Remove="Resources\Images\dice_5.png" />
 	  <None Remove="Resources\Images\dice_6.png" />
+	  <None Remove="Resources\Images\dino.png" />
 	  <None Remove="Resources\Images\dino_happy.png" />
 	  <None Remove="Resources\Images\dino_sad.png" />
 	  <None Remove="Resources\Images\food.png" />

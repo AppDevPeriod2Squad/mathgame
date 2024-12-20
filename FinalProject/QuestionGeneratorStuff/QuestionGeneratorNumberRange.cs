@@ -65,7 +65,7 @@ namespace FinalProject.QuestionGeneratorStuff
                     {
                         return Max; // maybe temp??
                     }
-                    return random.Next((int)DoNotIncludeNumber, (int)Max+1);
+                    return random.Next((int)DoNotIncludeNumber+1, (int)Max+1);
                 }
             }
         }

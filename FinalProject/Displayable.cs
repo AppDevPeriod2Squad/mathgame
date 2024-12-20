@@ -41,8 +41,6 @@ namespace FinalProject
                 Spacing = args.Spacing,
                 Orientation = args.StackLayoutOrientation
             };
-            stackLayout.BackgroundColor = Color.FromRgb(0, 100, 100);
-
             // checks if parentlayout is absolutelayout, and if it is will assign new variable "absoluteLayout" to parentlayout
             if (parentLayout is AbsoluteLayout absoluteLayout && !string.IsNullOrWhiteSpace(args.AbsoluteLayoutBounds))
             {
