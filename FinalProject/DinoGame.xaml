@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="FinalProject.DinoGame"
-             Title="DinoGame">
-    <HorizontalStackLayout HorizontalOptions="Center">
-        <AbsoluteLayout x:Name="mainLayout">
+<local:GamePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:local="clr-namespace:FinalProject"
+                x:Class="FinalProject.DinoGame"
+                Title="DinoGame"
+                NavigationPage.HasNavigationBar="False">
+    <AbsoluteLayout x:Name="mainLayout">
+        <Image Source="dinogamebackground.jpg"
+               Aspect="AspectFill"
+               AbsoluteLayout.LayoutBounds="0,0,1,1"
+               AbsoluteLayout.LayoutFlags="All" />
 
-        </AbsoluteLayout>
-    </HorizontalStackLayout>
-</ContentPage>
+        <Image x:Name="DinoImage"
+               Source="feedinogame.png"
+               WidthRequest="100"
+               HeightRequest="100"
+               AbsoluteLayout.LayoutBounds="0.5,0.5,100,100"
+               AbsoluteLayout.LayoutFlags="PositionProportional"
+               Scale="1.5"/>
+    </AbsoluteLayout>
+</local:GamePage>
