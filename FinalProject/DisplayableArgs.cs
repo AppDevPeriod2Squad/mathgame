@@ -29,7 +29,7 @@ namespace FinalProject
            StackOrientation stackLayoutOrientation = StackOrientation.Vertical,
            LayoutOptions? horizontalOptions = null,
            LayoutOptions? verticalOptions = null,
-           int textFontSize = 18,
+           int textFontSize = 30,
            string? absoluteLayoutBounds = null,
            AbsoluteLayoutFlags absoluteLayoutFlags = AbsoluteLayoutFlags.None,
            ViewType viewType = ViewType.Image, // image by default

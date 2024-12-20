@@ -25,32 +25,23 @@ namespace FinalProject.QuestionGeneratorStuff
         public QuestionGenerator(EventHandler? questionClickedHandler, int numOfAnswers = 4, List<ImageType>? potentialAnswerTypes = null, QuestionSuperType superType = QuestionSuperType.None, QuestionSubType subType = QuestionSubType.None)
         {
             handler = questionClickedHandler;
-
+            this.potentialTypes = potentialAnswerTypes;
         }
-        private double GetSumMax()
+        private double GetSumExcludedNum()
         {
             double max = CorrectAnswer.EvaluateEquation();
             double currentTotal = currentGeneratingGroup.EvaluateEquation();
             max -= currentTotal;
-            max--;
-           if (max < 1)
+            if (max < 1)
             {
-                max = 2; // TEMP
+                max = 1;
             }
             return max;
         }
-        private double GetSumMin(int genCount)
-        {
-            if (genCount+1 == numOfNumbersInAnswers)
-            {
-                return GetSumMax();
-            }
-            return 1;
-        }
-        public QuestionAndAnswers Generate(QuestionSuperType superType, QuestionSubType subType=QuestionSubType.None,List<ImageType> potentialTypes = null, List<SymbolType> possibleSymbolTypes = null)
+
+        public QuestionAndAnswers Generate(QuestionSuperType superType, QuestionSubType subType=QuestionSubType.None, List<SymbolType> possibleSymbolTypes = null)
         {
             Answers = new List<Displayable>();
-            this.potentialTypes = potentialTypes;
             int numOfNumbersInQuestion = 0;
             numOfNumbersInAnswers = 0;
             numOfAnswers = 0;
@@ -80,7 +71,7 @@ namespace FinalProject.QuestionGeneratorStuff
                 case QuestionSuperType.Addition:
                     numOfNumbersInQuestion = 1;
                     numOfNumbersInAnswers = 2;
-                    potentialAnswerRange = new Range(1, 6, changingMax: changingMax => (GetSumMax()-1));
+                    potentialAnswerRange = new Range(1, 6,changingDoNotIncludeNum:changingDoNotIncludeNum=> GetSumExcludedNum());
                     correctAnswerRange = new Range(1, 6);
                     promptString = "What adds up to {replace}?";
                     numOfAnswers = 4;
@@ -97,7 +88,6 @@ namespace FinalProject.QuestionGeneratorStuff
             {
                 Answers.Add(GenQuestionList(potentialAnswerRange));
             }
-            ImageType t = potentialTypes[rand.Next(potentialTypes.Count - 1)];
             Answers[rand.Next(0,Answers.Count)] = CorrectAnswer;
             promptString = EditPromptString(promptString);
             QuestionPrompt = new Prompt(promptString);
@@ -107,11 +97,13 @@ namespace FinalProject.QuestionGeneratorStuff
         {
             currentGeneratingGroup = new GroupOfDisplayables(new List<Displayable>());
             for (int i = 0; i < numOfNumbersInAnswers; i++)
-            {
-                int lowerBound = (int)range.Min;
-                int upperBound = (int)range.Max;
-                int generatedNum = rand.Next(lowerBound, upperBound + 1);
-                ImageType type = potentialTypes[rand.Next(potentialTypes.Count - 1)];
+                {
+                //    int lowerBound = (int)range.Min;
+                //    int upperBound = (int)range.Max;
+                //    int generatedNum = rand.Next(lowerBound, upperBound + 1);
+                int generatedNum = (int)range.GenerateRandom();
+                ImageType type = potentialTypes[rand.Next(potentialTypes.Count)];
+
                 currentGeneratingGroup.DisplayableGroup.Add(new Number(val: generatedNum, imageType: type));
                 if (i != numOfNumbersInAnswers - 1)
                 {

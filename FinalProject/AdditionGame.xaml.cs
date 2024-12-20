@@ -15,15 +15,15 @@ public partial class AdditionGame : ContentPage
 	}
     public void QuestionSetup()
     {
-        generator = new QuestionGenerator(new EventHandler((sender, e) => QuestionClicked(sender, e)));
+        generator = new QuestionGenerator(new EventHandler((sender, e) => QuestionClicked(sender, e)), potentialAnswerTypes: new List<ImageType>() { ImageType.Dice });
         // probably move this stuff into generator constructor
-        question = generator.Generate(QuestionSuperType.Addition, potentialTypes: new List<ImageType>() { ImageType.Dice });
-        question.Display(mainLayout, new DisplayableArgs(absoluteLayoutBounds: "0,0,700,500"));
+        question = generator.Generate(QuestionSuperType.Addition);
+        question.Display(mainLayout, new DisplayableArgs(absoluteLayoutBounds: "0,0,1000,1000"));
     }
     public void QuestionClicked(object sender, EventArgs e)
     {
-        question = generator.Generate(QuestionSuperType.Addition, potentialTypes: new List<ImageType>() { ImageType.Dice });
-        question.Display(mainLayout, new DisplayableArgs(absoluteLayoutBounds: "0,0,700,500"));
+        question = generator.Generate(QuestionSuperType.Addition);
+        question.Display(mainLayout, new DisplayableArgs(absoluteLayoutBounds: "0,0,1000,1000"));
         if (e is QuestionEventArgs args)
         {
             if (args.WasCorrect)

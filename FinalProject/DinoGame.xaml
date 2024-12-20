@@ -4,7 +4,7 @@
              x:Class="FinalProject.DinoGame"
              Title="DinoGame">
     <HorizontalStackLayout HorizontalOptions="Center">
-        <AbsoluteLayout x:Name="mainLayout">
+        <AbsoluteLayout x:Name="mainLayout" WidthRequest="600" HeightRequest="600">
 
         </AbsoluteLayout>
     </HorizontalStackLayout>

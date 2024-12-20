@@ -30,14 +30,6 @@ namespace FinalProject
             }
             args.Spacing = 0;
             args.Padding = 0;
-
-            if (args.AbsoluteLayoutBounds != null)
-            {
-                Rect bounds = ParseBounds(args.AbsoluteLayoutBounds);
-                args.ImageHeight = bounds.Height;
-                args.ImageWidth = bounds.Width - 2*args.Padding - 2*args.Spacing;
-            }
-            // assign value ONLY if already null, used to correctly implement default parameter
             args.HorizontalOptions ??= LayoutOptions.Center;
             args.VerticalOptions ??= LayoutOptions.Center;
 
@@ -50,6 +42,24 @@ namespace FinalProject
                 Orientation = args.StackLayoutOrientation
             };
             stackLayout.BackgroundColor = Color.FromRgb(0, 100, 100);
+
+            // checks if parentlayout is absolutelayout, and if it is will assign new variable "absoluteLayout" to parentlayout
+            if (parentLayout is AbsoluteLayout absoluteLayout && !string.IsNullOrWhiteSpace(args.AbsoluteLayoutBounds))
+            {
+                var bounds = ParseBounds(args.AbsoluteLayoutBounds);
+                AbsoluteLayout.SetLayoutBounds(stackLayout, bounds);
+                AbsoluteLayout.SetLayoutFlags(absoluteLayout, args.AbsoluteLayoutFlags);
+                absoluteLayout.Children.Add(stackLayout);
+                AbsLayout = absoluteLayout;
+                args.ImageHeight = bounds.Height;
+                args.ImageWidth = bounds.Width - 2 * args.Padding - 2 * args.Spacing;
+            }
+            else
+            {
+                parentLayout.Children.Add(stackLayout);
+            }
+
+
 
 
 
@@ -69,6 +79,7 @@ namespace FinalProject
                             WidthRequest = args.ImageWidth,
                             HorizontalOptions = args.HorizontalOptions.Value,
                             VerticalOptions = args.VerticalOptions.Value
+                            
                         };
                         stackLayout.Children.Add(image);
                         break;
@@ -81,9 +92,30 @@ namespace FinalProject
                             VerticalOptions = args.VerticalOptions.Value,
                             Source=ImageSource,
                             Aspect=Aspect.AspectFit,   
+                            
+                        };
+                        var textButton = new Button
+                        {
+                            HeightRequest = args.ImageHeight,
+                            WidthRequest = args.ImageWidth,
+                            HorizontalOptions = args.HorizontalOptions.Value,
+                            VerticalOptions = args.VerticalOptions.Value,
+                            Text = args.Text,
+                            FontSize = args.TextFontSize,
+                            TextColor = Colors.Black,
+                            FontAttributes = FontAttributes.Bold,
+                            BorderWidth = 10, // prob make these all options in the future to be passed in along with args
+                            BackgroundColor = Color.FromRgba(0, 0, 0, 0),
+                            FontFamily = "Academy"
+                            
+
                         };
                         button.Clicked += args.ClickedEventHandler;
-                        stackLayout.Children.Add(button);
+                        textButton.Clicked += args.ClickedEventHandler;
+                        AbsoluteLayout stackOfButtons = new AbsoluteLayout();
+                        stackOfButtons.Add(button);
+                        stackOfButtons.Add(textButton);
+                        stackLayout.Children.Add(stackOfButtons);
                         break;
                     case ViewType.None:
                         break;
@@ -91,31 +123,22 @@ namespace FinalProject
                 
             }
             // add a Label control if the Text is not null or empty
+            Label label = new Label(); 
             if (!string.IsNullOrWhiteSpace(args.Text))
             {
-                stackLayout.Children.Add(new Label
+                label = new Label
                 {
                     Text = args.Text,
                     HorizontalOptions = LayoutOptions.Center,
                     VerticalOptions = LayoutOptions.Center,
-                    FontSize = args.TextFontSize
-                });
+                    FontSize = args.TextFontSize,
+                    
+
+                };
+                stackLayout.Children.Add(label);
             }
             
             // checks if wants to actually add the Layout to parent layout 
-            // checks if parentlayout is absolutelayout, and if it is will assign new variable "absoluteLayout" to parentlayout
-            if (parentLayout is AbsoluteLayout absoluteLayout && !string.IsNullOrWhiteSpace(args.AbsoluteLayoutBounds))
-            {
-                var bounds = ParseBounds(args.AbsoluteLayoutBounds);
-                AbsoluteLayout.SetLayoutBounds(stackLayout, bounds);
-                AbsoluteLayout.SetLayoutFlags(stackLayout, args.AbsoluteLayoutFlags);
-                absoluteLayout.Children.Add(stackLayout);
-                AbsLayout = absoluteLayout;
-            }
-            else
-            {
-                parentLayout.Children.Add(stackLayout);
-            }
             MauiSource = stackLayout; // update Displayable field to reflect stackLayout code
             Args = args;
         }
