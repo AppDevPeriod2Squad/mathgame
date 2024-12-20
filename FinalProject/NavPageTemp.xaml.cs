@@ -1,3 +1,5 @@
+using Vision;
+
 namespace FinalProject;
 
 public partial class NavPageTemp : ContentPage
@@ -25,5 +27,9 @@ public partial class NavPageTemp : ContentPage
     private async void Shop(object sender, EventArgs args)
     {
         await Navigation.PushAsync(new Shop(database));
+    }
+    private async void DinoGame(object sender, EventArgs args)
+    {
+        await Navigation.PushAsync(new DinoGame());
     }
 }
