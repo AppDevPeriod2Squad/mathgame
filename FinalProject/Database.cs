@@ -27,7 +27,26 @@ namespace FinalProject
         {
             await Init();
             List<User> result = await database.Table<User>().ToListAsync();
-            return result[0];
+            if (result.Count == 0)
+            {
+                User a = new User();
+                a.Name = "Student";
+                a.Background = "#FFFFFF";
+                a.Quarters = 5;
+                a.Dimes = 5;
+                a.Nickels = 5;
+                a.Pennies = 5;
+                a.Picture = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRw8NrJIS7Q1lqexVCY0TAuA7Nhm5dFNllCw&s";
+                a.backgrounds = new List<string>();
+                a.images = new List<string>();
+                a.ChangeNeeded = 69;
+                await database.InsertAsync(a);
+                return a;
+            } else
+            {
+                return result[0];
+            }
+            
         }
 
         

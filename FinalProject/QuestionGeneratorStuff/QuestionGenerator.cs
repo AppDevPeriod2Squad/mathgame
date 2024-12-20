@@ -27,26 +27,18 @@ namespace FinalProject.QuestionGeneratorStuff
             handler = questionClickedHandler;
             this.potentialTypes = potentialAnswerTypes;
         }
-        private double GetSumMax()
+        private double GetSumExcludedNum()
         {
             double max = CorrectAnswer.EvaluateEquation();
             double currentTotal = currentGeneratingGroup.EvaluateEquation();
             max -= currentTotal;
-            max--;
-           if (max < 1)
+            if (max < 1)
             {
-                max = 2; // TEMP
+                max = 1;
             }
             return max;
         }
-        private double GetSumMin(int genCount)
-        {
-            if (genCount+1 == numOfNumbersInAnswers)
-            {
-                return GetSumMax();
-            }
-            return 1;
-        }
+
         public QuestionAndAnswers Generate(QuestionSuperType superType, QuestionSubType subType=QuestionSubType.None, List<SymbolType> possibleSymbolTypes = null)
         {
             Answers = new List<Displayable>();
@@ -79,7 +71,7 @@ namespace FinalProject.QuestionGeneratorStuff
                 case QuestionSuperType.Addition:
                     numOfNumbersInQuestion = 1;
                     numOfNumbersInAnswers = 2;
-                    potentialAnswerRange = new Range(1, 6, changingMax: changingMax => (GetSumMax()-1));
+                    potentialAnswerRange = new Range(1, 6,changingDoNotIncludeNum:changingDoNotIncludeNum=> GetSumExcludedNum());
                     correctAnswerRange = new Range(1, 6);
                     promptString = "What adds up to {replace}?";
                     numOfAnswers = 4;
@@ -105,10 +97,11 @@ namespace FinalProject.QuestionGeneratorStuff
         {
             currentGeneratingGroup = new GroupOfDisplayables(new List<Displayable>());
             for (int i = 0; i < numOfNumbersInAnswers; i++)
-            {
-                int lowerBound = (int)range.Min;
-                int upperBound = (int)range.Max;
-                int generatedNum = rand.Next(lowerBound, upperBound + 1);
+                {
+                //    int lowerBound = (int)range.Min;
+                //    int upperBound = (int)range.Max;
+                //    int generatedNum = rand.Next(lowerBound, upperBound + 1);
+                int generatedNum = (int)range.GenerateRandom();
                 ImageType type = potentialTypes[rand.Next(potentialTypes.Count)];
 
                 currentGeneratingGroup.DisplayableGroup.Add(new Number(val: generatedNum, imageType: type));
