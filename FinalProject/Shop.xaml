@@ -8,7 +8,7 @@
             <ImageButton Source="https://static.vecteezy.com/system/resources/thumbnails/011/016/159/small/realistic-3d-gift-box-cutout-free-png.png" WidthRequest="256" HeightRequest="256"/>
             <HorizontalStackLayout HorizontalOptions="Center">
                 <Label Text="Cost: 0 cents" FontSize="30" x:Name="PayAmount"/>
-                <Button VerticalOptions="Center" Margin="10,0,0,0" Text="Pay!" x:Name="Pay" IsEnabled="False"/>
+                <Button Clicked="Buy" VerticalOptions="Center" Margin="10,0,0,0" Text="Pay!" x:Name="Pay" IsEnabled="False"/>
 
             </HorizontalStackLayout>
             <Grid Padding="0, 20, 0, 0" ColumnSpacing="10" RowSpacing="10"

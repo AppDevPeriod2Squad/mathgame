@@ -2,9 +2,11 @@ namespace FinalProject;
 
 public partial class NavPageTemp : ContentPage
 {
-	public NavPageTemp()
+    Database database;
+	public NavPageTemp(Database db)
 	{
 		InitializeComponent();
+        database = db;
 	}
 
     private async void Addition(object sender, EventArgs e)
@@ -22,6 +24,6 @@ public partial class NavPageTemp : ContentPage
 
     private async void Shop(object sender, EventArgs args)
     {
-        await Navigation.PushAsync(new Shop());
+        await Navigation.PushAsync(new Shop(database));
     }
 }
