@@ -99,6 +99,7 @@ public partial class Shop : ContentPage
         pennies = 0;
         PayAmount.Text = $"Cost: {needed} cents";
         UpdateButtons();
+        await Navigation.PushAsync(new BuyAnimation(db), false);
     }
 
 }
