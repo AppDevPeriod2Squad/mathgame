@@ -67,13 +67,19 @@ namespace FinalProject
             get { return pennies; }
             set { if (pennies != value) { pennies = value; OnPropertyChanged("Pennies"); } }
         }
-        [TextBlob("backgroundsBlobbed")]
-        public List<string> backgrounds { get; set; }
-        public string backsgroundsBlobbed { get; set; }
+        private string images;
+        public string Images
+        {
+            get { return images; }
+            set { if (images != value) { images = value; OnPropertyChanged("Background"); } }
+        }
 
-        [TextBlob("imagesBlobbed")]
-        public List<string> images { get; set; }
-        public string imagesBlobbed { get; set; }  
+        private string backgrounds;
+        public string Backgrounds
+        {
+            get { return backgrounds; }
+            set { if (backgrounds != value) {backgrounds = value; OnPropertyChanged("Backgrounds"); } }
+        }
 
         private int xp;
         public int XP

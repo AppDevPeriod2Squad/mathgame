@@ -26,11 +26,6 @@ RowDefinitions="50, 50"
                 <Image Grid.Column="3" Grid.Row="0" Source="https://png.pngtree.com/png-clipart/20231011/original/pngtree-penny-isolated-clipping-path-dollar-united-picture-image_13112728.png"/>
                 <Button Grid.Column="3" Grid.Row="1" Text="0" Clicked="PennyAdd" x:Name="penny"/>
             </Grid>
-            <HorizontalStackLayout HorizontalOptions="Center">
-                <Image WidthRequest="64" HeightRequest="64" Source="https://icons.veryicon.com/png/o/miscellaneous/small-face-icon/left-arrow-28.png"/>
-                <Image WidthRequest="64" HeightRequest="64" Source="https://cdn-icons-png.flaticon.com/512/3236/3236907.png"/>
-
-            </HorizontalStackLayout>
         </VerticalStackLayout>
     </FlexLayout>
 </ContentPage>

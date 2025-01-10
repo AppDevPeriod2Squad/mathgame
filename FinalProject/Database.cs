@@ -37,13 +37,14 @@ namespace FinalProject
                 a.Nickels = 5;
                 a.Pennies = 5;
                 a.Picture = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRw8NrJIS7Q1lqexVCY0TAuA7Nhm5dFNllCw&s";
-                a.backgrounds = new List<string>();
-                a.images = new List<string>();
-                a.ChangeNeeded = 69;
+                a.Backgrounds = "";
+                a.Images = "";
+                a.ChangeNeeded = 0;
                 await database.InsertAsync(a);
                 return a;
             } else
             {
+                await DeleteUserAsync(result[0]);
                 return result[0];
             }
             
