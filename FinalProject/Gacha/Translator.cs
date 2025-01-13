@@ -69,7 +69,6 @@
 
         public static string[] backgroundLinks =
         {
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrqWye9QQsGY7LMrg0eyr6r9iz0CM1Khurrw&s",
             "https://media.istockphoto.com/id/1301713824/vector/beautiful-landscape-with-castle.jpg?s=612x612&w=0&k=20&c=X-GZmuDV_lf2Eg7VnKO3AEhdeFf-Gx44V7fsK_ONVHU=",
             "https://media.istockphoto.com/id/1901700555/vector/cartoon-volcano-prehistoric-landscape-background.jpg?s=612x612&w=0&k=20&c=Yu0TDU5FEG4jRQ9bW-Y_QaCpz6JufWnlWhuoUirn4uI=",
             "https://media.istockphoto.com/id/1310845219/vector/dojo-room-japanese-style-interior-for-meditation.jpg?s=612x612&w=0&k=20&c=y2l_kGUwZ-w4ZZzNsohcDBy5IYIf96WKe4X6IaxCwLM=",
