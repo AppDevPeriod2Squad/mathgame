@@ -106,12 +106,15 @@ public partial class Shop : ContentPage
         {
             user.Images = $"{user.Images}{(user.Images.Length == 0 ? "" : " ")}{item[1]}";
             BuyAnimate.imageLink = Translator.pfpLinks[item[1]];
+            BuyAnimate.rarity = Translator.pfpRarities[item[1]];
 
         }
         else
         {
             user.Backgrounds = $"{user.Background}{(user.Backgrounds.Length == 0 ? "" : "")}{item[1]}";
             BuyAnimate.imageLink = Translator.backgroundLinks[item[1]];
+            BuyAnimate.rarity = Translator.backgroundRarities[item[1]];
+
 
         }
         await db.UpdateExistingUserAsync(user);

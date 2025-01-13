@@ -3,12 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FinalProject.BuyAnimation"
              xmlns:drawables="clr-namespace:FinalProject.Drawables"
+             NavigationPage.HasNavigationBar="False"             
              Title="BuyAnimation">
     <ContentPage.Resources>
         <drawables:BuyAnimate x:Key="animationDrawable"/>
     </ContentPage.Resources>
 
     <GraphicsView Drawable="{StaticResource animationDrawable}"
-                  x:Name="AnimationGraphicsView">
+                  x:Name="AnimationGraphicsView" StartInteraction="Close">
     </GraphicsView>
 </ContentPage>

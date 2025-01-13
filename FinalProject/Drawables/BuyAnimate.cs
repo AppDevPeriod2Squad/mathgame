@@ -14,6 +14,7 @@ namespace FinalProject.Drawables
         long start = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
         public static string imageLink = "https://i.ytimg.com/vi/SqtaV1NFFEQ/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAUtLwIBPy4fjjXYdz2WwuoSiHOIA";
         Microsoft.Maui.Graphics.IImage image;
+        public static int rarity;
         float armsInTime = 2f;
         float outTime = 1f;
         bool firstTick = true;
@@ -45,18 +46,38 @@ namespace FinalProject.Drawables
                     {
                         float dist = circSize * max + ((float)j) / dotsPerBranch * (max * (1-circSize)) * (armsInTime - t);
                         float ang = ((float)i) / branches * 360 + ((float)j) / dotsPerBranch * 360.0f / branches + t / armsInTime * 360;
-                        canvas.FillColor = Color.FromRgb(1, 0.773f * (1-(dist/max-centerSize)*(1/(1-centerSize))), (float)(i * dotsPerBranch + j)/(branches * dotsPerBranch));
+                        canvas.FillColor = Color.FromRgb(0.6f + 0.4f * (1 - (dist / max - centerSize) * (1 / (1 - centerSize))), 
+                            0f + 0.5f * (1-(dist/max-centerSize)*(1/(1-centerSize)) + 0.5f * ((float)(i * dotsPerBranch + j) / (branches * dotsPerBranch))), 
+                            0.3f + 0.4f * (1 - (dist / max - centerSize) * (1 / (1 - centerSize))) + 0.3f * ((float)(i * dotsPerBranch + j)/(branches * dotsPerBranch)));
                         canvas.FillCircle((float)(dirtyRect.Width / 2 + dist * Math.Cos(ang * Math.PI / 180.0f)), 
                             dirtyRect.Height / 2 + dist * (float)Math.Sin(ang * Math.PI / 180.0f), 
                             60 * (dist-circSize*max)/((1-circSize)*max));
                     }
                 }
-                canvas.FillColor = Color.FromRgb(1, 0.773f, 0);
+                canvas.FillColor = Color.FromRgb(1.0f, 1.0f, 1.0f);
                 canvas.FillCircle((float)dirtyRect.Width / 2, (float)dirtyRect.Height / 2, circSize * max);
             }
             else
             {
-                canvas.FillColor = Color.FromRgb(1, 0.773f, 0);
+                float tN = Math.Min(1f, t-armsInTime);
+                if (rarity == 2)
+                {
+                    canvas.FillColor = Color.FromRgb(1 - 0.5f * tN, 1 - 0.5f * tN, 1 - 0.5f * tN);
+                } else if (rarity == 3)
+                {
+                    canvas.FillColor = Color.FromRgb(1 - tN, 1 - (255-176.0f)/255.0f * tN, 1 - (255 - 240.0f) / 255.0f * tN);
+
+                }
+                else if (rarity == 4)
+                {
+                    float[] a = { 1 - (255 - 112.0f) / 255.0f * tN, 1 - (255 - 148.0f) / 255.0f * tN, 1 - (255 - 160.0f) / 255.0f * tN };
+                    canvas.FillColor = Color.FromRgb(1 - (255 - 112.0f) / 255.0f * tN, 1 - (255 - 48.0f) / 255.0f * tN, 1 - (255 - 160.0f) / 255.0f * tN);
+                }
+                else if (rarity == 5)
+                {
+                    canvas.FillColor = Color.FromRgb(1 - (255 - 255.0f) / 255.0f * tN, 1 - (255 - 192.0f) / 255.0f * tN, 1 - (255 - 0.0f) / 255.0f * tN);
+
+                }
                 canvas.FillCircle((float)dirtyRect.Width / 2, (float)dirtyRect.Height / 2, (float)(max * centerSize * (1+Math.Pow(((t-armsInTime)/outTime), 10))));
                 if ((float)(max * centerSize * (1 + Math.Pow(((t - armsInTime) / outTime), 10))) > Math.Max((int)dirtyRect.Width / 2, (int)dirtyRect.Height / 2))
                 {
@@ -68,7 +89,13 @@ namespace FinalProject.Drawables
                     if (image != null) {
                         canvas.DrawImage(image, (float)dirtyRect.Width / 2-size/2, (float)dirtyRect.Height / 2-size/2, size, size);
                     }
+
+                    if (size == 400)
+                    {
+                        canvas.DrawString("Tap anywhere to exit", (float)dirtyRect.Width / 2, 10, HorizontalAlignment.Center);
+                    }
                 }
+                
             }
             
 

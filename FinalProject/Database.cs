@@ -39,7 +39,7 @@ namespace FinalProject
                 a.Picture = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRw8NrJIS7Q1lqexVCY0TAuA7Nhm5dFNllCw&s";
                 a.Backgrounds = "";
                 a.Images = "";
-                a.ChangeNeeded = 0;
+                a.ChangeNeeded = 1;
                 await database.InsertAsync(a);
                 return a;
             } else

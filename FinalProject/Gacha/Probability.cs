@@ -13,15 +13,15 @@ namespace FinalProject.Gacha
         {
             int rand = new Random().Next(10);
             int find = 5;
-            if (rand >= 0 || rand < 4)
+            if (rand >= 0 && rand < 4)
             {
                 find = 2;
             }
-            if (rand >= 4 || rand < 7)
+            if (rand >= 4 && rand < 7)
             {
                 find = 3;
             }
-            if (rand >= 7 || rand < 9)
+            if (rand >= 7 && rand < 9)
             {
                 find = 4;
             }
