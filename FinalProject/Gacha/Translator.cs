@@ -79,7 +79,6 @@
 
         public static int[] backgroundRarities =
         {
-            2,
             4,
             4,
             3,
