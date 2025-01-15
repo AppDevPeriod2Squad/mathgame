@@ -8,16 +8,13 @@ namespace FinalProject
 {
     public partial class DinoGame : GamePage, INotifyPropertyChanged
     {
-
         private int _score;
         private double _initialX;
         private double _initialY;
         private readonly Dictionary<int, (Image Image, Rect Position)> _numberImages = new();
         private readonly SpriteManager _spriteManager = new();
-
         private User user;
         private Database db;
-
         private int Lives = 3;
 
         private const double FallDistance = 0.02;
@@ -25,7 +22,9 @@ namespace FinalProject
         private double CurrentFallSpeed = FallDistance;
         private const double SpeedIncreaseRate = 0.002;
         private const double MaxFallSpeed = 0.04;
+
         public event PropertyChangedEventHandler PropertyChanged;
+
         public int Score
         {
             get => _score;
@@ -35,11 +34,12 @@ namespace FinalProject
                 OnPropertyChanged();
             }
         }
+
         public DinoGame(Database database)
         {
             InitializeComponent();
             BindingContext = this;
-            db = database; 
+            db = database;
             InitializeGame();
         }
 
@@ -47,11 +47,9 @@ namespace FinalProject
         {
             try
             {
-                user = await db.GetUserAsync(); // Retrieve the user from the database
+                user = await db.GetUserAsync();
                 if (user == null)
-                {
                     throw new Exception("Failed to retrieve user from database.");
-                }
 
                 ConfigureDinoGesture();
                 GenerateDiceImages();
@@ -61,17 +59,19 @@ namespace FinalProject
             catch (Exception ex)
             {
                 await DisplayAlert("Error", $"Failed to initialize game: {ex.Message}", "OK");
-                Application.Current?.MainPage?.Navigation.PopToRootAsync(); // Exit game
+                Application.Current?.MainPage?.Navigation.PopToRootAsync();
             }
         }
-        private void AwardMoney()
+
+        private async void AwardMoney()
         {
             int remainingCents = Score;
             Random random = new Random();
+            int[] validCoins = { 1, 5, 10, 25 };
 
             while (remainingCents > 0)
             {
-                int coinValue = random.Next(1, 5);
+                int coinValue = validCoins[random.Next(0, validCoins.Length)];
                 int coinAmount;
 
                 switch (coinValue)
@@ -81,16 +81,19 @@ namespace FinalProject
                         user.Pennies += coinAmount;
                         remainingCents -= coinAmount;
                         break;
+
                     case 5: // Nickels
                         coinAmount = Math.Min(remainingCents / 5, 1) * 5;
                         user.Nickels += coinAmount / 5;
                         remainingCents -= coinAmount;
                         break;
+
                     case 10: // Dimes
                         coinAmount = Math.Min(remainingCents / 10, 1) * 10;
                         user.Dimes += coinAmount / 10;
                         remainingCents -= coinAmount;
                         break;
+
                     case 25: // Quarters
                         coinAmount = Math.Min(remainingCents / 25, 1) * 25;
                         user.Quarters += coinAmount / 25;
@@ -98,11 +101,16 @@ namespace FinalProject
                         break;
                 }
             }
+
+            await db.UpdateExistingUserAsync(user);
         }
+
+
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
         private void AddLivesImages()
         {
             const int heartSize = 55;
@@ -120,7 +128,6 @@ namespace FinalProject
 
                 var positionX = margin + i * (heartSize + spacing);
                 var positionY = margin;
-
                 AbsoluteLayout.SetLayoutBounds(heartImage, new Rect(positionX, positionY, heartSize, heartSize));
                 AbsoluteLayout.SetLayoutFlags(heartImage, AbsoluteLayoutFlags.None);
 
@@ -144,12 +151,10 @@ namespace FinalProject
                 case GestureStatus.Started:
                     _initialX = dino.TranslationX;
                     break;
-
                 case GestureStatus.Running:
                     UpdateDinoPosition(dino, e.TotalX);
                     CheckAndHandleCollision();
                     break;
-
                 case GestureStatus.Completed:
                     _initialX = dino.TranslationX;
                     break;
@@ -194,16 +199,15 @@ namespace FinalProject
                 {
                     Lives--;
                     UpdateLivesDisplay();
-
                     if (Lives <= 0)
                     {
                         EndGame();
                         return;
                     }
                 }
-                else if (key == largestValue) // Correct dice collided
+                else if (key == largestValue)
                 {
-                    Score++; // Increment score
+                    Score++;
                 }
 
                 foreach (var (img, _) in _numberImages.Values)
@@ -214,8 +218,7 @@ namespace FinalProject
             }
         }
 
-    
-    private void UpdateLivesDisplay()
+        private void UpdateLivesDisplay()
         {
             foreach (var child in mainLayout.Children.ToList())
             {
@@ -225,41 +228,44 @@ namespace FinalProject
 
             AddLivesImages();
         }
+
         private async void ResetGame()
         {
-            await Navigation.PushAsync(new DinoGame(db));
+            await Navigation.PushAsync(new DinoGame(db), false);
         }
-
 
         private async void EndGame()
         {
             _numberImages.Clear();
             mainLayout.Children.Clear();
 
-            AwardMoney(); // Award random money based on score
-            user.GamesCompleted++; // Increment games played
-            await db.UpdateExistingUserAsync(user); // Save updates to the database
+            AwardMoney();
+            user.GamesCompleted++;
+            await db.UpdateExistingUserAsync(user);
+
+            string updatedProfileInfo =
+                $"Your Profile:\n" +
+                $"- Games Played: {user.GamesCompleted}\n" +
+                $"- Quarters: {user.Quarters}\n" +
+                $"- Dimes: {user.Dimes}\n" +
+                $"- Nickels: {user.Nickels}\n" +
+                $"- Pennies: {user.Pennies}";
 
             Dispatcher.Dispatch(async () =>
             {
                 bool restart = await DisplayAlert(
                     "Game Over",
-                    $"You've lost all your lives! Your score: {Score}. Would you like to play again?",
+                    $"You've lost all your lives!\nYour score: {Score}\n\n{updatedProfileInfo}\n\nWould you like to play again?",
                     "Yes",
                     "No"
                 );
 
                 if (restart)
-                {
                     ResetGame();
-                }
                 else
-                {
                     Application.Current?.MainPage?.Navigation.PopToRootAsync();
-                }
             });
         }
-
 
         private void GenerateDiceImages()
         {
@@ -274,7 +280,6 @@ namespace FinalProject
                 while (val1 == val2)
                     val2 = random.Next(1, 7);
 
-                // Ensure positions are far enough apart
                 var positions = GenerateValidPositions(random, 2);
 
                 CreateDiceImage(val1, positions[0]);
@@ -284,20 +289,17 @@ namespace FinalProject
 
         private List<Rect> GenerateValidPositions(Random random, int count)
         {
-            const double minDistance = 0.2; // Minimum normalized distance
+            const double minDistance = 0.2;
             var positions = new List<Rect>();
 
             while (positions.Count < count)
             {
-                var x = random.NextDouble() * 0.8 + 0.1; // Random X, avoiding edges
-                var y = 0.01; // Starting Y position for falling blocks
+                var x = random.NextDouble() * 0.8 + 0.1;
+                var y = 0.01;
                 var newPosition = new Rect(x, y, 30, 30);
 
-                // Check distance from all existing positions
                 if (positions.All(pos => CalculateDistance(newPosition, pos) >= minDistance))
-                {
                     positions.Add(newPosition);
-                }
             }
 
             return positions;
@@ -305,12 +307,10 @@ namespace FinalProject
 
         private double CalculateDistance(Rect position1, Rect position2)
         {
-            var dx = position1.X - position2.X; // Normalized X distance
-            var dy = position1.Y - position2.Y; // Normalized Y distance
-            return Math.Sqrt(dx * dx + dy * dy); // Euclidean distance
+            var dx = position1.X - position2.X;
+            var dy = position1.Y - position2.Y;
+            return Math.Sqrt(dx * dx + dy * dy);
         }
-
-
 
         private void CreateDiceImage(int val, Rect position)
         {
@@ -342,21 +342,22 @@ namespace FinalProject
                 mainLayout.Children.Add(image);
             }
         }
+
         private void StartFallingAnimation()
         {
             Dispatcher.StartTimer(TimeSpan.FromSeconds(TimerIntervalSeconds), () =>
             {
-                if (Lives <= 0) return false; // Stop the timer if the game is over
+                if (Lives <= 0) return false;
 
                 var removedKeys = new List<int>();
-                bool lifeDeductedThisFrame = false; // Ensure only one life is deducted per frame
+                bool lifeDeductedThisFrame = false;
 
                 foreach (var key in _numberImages.Keys.ToList())
                 {
                     var (image, position) = _numberImages[key];
                     var newY = position.Y + CurrentFallSpeed;
 
-                    if (newY > 1) // Block has fallen off the screen
+                    if (newY > 1)
                     {
                         mainLayout.Children.Remove(image);
                         removedKeys.Add(key);
@@ -370,7 +371,7 @@ namespace FinalProject
                             if (Lives <= 0)
                             {
                                 EndGame();
-                                return false; // Stop the timer when the game ends
+                                return false;
                             }
                         }
                     }
@@ -392,11 +393,8 @@ namespace FinalProject
                 }
 
                 CheckAndHandleCollision();
-
-                return true; // Keep the timer running
+                return true;
             });
         }
-
-
     }
 }

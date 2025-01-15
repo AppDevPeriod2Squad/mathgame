@@ -10,5 +10,6 @@
         <Button Text="Which is Greater game" Clicked="Greater" />
         <Button Text="Profile" Clicked="Profile"/>
         <Button Text="Dino Game" Clicked="DinoGame"/>
+        <Button Text="Shop" Clicked="Shop"/>
     </VerticalStackLayout>
 </ContentPage>
