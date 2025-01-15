@@ -243,19 +243,19 @@ namespace FinalProject
             user.GamesCompleted++;
             await db.UpdateExistingUserAsync(user);
 
-            string updatedProfileInfo =
-                $"Your Profile:\n" +
-                $"- Games Played: {user.GamesCompleted}\n" +
-                $"- Quarters: {user.Quarters}\n" +
-                $"- Dimes: {user.Dimes}\n" +
-                $"- Nickels: {user.Nickels}\n" +
-                $"- Pennies: {user.Pennies}";
+            //string updatedProfileInfo =
+            //    $"Your Profile:\n" +
+            //    $"- Games Played: {user.GamesCompleted}\n" +
+            //    $"- Quarters: {user.Quarters}\n" +
+            //    $"- Dimes: {user.Dimes}\n" +
+            //    $"- Nickels: {user.Nickels}\n" +
+            //    $"- Pennies: {user.Pennies}";
 
             Dispatcher.Dispatch(async () =>
             {
                 bool restart = await DisplayAlert(
                     "Game Over",
-                    $"You've lost all your lives!\nYour score: {Score}\n\n{updatedProfileInfo}\n\nWould you like to play again?",
+                    $"You've lost all your lives!\nYour score: {Score}\n\nWould you like to play again?",
                     "Yes",
                     "No"
                 );
