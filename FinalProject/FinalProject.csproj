@@ -84,6 +84,9 @@
 	  <MauiXaml Update="AdditionGame.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="BuyAnimation.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="DinoGame.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

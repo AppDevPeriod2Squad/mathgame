@@ -5,8 +5,8 @@
         public App()
         {
             InitializeComponent();
-            
-            MainPage = new NavigationPage(new NavPageTemp());
+            Database db = new Database();
+            MainPage = new NavigationPage(new Shop(db));
         }
     }
 }

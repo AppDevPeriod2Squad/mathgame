@@ -5,13 +5,11 @@
              Title="Shop">
     <FlexLayout Direction="Column" AlignItems="Center" BackgroundColor="#127ac7" JustifyContent="Center">
         <VerticalStackLayout>
-            <ImageButton Source="https://static.vecteezy.com/system/resources/thumbnails/011/016/159/small/realistic-3d-gift-box-cutout-free-png.png" WidthRequest="256" HeightRequest="256"/>
+            <ImageButton Clicked="Buy" Source="https://static.vecteezy.com/system/resources/thumbnails/011/016/159/small/realistic-3d-gift-box-cutout-free-png.png" x:Name="Pay" WidthRequest="256" HeightRequest="256" IsEnabled="False"/>
             <HorizontalStackLayout HorizontalOptions="Center">
                 <Label Text="Cost: 0 cents" FontSize="30" x:Name="PayAmount"/>
-                <Button Clicked="Buy" VerticalOptions="Center" Margin="10,0,0,0" Text="Pay!" x:Name="Pay" IsEnabled="False"/>
-
             </HorizontalStackLayout>
-            <Grid Padding="0, 20, 0, 0" ColumnSpacing="10" RowSpacing="10"
+            <Grid Padding="0, 0, 0, 0" ColumnSpacing="10" RowSpacing="10"
 RowDefinitions="50, 50"
  ColumnDefinitions="50, 50, 50, 50" HorizontalOptions="Center">
                 <Image Grid.Column="0" Grid.Row="0" Source="https://libertycoinandcurrency.com/wp-content/uploads/2015/05/bigstock-American-one-quarter-coin-50024975.png"/>
@@ -26,11 +24,6 @@ RowDefinitions="50, 50"
                 <Image Grid.Column="3" Grid.Row="0" Source="https://png.pngtree.com/png-clipart/20231011/original/pngtree-penny-isolated-clipping-path-dollar-united-picture-image_13112728.png"/>
                 <Button Grid.Column="3" Grid.Row="1" Text="0" Clicked="PennyAdd" x:Name="penny"/>
             </Grid>
-            <HorizontalStackLayout HorizontalOptions="Center">
-                <Image WidthRequest="64" HeightRequest="64" Source="https://icons.veryicon.com/png/o/miscellaneous/small-face-icon/left-arrow-28.png"/>
-                <Image WidthRequest="64" HeightRequest="64" Source="https://cdn-icons-png.flaticon.com/512/3236/3236907.png"/>
-
-            </HorizontalStackLayout>
         </VerticalStackLayout>
     </FlexLayout>
 </ContentPage>

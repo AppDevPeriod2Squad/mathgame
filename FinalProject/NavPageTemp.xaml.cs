@@ -1,4 +1,4 @@
-using System.Threading.Tasks.Dataflow;
+using Vision;
 
 namespace FinalProject;
 
@@ -23,10 +23,10 @@ public partial class NavPageTemp : ContentPage
         await Navigation.PushAsync(new Profile());
     }
 
-    //private async void Shop(object sender, EventArgs args)
-    //{
-    //    await Navigation.PushAsync(new Shop(database));
-    //}
+    private async void Shop(object sender, EventArgs args)
+    {
+        await Navigation.PushAsync(new Shop(database));
+    }
     private async void DinoGame(object sender, EventArgs args)
     {
         await Navigation.PushAsync(new DinoGame(database));
