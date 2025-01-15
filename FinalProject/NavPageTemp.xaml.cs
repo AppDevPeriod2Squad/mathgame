@@ -1,5 +1,3 @@
-using Vision;
-
 namespace FinalProject;
 
 public partial class NavPageTemp : ContentPage
