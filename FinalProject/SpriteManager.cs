@@ -8,6 +8,8 @@ namespace FinalProject
 {
     internal class SpriteManager
     {
+        public const int NumberOfImageTypes = 1; // available image types with all image assets
+
         public ImageSource GetTenFramesImage(int value)
         {
             string filename = $"{value}.png";
