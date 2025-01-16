@@ -15,7 +15,7 @@ public partial class NavPageTemp : ContentPage
     }
     private async void Greater(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new DinoGame());
+        await Navigation.PushAsync(new DinoGame(database));
     }
     private async void Profile(object sender, EventArgs e)
     {
@@ -28,6 +28,6 @@ public partial class NavPageTemp : ContentPage
     }
     private async void DinoGame(object sender, EventArgs args)
     {
-        await Navigation.PushAsync(new DinoGame());
+        await Navigation.PushAsync(new DinoGame(database));
     }
 }
