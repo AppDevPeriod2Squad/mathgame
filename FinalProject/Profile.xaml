@@ -2,31 +2,40 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FinalProject.Profile"
-             Title="Profile">
+             BackgroundImageSource="https://img.freepik.com/free-photo/abstract-luxury-gradient-blue-background-smooth-dark-blue-with-black-vignette-studio-banner_1258-54368.jpg?semt=ais_hybrid"
+             Title="Profile"
+             x:Name="contentP">
     <ScrollView>
-    <FlexLayout Direction="Column" AlignItems="Center" BackgroundColor="#127ac7" JustifyContent="Center">
-        <VerticalStackLayout >
-            <Label 
+        <FlexLayout Direction="Column" AlignItems="Center" JustifyContent="Center">
+
+
+            <VerticalStackLayout >
+                <Label 
             Text="Loading Profile..."
             FontSize="30"
             FontAttributes="Bold"
             HorizontalOptions="Center" 
                 x:Name="profileName"/>
-            <Frame Padding="0,10,0,0" CornerRadius="100" WidthRequest="200" HeightRequest="200">
+                <Frame Padding="0,10,0,0" CornerRadius="100" WidthRequest="200" HeightRequest="200">
                     <Image x:Name="profilePicture" Margin="-50" WidthRequest="200" HeightRequest="200" Aspect="AspectFill" Source="https://www.newtraderu.com/wp-content/uploads/9-Secret-Strengths-Of-The-Sigma-MaleUnderstanding-The-Lone-Wolf-scaled.jpg"></Image>
-            </Frame>
+                </Frame>
+
+                <HorizontalStackLayout>
+                    <Button Text="Edit Picture" Clicked="EditProfile"/>
+                    <Button Text="Edit Background" Clicked="EditBackground"/>
+                </HorizontalStackLayout>
 
                 <HorizontalStackLayout WidthRequest="200">
                     <Frame WidthRequest="100" BackgroundColor="Snow" BorderColor="Black">
                         <HorizontalStackLayout WidthRequest="100">
                             <Image WidthRequest="32" HeightRequest="32" Source="https://static-00.iconduck.com/assets.00/lightning-icon-1676x2048-p46nhgow.png"/>
-                                <FlexLayout Margin="20, 0, 0, 0" Direction="Column" AlignItems="Center" JustifyContent="Center">
-                                    <VerticalStackLayout>
+                            <FlexLayout Margin="20, 0, 0, 0" Direction="Column" AlignItems="Center" JustifyContent="Center">
+                                <VerticalStackLayout>
                                     <Label x:Name="profileXP" Text="69&#10;XP" TextColor="Black"/>
-                                    </VerticalStackLayout>
-                                    
-                                </FlexLayout>
-                            </HorizontalStackLayout>
+                                </VerticalStackLayout>
+
+                            </FlexLayout>
+                        </HorizontalStackLayout>
                     </Frame>
                     <Frame WidthRequest="100" BackgroundColor="Snow" BorderColor="Black">
                         <HorizontalStackLayout WidthRequest="100">
@@ -56,8 +65,8 @@
                     <Image Grid.Column="3" Grid.Row="0" Source="https://png.pngtree.com/png-clipart/20231011/original/pngtree-penny-isolated-clipping-path-dollar-united-picture-image_13112728.png"/>
                     <Label Grid.Column="3" Grid.Row="1" x:Name="profilePennies" Text="25" HorizontalTextAlignment="Center"/>
                 </Grid>
-            
-            
+
+
             </VerticalStackLayout>
         </FlexLayout>
     </ScrollView>

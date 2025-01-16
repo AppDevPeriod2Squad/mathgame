@@ -69,6 +69,7 @@
 
         public static string[] backgroundLinks =
         {
+            "https://img.freepik.com/free-photo/abstract-luxury-gradient-blue-background-smooth-dark-blue-with-black-vignette-studio-banner_1258-54368.jpg?semt=ais_hybrid",
             "https://media.istockphoto.com/id/1301713824/vector/beautiful-landscape-with-castle.jpg?s=612x612&w=0&k=20&c=X-GZmuDV_lf2Eg7VnKO3AEhdeFf-Gx44V7fsK_ONVHU=",
             "https://media.istockphoto.com/id/1901700555/vector/cartoon-volcano-prehistoric-landscape-background.jpg?s=612x612&w=0&k=20&c=Yu0TDU5FEG4jRQ9bW-Y_QaCpz6JufWnlWhuoUirn4uI=",
             "https://media.istockphoto.com/id/1310845219/vector/dojo-room-japanese-style-interior-for-meditation.jpg?s=612x612&w=0&k=20&c=y2l_kGUwZ-w4ZZzNsohcDBy5IYIf96WKe4X6IaxCwLM=",
@@ -79,12 +80,23 @@
 
         public static int[] backgroundRarities =
         {
+            2,
             4,
             4,
             3,
             4,
             3,
             4
+        };
+
+        public static Color[] RarityColor =
+        {
+            Color.FromRgb(255, 255, 255),
+            Color.FromRgb(0, 0, 0),
+            Color.FromRgb(128, 128, 128),
+            Color.FromRgb(0, 176, 240),
+            Color.FromRgb(112, 48, 160),
+            Color.FromRgb(255, 192, 0)
         };
 
 

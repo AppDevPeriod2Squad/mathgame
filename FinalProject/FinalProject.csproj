@@ -89,6 +89,9 @@
 	  <MauiXaml Update="DinoGame.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="ItemSelect.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="NavPageTemp.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

@@ -26,15 +26,15 @@ namespace FinalProject
             set { if (name != value) { name = value; OnPropertyChanged("Name"); } }
         }
 
-        private string picture;
-        public string Picture
+        private int picture;
+        public int Picture
         {
             get { return picture; }
             set { if (picture != value) { picture = value; OnPropertyChanged("Picture"); } }
         }
 
-        private string background;
-        public string Background
+        private int background;
+        public int Background
         {
             get { return background; }
             set { if (background != value) { background = value; OnPropertyChanged("Background"); } }
