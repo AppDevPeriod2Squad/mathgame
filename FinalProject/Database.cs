@@ -31,20 +31,20 @@ namespace FinalProject
             {
                 User a = new User();
                 a.Name = "Student";
-                a.Background = "#FFFFFF";
-                a.Quarters = 5;
-                a.Dimes = 5;
-                a.Nickels = 5;
-                a.Pennies = 5;
-                a.Picture = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRw8NrJIS7Q1lqexVCY0TAuA7Nhm5dFNllCw&s";
-                a.Backgrounds = "";
-                a.Images = "";
-                a.ChangeNeeded = 0;
+                a.Background = 0;
+                a.Quarters = 999999;
+                a.Dimes = 999999;
+                a.Nickels = 999999;
+                a.Pennies = 999999;
+                a.Picture = 0;
+                a.Backgrounds = "1 2 3 4 5 6 6 1 4 1 5 1";
+                a.Images = "1 2 3 4 5 6 6 7 8 1 4 1 5 1 10 2 3 4 14 15 10";
+                a.ChangeNeeded = 1;
                 await database.InsertAsync(a);
                 return a;
             } else
             {
-                await DeleteUserAsync(result[0]);
+                //await DeleteUserAsync(result[0]);
                 return result[0];
             }
             

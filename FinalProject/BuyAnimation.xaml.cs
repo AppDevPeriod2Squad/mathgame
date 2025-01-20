@@ -20,4 +20,9 @@ public partial class BuyAnimation : ContentPage
 
         graphicsView.Invalidate();
     }
+
+    async public void Close(object source, TouchEventArgs e)
+    {
+        await Navigation.PopAsync();
+    }
 }
