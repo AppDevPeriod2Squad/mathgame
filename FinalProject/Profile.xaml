@@ -4,7 +4,8 @@
              x:Class="FinalProject.Profile"
              Title="Profile">
     <ScrollView>
-    <FlexLayout Direction="Column" AlignItems="Center" BackgroundColor="#127ac7" JustifyContent="Center">
+        <AbsoluteLayout x:Name="container">
+            <FlexLayout Direction="Column" AlignItems="Center" BackgroundColor="#127ac7" JustifyContent="Center" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
         <VerticalStackLayout >
             <Label 
             Text="Loading Profile..."
@@ -60,5 +61,6 @@
             
             </VerticalStackLayout>
         </FlexLayout>
+        </AbsoluteLayout>
     </ScrollView>
 </ContentPage>

@@ -3,11 +3,12 @@ namespace FinalProject;
 public partial class NavPageTemp : ContentPage
 {
     Database database;
-	public NavPageTemp(Database db)
+	public NavPageTemp(Database db) 
 	{
-		InitializeComponent();
+        InitializeComponent();
         database = db;
-	}
+        container.Add(new NavElement(container, db));
+    }
 
     private async void Addition(object sender, EventArgs e)
     {
@@ -19,15 +20,15 @@ public partial class NavPageTemp : ContentPage
     }
     private async void Profile(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new Profile());
+        //await Navigation.PushAsync(new Profile());
     }
 
     private async void Shop(object sender, EventArgs args)
     {
-        await Navigation.PushAsync(new Shop(database));
+        //await Navigation.PushAsync(new Shop(database));
     }
     private async void DinoGame(object sender, EventArgs args)
     {
-        await Navigation.PushAsync(new DinoGame());
+        //await Navigation.PushAsync(new DinoGame());
     }
 }

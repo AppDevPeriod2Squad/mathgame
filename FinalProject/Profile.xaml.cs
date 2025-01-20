@@ -3,7 +3,7 @@ namespace FinalProject;
 public partial class Profile : ContentPage
 {
 	private User user;
-	public Profile()
+	public Profile(Database db)
 	{
 		InitializeComponent();
 		user = new User();
@@ -16,6 +16,7 @@ public partial class Profile : ContentPage
 		user.Nickels = 4;
 		user.Pennies = 5;
         Setup();
+		container.Add(new NavElement(container, db));
 
     }
 

@@ -11,17 +11,18 @@ public partial class Shop : ContentPage
     int dimes = 0;
     int nickels = 0;
     int pennies = 0;
-
+    
     int needed = 0;
 
     Database db;
     User user;
-	public Shop(Database database)
-	{
-		InitializeComponent();
-        db = database;
+    public Shop(Database db)
+    {
+        InitializeComponent();
+        this.db = db;
         Load();
-	}
+        container.AddLogicalChild(new NavElement(container,db));
+    }
 
     private async void Load()
     {

@@ -2,14 +2,20 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FinalProject.NavPageTemp"
-             Title="NavPageTemp">
-    <VerticalStackLayout>
-        <Label 
-            Text="temp nav page" />
-        <Button Text="Addition game" Clicked="Addition" />
-        <Button Text="Which is Greater game" Clicked="Greater" />
-        <Button Text="Shop" Clicked="Shop"/>
-        <Button Text="Profile" Clicked="Profile"/>
-        <Button Text="Dino Game" Clicked="DinoGame"/>
-    </VerticalStackLayout>
+             Title="NavPageTemp"
+             xmlns:local="clr-namespace:FinalProject">
+    <AbsoluteLayout x:Name="container" Background="Orange" HorizontalOptions="Center">
+        <VerticalStackLayout HorizontalOptions="Center">
+
+            <Label Text="temp nav page" />
+            <Button Text="Addition game" Clicked="Addition" />
+            <Button Text="Which is Greater game" Clicked="Greater" />
+            <Button Text="Shop" Clicked="Shop"/>
+            <Button Text="Profile" Clicked="Profile"/>
+            <Button Text="Dino Game" Clicked="DinoGame"/>
+
+        </VerticalStackLayout>
+    
+    </AbsoluteLayout>
+    
 </ContentPage>
