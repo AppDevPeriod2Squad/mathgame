@@ -7,17 +7,17 @@
              x:Name="contentP">
     <ScrollView>
         <AbsoluteLayout x:Name="container">
-            
         <FlexLayout Direction="Column" AlignItems="Center" JustifyContent="Center" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
 
 
             <VerticalStackLayout >
-                    <Label  Text="Loading Profile..."
-                FontSize="30"
-                FontAttributes="Bold"
-                HorizontalOptions="Center" 
+                <Label 
+            Text="Loading Profile..."
+            FontSize="30"
+            FontAttributes="Bold"
+            HorizontalOptions="Center" 
                 x:Name="profileName"/>
-                    <Frame Padding="0,10,0,0" CornerRadius="100" WidthRequest="200" HeightRequest="200">
+                <Frame Padding="0,10,0,0" CornerRadius="100" WidthRequest="200" HeightRequest="200">
                     <Image x:Name="profilePicture" Margin="-50" WidthRequest="200" HeightRequest="200" Aspect="AspectFill" Source="https://www.newtraderu.com/wp-content/uploads/9-Secret-Strengths-Of-The-Sigma-MaleUnderstanding-The-Lone-Wolf-scaled.jpg"></Image>
                 </Frame>
 
@@ -72,4 +72,5 @@
         </FlexLayout>
         </AbsoluteLayout>
     </ScrollView>
+    
 </ContentPage>
