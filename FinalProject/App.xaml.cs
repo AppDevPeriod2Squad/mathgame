@@ -7,7 +7,7 @@
             InitializeComponent();
             Database db = new Database();
 
-            MainPage = new NavigationPage(new NavPageTemp(db));
+            MainPage = new NavigationPage(new ConnectionsGamePage());
 
 
         }

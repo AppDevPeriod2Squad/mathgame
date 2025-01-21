@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<local:GamePage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:FinalProject"
+    x:Class="FinalProject.ConnectionsGamePage"
+    Title="ConnectionsGame"
+    NavigationPage.HasNavigationBar="False"
+    BackgroundColor="#FFFFFF">
+
+    <VerticalStackLayout Padding="10" Spacing="10" HorizontalOptions="Center">
+
+        <Label x:Name="StatusLabel"
+               Text="Select four items and then press SUBMIT."
+               FontSize="18"
+               HorizontalTextAlignment="Center"
+               Margin="0,0,0,10" />
+
+        <Grid x:Name="ItemsGrid"
+              RowDefinitions="*,*,*,*"
+              ColumnDefinitions="*,*,*,*"
+              ColumnSpacing="10"
+              RowSpacing="10"
+              HorizontalOptions="Center"
+              VerticalOptions="Start"
+              HeightRequest="350"
+              WidthRequest="350" />
+
+        <Label x:Name="MistakesLabel"
+               Text="Mistakes remaining: 4"
+               FontAttributes="Bold"
+               HorizontalTextAlignment="Center" />
+
+        <Button x:Name="SubmitButton"
+                Text="SUBMIT"
+                FontSize="20"
+                Clicked="OnSubmitClicked"
+                HorizontalOptions="Center"/>
+    </VerticalStackLayout>
+
+</local:GamePage>
