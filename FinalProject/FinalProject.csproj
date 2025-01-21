@@ -93,6 +93,9 @@
 	  <MauiXaml Update="ItemSelect.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="NavPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="NavPageTemp.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

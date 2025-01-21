@@ -93,7 +93,7 @@ public partial class Shop : ContentPage
         user.Dimes -= dimes;
         user.Nickels -= nickels;
         user.Pennies -= pennies;
-        user.ChangeNeeded = new Random().Next(50, 100);
+        user.ChangeNeeded = 1; //new Random().Next(50, 100);
         needed = user.ChangeNeeded;
         quarters = 0;
         dimes = 0;
@@ -111,7 +111,7 @@ public partial class Shop : ContentPage
         }
         else
         {
-            user.Backgrounds = $"{user.Background}{(user.Backgrounds.Length == 0 ? "" : "")}{item[1]}";
+            user.Backgrounds = $"{user.Backgrounds}{(user.Backgrounds.Length == 0 ? "" : " ")}{item[1]}";
             BuyAnimate.imageLink = Translator.backgroundLinks[item[1]];
             BuyAnimate.rarity = Translator.backgroundRarities[item[1]];
 
