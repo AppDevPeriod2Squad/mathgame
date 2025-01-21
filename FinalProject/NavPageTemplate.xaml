@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<AbsoluteLayout xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            x:Class="FinalProject.NavElement"
+            Background="DarkOrange"
+            x:Name="container"
+            >
+    <Grid x:Name="grid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="shop" Text="shop" Clicked="buttonClicked" Grid.Column="0"/>
+        <Button x:Name="profile" Text="profile" Clicked="buttonClicked" Grid.Column="1"/>
+        <Button x:Name="games" Text="games" Clicked="buttonClicked" Grid.Column="2"/>
+    </Grid>
+</AbsoluteLayout>

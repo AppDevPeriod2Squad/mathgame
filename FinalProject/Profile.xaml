@@ -6,7 +6,8 @@
              Title="Profile"
              x:Name="contentP">
     <ScrollView>
-        <FlexLayout Direction="Column" AlignItems="Center" JustifyContent="Center">
+        <AbsoluteLayout x:Name="container">
+        <FlexLayout Direction="Column" AlignItems="Center" JustifyContent="Center" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
 
 
             <VerticalStackLayout >
@@ -69,5 +70,7 @@
 
             </VerticalStackLayout>
         </FlexLayout>
+        </AbsoluteLayout>
     </ScrollView>
+    
 </ContentPage>

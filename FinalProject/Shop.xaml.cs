@@ -16,12 +16,13 @@ public partial class Shop : ContentPage
 
     Database db;
     User user;
-	public Shop(Database database)
-	{
-		InitializeComponent();
+    public Shop(Database database)
+    {
+        InitializeComponent();
         db = database;
         Load();
-	}
+        container.Add(new NavElement(container, db));
+    }
 
     private async void Load()
     {
@@ -70,7 +71,7 @@ public partial class Shop : ContentPage
         }
         UpdateButtons();
     }
-    
+
     private void UpdateButtons()
     {
         quarter.Text = quarters.ToString();
@@ -80,7 +81,8 @@ public partial class Shop : ContentPage
         if (25 * quarters + 10 * dimes + 5 * nickels + pennies == needed)
         {
             Pay.IsEnabled = true;
-        } else
+        }
+        else
         {
             Pay.IsEnabled = false;
 
