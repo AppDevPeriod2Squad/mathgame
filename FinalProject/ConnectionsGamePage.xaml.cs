@@ -168,6 +168,7 @@ namespace FinalProject
                 {
                     StatusLabel.Text = "Congratulations! You found all 4 groups!";
                     SubmitButton.IsEnabled = false;
+                    
                 }
             }
             else
@@ -198,13 +199,32 @@ namespace FinalProject
             _selectedItems.Clear();
         }
 
+        private async void ResetGame()
+        {
+            await Navigation.PushAsync(new ConnectionsGamePage(), false);
+        }
+
         private void GameOver()
         {
-            StatusLabel.Text = "Game Over! You ran out of mistakes!";
             SubmitButton.IsEnabled = false;
 
             foreach (var btn in ItemsGrid.Children.OfType<Button>())
                 btn.IsEnabled = false;
+
+            Dispatcher.Dispatch(async () =>
+            {
+                bool restart = await DisplayAlert(
+                    "Game Over",
+                    $"Game Over! You ran out of mistakes!\nYou found {_groupsFound} groups\n\nWould you like to play again?",
+                    "Yes",
+                    "No"
+                );
+
+                if (restart)
+                    ResetGame();
+                else
+                    Application.Current?.MainPage?.Navigation.PopToRootAsync();
+            });
         }
     }
 

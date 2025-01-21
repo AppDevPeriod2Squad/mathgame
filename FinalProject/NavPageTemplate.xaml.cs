@@ -45,7 +45,7 @@ public partial class NavElement : AbsoluteLayout
 		{
 			if (buttons["games"] == button)
 			{
-				await Navigation.PushAsync(new NavPageTemp(db));
+				await Navigation.PushAsync(new NavPage(db));
 			}
             if (buttons["profile"] == button)
             {

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FinalProject.NavPage"
+             Title="NavPage"
+             xmlns:local="clr-namespace:FinalProject">
+    <AbsoluteLayout x:Name="container" Background="Orange">
+        <HorizontalStackLayout AbsoluteLayout.LayoutBounds="0.5, 0.4, -1, -1" 
+                             AbsoluteLayout.LayoutFlags="PositionProportional" 
+                             Spacing="20">
+            <Button Text="Dino Game" 
+                    Clicked="Dino" 
+                    WidthRequest="150" 
+                    HeightRequest="150"
+                    CornerRadius="25" />
+            <Button Text="Matching Game" 
+                    Clicked="Matching" 
+                    WidthRequest="150" 
+                    HeightRequest="150"
+                    CornerRadius="25" />
+        </HorizontalStackLayout>
+    </AbsoluteLayout>
+</ContentPage>
