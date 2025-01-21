@@ -2,28 +2,22 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FinalProject.NavPage"
-             Title="Ka-Ching!">
-    <ScrollView>
-        <FlexLayout Direction="Column" AlignItems="Center" JustifyContent="Center">
-            <HorizontalStackLayout>
-                <VerticalStackLayout>
-                    <Label Text="Profile" HorizontalOptions="Center"/>
-
-                    <Frame CornerRadius="100" WidthRequest="200" HeightRequest="200">
-                        <ImageButton x:Name="ProfileB" Clicked="GetProfile"/>
-                    </Frame>
-                </VerticalStackLayout>
-
-                <VerticalStackLayout>
-                    <Label Text="Shop" HorizontalOptions="Center"/>
-                    <ImageButton x:Name="ShopB" WidthRequest="200" Clicked="GetShop"/>
-                </VerticalStackLayout>
-            </HorizontalStackLayout>
-            <Label Text="Games" FontSize="20"/>
-            <Grid ColumnDefinitions="100, 100" RowDefinitions="100">
-                <ImageButton Clicked="PlayDino" Source="https://static8.depositphotos.com/1497380/1067/v/950/depositphotos_10671126-stock-illustration-cute-green-dinosaur-cartoon.jpg" Grid.Column="0" Grid.Row="0"/>
-                <ImageButton Clicked="PlayEgg" x:Name="EggHuntGameButton"  Grid.Column="1" Grid.Row="0"/>
-            </Grid>
-        </FlexLayout>
-    </ScrollView>
+             Title="NavPage"
+             xmlns:local="clr-namespace:FinalProject">
+    <AbsoluteLayout x:Name="container" Background="Orange">
+        <HorizontalStackLayout AbsoluteLayout.LayoutBounds="0.5, 0.4, -1, -1" 
+                             AbsoluteLayout.LayoutFlags="PositionProportional" 
+                             Spacing="20">
+            <Button Text="Dino Game" 
+                    Clicked="Dino" 
+                    WidthRequest="150" 
+                    HeightRequest="150"
+                    CornerRadius="25" />
+            <Button Text="Matching Game" 
+                    Clicked="Matching" 
+                    WidthRequest="150" 
+                    HeightRequest="150"
+                    CornerRadius="25" />
+        </HorizontalStackLayout>
+    </AbsoluteLayout>
 </ContentPage>

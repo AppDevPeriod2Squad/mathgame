@@ -6,7 +6,10 @@
         {
             InitializeComponent();
             Database db = new Database();
+
             MainPage = new NavigationPage(new NavPage(db));
+
+
         }
     }
 }

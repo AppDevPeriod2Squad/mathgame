@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FinalProject.Shop"
              Title="Shop">
-    <FlexLayout Direction="Column" AlignItems="Center" BackgroundColor="#127ac7" JustifyContent="Center">
+    <AbsoluteLayout x:Name="container">
+        <FlexLayout Direction="Column" AlignItems="Center" BackgroundColor="#127ac7" JustifyContent="Center" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
         <VerticalStackLayout>
             <ImageButton Clicked="Buy" Source="https://static.vecteezy.com/system/resources/thumbnails/011/016/159/small/realistic-3d-gift-box-cutout-free-png.png" x:Name="Pay" WidthRequest="256" HeightRequest="256" IsEnabled="False"/>
             <HorizontalStackLayout HorizontalOptions="Center">
@@ -26,4 +27,5 @@ RowDefinitions="50, 50"
             </Grid>
         </VerticalStackLayout>
     </FlexLayout>
+    </AbsoluteLayout>
 </ContentPage>

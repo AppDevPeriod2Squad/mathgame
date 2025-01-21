@@ -17,11 +17,12 @@ namespace FinalProject
         private Database db;
         private int Lives = 3;
 
+        private int waveCount = 0;
         private const double FallDistance = 0.02;
         private const double TimerIntervalSeconds = 0.1;
         private double CurrentFallSpeed = FallDistance;
-        private const double SpeedIncreaseRate = 0.002;
-        private const double MaxFallSpeed = 0.04;
+        //private const double SpeedIncreaseRate = 0.002;
+        private const double MaxFallSpeed = 0.06;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -37,6 +38,7 @@ namespace FinalProject
 
         public DinoGame(Database database)
         {
+            
             InitializeComponent();
             BindingContext = this;
             db = database;
@@ -347,7 +349,7 @@ namespace FinalProject
         {
             Dispatcher.StartTimer(TimeSpan.FromSeconds(TimerIntervalSeconds), () =>
             {
-                if (Lives <= 0) return false;
+                if (Lives <= 0) return false; // Stop the timer if the game is over
 
                 var removedKeys = new List<int>();
                 bool lifeDeductedThisFrame = false;
@@ -357,7 +359,7 @@ namespace FinalProject
                     var (image, position) = _numberImages[key];
                     var newY = position.Y + CurrentFallSpeed;
 
-                    if (newY > 1)
+                    if (newY > 1) // Block has fallen off the screen
                     {
                         mainLayout.Children.Remove(image);
                         removedKeys.Add(key);
@@ -371,7 +373,7 @@ namespace FinalProject
                             if (Lives <= 0)
                             {
                                 EndGame();
-                                return false;
+                                return false; // End game, stop the timer
                             }
                         }
                     }
@@ -383,16 +385,40 @@ namespace FinalProject
                     }
                 }
 
+                // Remove the blocks that fell off
                 foreach (var key in removedKeys)
                     _numberImages.Remove(key);
 
+                // If all blocks are cleared, generate new ones
                 if (_numberImages.Count == 0)
                 {
+                    waveCount++;
+
+                    switch (waveCount) 
+                    {
+                        case 3:
+                            CurrentFallSpeed = 0.025;
+                            break;
+                        case 8:
+                            CurrentFallSpeed = 0.03;
+                            break;
+                        case 20:
+                            CurrentFallSpeed = 0.04;
+                            break;
+                        case 35:
+                            CurrentFallSpeed = 0.05;
+                            break;
+                        case 50:
+                            CurrentFallSpeed = 0.06;
+                            break;
+                    }
+
+
                     GenerateDiceImages();
-                    CurrentFallSpeed = Math.Min(CurrentFallSpeed + SpeedIncreaseRate, MaxFallSpeed);
                 }
 
                 CheckAndHandleCollision();
+
                 return true;
             });
         }
