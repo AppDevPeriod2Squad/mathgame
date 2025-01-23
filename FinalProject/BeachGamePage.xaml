@@ -8,9 +8,46 @@
     NavigationPage.HasNavigationBar="False"
     BackgroundImageSource="beach.png">
 
-    <AbsoluteLayout x:Name="gameLayout"
-                    VerticalOptions="FillAndExpand"
-                    HorizontalOptions="FillAndExpand">
-    </AbsoluteLayout>
+    <!-- 
+        We use a Grid so we can layer:
+         1. AbsoluteLayout for animated items (fish/trash).
+         2. Two Labels at the top: one for score, one for time.
+         3. A feedback Label in the center (CORRECT / INCORRECT).
+    -->
+    <Grid>
+        <!-- The layout for fish & trash animations -->
+        <AbsoluteLayout x:Name="gameLayout"
+                        VerticalOptions="FillAndExpand"
+                        HorizontalOptions="FillAndExpand" />
+
+        <!-- Top bar to hold our score & time labels side by side -->
+        <StackLayout Orientation="Horizontal"
+                     HorizontalOptions="Center"
+                     VerticalOptions="Start"
+                     Margin="0,40,0,0">
+            <Label x:Name="scoreLabel"
+                   Text="Score: 0"
+                   FontSize="28"
+                   TextColor="White"
+                   HorizontalTextAlignment="Center"
+                   VerticalTextAlignment="Center"
+                   Margin="10,0,10,0"/>
+            <Label x:Name="timeLabel"
+                   Text="Time: 90"
+                   FontSize="28"
+                   TextColor="White"
+                   HorizontalTextAlignment="Center"
+                   VerticalTextAlignment="Center"
+                   Margin="10,0,10,0"/>
+        </StackLayout>
+
+        <!-- Feedback Label displayed in center of the screen -->
+        <Label x:Name="feedbackLabel"
+               Text=""
+               FontSize="26"
+               IsVisible="False"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"/>
+    </Grid>
 
 </local:GamePage>
