@@ -7,9 +7,9 @@
     Title="ConnectionsGame"
     NavigationPage.HasNavigationBar="False"
     BackgroundColor="#FFFFFF">
-
-    <VerticalStackLayout Padding="10" Spacing="10" HorizontalOptions="Center">
-
+    <ScrollView>
+        <VerticalStackLayout Padding="10" Spacing="10" HorizontalOptions="Center">
+        
         <Label x:Name="StatusLabel"
                Text="Select four items and then press SUBMIT."
                FontSize="18"
@@ -17,8 +17,6 @@
                Margin="0,0,0,10" />
 
         <Grid x:Name="ItemsGrid"
-              RowDefinitions="*,*,*,*"
-              ColumnDefinitions="*,*,*,*"
               ColumnSpacing="10"
               RowSpacing="10"
               HorizontalOptions="Center"
@@ -37,5 +35,5 @@
                 Clicked="OnSubmitClicked"
                 HorizontalOptions="Center"/>
     </VerticalStackLayout>
-
+        </ScrollView>
 </local:GamePage>

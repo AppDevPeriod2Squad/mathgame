@@ -12,55 +12,121 @@ namespace FinalProject
             {1, "one"}, {2, "two"}, {3, "three"},
             {4, "four"}, {5, "five"}, {6, "six"}
         };
-        private List<NumberRepresentation> _allItems = new();
+        private readonly Color[] _groupRowColors =
+        {
+            Colors.Yellow,
+            Colors.LightGreen,
+            Colors.Blue,
+            Colors.Purple
+        };
+        private List<NumberRepresentation> _remainingItems = new();
+        private List<int> _foundGroups = new();
         private List<NumberRepresentation> _selectedItems = new();
-        private int _groupsFound = 0;
         private int _mistakesRemaining = 4;
+        private int _groupsFound = 0;
+        private User user;
+        private Database db;
 
-        public ConnectionsGamePage()
+        public ConnectionsGamePage(Database database)
         {
             InitializeComponent();
+            db = database;
             InitializeGame();
         }
 
-        private void InitializeGame()
+        private async void AwardMoney(int score)
         {
-            _allItems.Clear();
+            int remainingCents = score;
+            Random random = new Random();
+            int[] validCoins = { 1, 5, 10, 25 };
+
+            while (remainingCents > 0)
+            {
+                int coinValue = validCoins[random.Next(0, validCoins.Length)];
+                int coinAmount;
+
+                switch (coinValue)
+                {
+                    case 1: // Pennies
+                        coinAmount = Math.Min(remainingCents, 1);
+                        user.Pennies += coinAmount;
+                        remainingCents -= coinAmount;
+                        break;
+
+                    case 5: // Nickels
+                        coinAmount = Math.Min(remainingCents / 5, 1) * 5;
+                        user.Nickels += coinAmount / 5;
+                        remainingCents -= coinAmount;
+                        break;
+
+                    case 10: // Dimes
+                        coinAmount = Math.Min(remainingCents / 10, 1) * 10;
+                        user.Dimes += coinAmount / 10;
+                        remainingCents -= coinAmount;
+                        break;
+
+                    case 25: // Quarters
+                        coinAmount = Math.Min(remainingCents / 25, 1) * 25;
+                        user.Quarters += coinAmount / 25;
+                        remainingCents -= coinAmount;
+                        break;
+                }
+            }
+
+            await db.UpdateExistingUserAsync(user);
+        }
+        private async void InitializeGame()
+        {
+            try
+            {
+                user = await db.GetUserAsync();
+                if (user == null)
+                    throw new Exception("Failed to retrieve user from database.");
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", $"Failed to initialize game: {ex.Message}", "OK");
+                Application.Current?.MainPage?.Navigation.PopToRootAsync();
+                return;
+            }
+
+            _remainingItems.Clear();
             _selectedItems.Clear();
-            _groupsFound = 0;
+            _foundGroups.Clear();
             _mistakesRemaining = 4;
+            _groupsFound = 0;
+
             MistakesLabel.Text = $"Mistakes remaining: {_mistakesRemaining}";
             StatusLabel.Text = "Select four items and then press SUBMIT.";
 
             var random = new Random();
             var chosenNumbers = new HashSet<int>();
             while (chosenNumbers.Count < 4)
+            {
                 chosenNumbers.Add(random.Next(1, 7));
+            }
 
             foreach (int num in chosenNumbers)
             {
-                _allItems.Add(new NumberRepresentation
+                _remainingItems.Add(new NumberRepresentation
                 {
                     NumberValue = num,
                     DisplayType = RepresentationType.Image,
                     ImageSource = _spriteManager.GetDiceImage(num)
                 });
-
-                _allItems.Add(new NumberRepresentation
+                _remainingItems.Add(new NumberRepresentation
                 {
                     NumberValue = num,
                     DisplayType = RepresentationType.Image,
                     ImageSource = _spriteManager.GetTenFramesImage(num)
                 });
-
-                _allItems.Add(new NumberRepresentation
+                _remainingItems.Add(new NumberRepresentation
                 {
                     NumberValue = num,
                     DisplayType = RepresentationType.Text,
                     DisplayText = num.ToString()
                 });
-
-                _allItems.Add(new NumberRepresentation
+                _remainingItems.Add(new NumberRepresentation
                 {
                     NumberValue = num,
                     DisplayType = RepresentationType.Text,
@@ -68,19 +134,55 @@ namespace FinalProject
                 });
             }
 
-            _allItems = _allItems.OrderBy(x => random.Next()).ToList();
-            BuildGrid();
+            _remainingItems = _remainingItems.OrderBy(x => random.Next()).ToList();
+            RebuildGrid();
         }
 
-        private void BuildGrid()
+        private void RebuildGrid()
         {
             ItemsGrid.Children.Clear();
-            int row = 0, col = 0;
+            ItemsGrid.RowDefinitions.Clear();
+            ItemsGrid.ColumnDefinitions.Clear();
 
-            for (int i = 0; i < _allItems.Count; i++)
+            for (int c = 0; c < 4; c++)
             {
-                var item = _allItems[i];
-                var button = new Button
+                ItemsGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+            }
+
+            int currentRow = 0;
+            for (int i = 0; i < _foundGroups.Count; i++)
+            {
+                ItemsGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+                var color = _groupRowColors[i % _groupRowColors.Length];
+                var label = new Label
+                {
+                    Text = _foundGroups[i].ToString(),
+                    BackgroundColor = color,
+                    HorizontalTextAlignment = TextAlignment.Center,
+                    VerticalTextAlignment = TextAlignment.Center,
+                    FontAttributes = FontAttributes.Bold,
+                    FontSize = 20,
+                    Margin = new Thickness(5),
+                    HeightRequest = 70
+                };
+                ItemsGrid.Add(label, 0, currentRow);
+                Grid.SetColumnSpan(label, 4);
+                currentRow++;
+            }
+
+            int leftoverCount = _remainingItems.Count;
+            int neededRows = (int)Math.Ceiling(leftoverCount / 4.0);
+            for (int i = 0; i < neededRows; i++)
+            {
+                ItemsGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+            }
+
+            int rowIndex = currentRow;
+            int colIndex = 0;
+
+            foreach (var item in _remainingItems)
+            {
+                var btn = new Button
                 {
                     BackgroundColor = Colors.LightGray,
                     Padding = new Thickness(5),
@@ -91,22 +193,21 @@ namespace FinalProject
 
                 if (item.DisplayType == RepresentationType.Image && item.ImageSource != null)
                 {
-                    button.ImageSource = item.ImageSource;
+                    btn.ImageSource = item.ImageSource;
                 }
                 else if (item.DisplayType == RepresentationType.Text && !string.IsNullOrEmpty(item.DisplayText))
                 {
-                    button.Text = item.DisplayText;
+                    btn.Text = item.DisplayText;
                 }
 
-                button.Clicked += OnItemClicked;
+                btn.Clicked += OnItemClicked;
+                ItemsGrid.Add(btn, colIndex, rowIndex);
 
-                ItemsGrid.Add(button, col, row);
-
-                col++;
-                if (col > 3)
+                colIndex++;
+                if (colIndex > 3)
                 {
-                    col = 0;
-                    row++;
+                    colIndex = 0;
+                    rowIndex++;
                 }
             }
         }
@@ -114,13 +215,12 @@ namespace FinalProject
         private void OnItemClicked(object sender, EventArgs e)
         {
             if (sender is not Button btn) return;
+            var rep = btn.CommandParameter as NumberRepresentation;
+            if (rep == null || rep.IsLocked) return;
 
-            var item = btn.CommandParameter as NumberRepresentation;
-            if (item == null || item.IsLocked) return;
-
-            if (_selectedItems.Contains(item))
+            if (_selectedItems.Contains(rep))
             {
-                _selectedItems.Remove(item);
+                _selectedItems.Remove(rep);
                 btn.BackgroundColor = Colors.LightGray;
             }
             else
@@ -130,8 +230,7 @@ namespace FinalProject
                     StatusLabel.Text = "Already selected 4. Submit or deselect an item.";
                     return;
                 }
-
-                _selectedItems.Add(item);
+                _selectedItems.Add(rep);
                 btn.BackgroundColor = Colors.Yellow;
             }
         }
@@ -144,31 +243,29 @@ namespace FinalProject
                 return;
             }
 
-            var distinctNumbers = _selectedItems.Select(x => x.NumberValue).Distinct().Count();
-            if (distinctNumbers == 1)
+            var distinctNums = _selectedItems.Select(x => x.NumberValue).Distinct().Count();
+            if (distinctNums == 1)
             {
                 _groupsFound++;
                 StatusLabel.Text = $"Correct group! Groups found: {_groupsFound} of 4.";
 
+                int groupNumber = _selectedItems[0].NumberValue;
                 foreach (var rep in _selectedItems) rep.IsLocked = true;
 
-                foreach (var view in ItemsGrid.Children.OfType<Button>())
+                foreach (var rep in _selectedItems)
                 {
-                    var rep = view.CommandParameter as NumberRepresentation;
-                    if (_selectedItems.Contains(rep))
-                    {
-                        view.BackgroundColor = Colors.LightGreen;
-                        view.IsEnabled = false;
-                    }
+                    _remainingItems.Remove(rep);
                 }
 
+                _foundGroups.Add(groupNumber);
                 _selectedItems.Clear();
+                RebuildGrid();
 
                 if (_groupsFound == 4)
                 {
                     StatusLabel.Text = "Congratulations! You found all 4 groups!";
                     SubmitButton.IsEnabled = false;
-                    
+                    ResetGame(true);
                 }
             }
             else
@@ -181,50 +278,65 @@ namespace FinalProject
 
                 if (_mistakesRemaining <= 0)
                 {
-                    GameOver();
+                    SubmitButton.IsEnabled = false;
+                    StatusLabel.Text = "No more mistakes left. Game Over!";
+                    foreach (var child in ItemsGrid.Children.OfType<Button>())
+                        child.IsEnabled = false;
+                    ResetGame(false);
                 }
             }
         }
 
         private void ResetSelected()
         {
-            foreach (var view in ItemsGrid.Children.OfType<Button>())
+            foreach (var child in ItemsGrid.Children.OfType<Button>())
             {
-                var rep = view.CommandParameter as NumberRepresentation;
+                var rep = child.CommandParameter as NumberRepresentation;
                 if (rep != null && _selectedItems.Contains(rep))
                 {
-                    view.BackgroundColor = Colors.LightGray;
+                    child.BackgroundColor = Colors.LightGray;
                 }
             }
             _selectedItems.Clear();
         }
 
-        private async void ResetGame()
+        private async void ResetGame(bool ifWon)
         {
-            await Navigation.PushAsync(new ConnectionsGamePage(), false);
-        }
-
-        private void GameOver()
-        {
-            SubmitButton.IsEnabled = false;
-
-            foreach (var btn in ItemsGrid.Children.OfType<Button>())
-                btn.IsEnabled = false;
-
-            Dispatcher.Dispatch(async () =>
+            if (ifWon)
             {
-                bool restart = await DisplayAlert(
-                    "Game Over",
-                    $"Game Over! You ran out of mistakes!\nYou found {_groupsFound} groups\n\nWould you like to play again?",
-                    "Yes",
-                    "No"
-                );
+                AwardMoney(16);
+                Dispatcher.Dispatch(async () =>
+                {
+                    bool restart = await DisplayAlert(
+                        "Congratulations!",
+                        $"You've found all the groups! \nWould you like to play again?",
+                        "Yes",
+                        "No"
+                    );
 
-                if (restart)
-                    ResetGame();
-                else
-                    Application.Current?.MainPage?.Navigation.PopToRootAsync();
-            });
+                    if (restart)
+                        await Navigation.PushAsync(new ConnectionsGamePage(db), false);
+                    else
+                        Application.Current?.MainPage?.Navigation.PopToRootAsync();
+                });
+            }
+            else
+            {
+                Dispatcher.Dispatch(async () =>
+                {
+                    bool restart = await DisplayAlert(
+                        "Game over",
+                        $"You ran out of chances. \nWould you like to play again?",
+                        "Yes",
+                        "No"
+                    );
+
+                    if (restart)
+                        await Navigation.PushAsync(new ConnectionsGamePage(db), false);
+                    else
+                        Application.Current?.MainPage?.Navigation.PopToRootAsync();
+                });
+            }
         }
     }
 

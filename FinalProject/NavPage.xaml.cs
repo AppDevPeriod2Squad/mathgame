@@ -16,6 +16,6 @@ public partial class NavPage : ContentPage
     }
     private async void Matching(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new ConnectionsGamePage());
+        await Navigation.PushAsync(new ConnectionsGamePage(database));
     }
 }
