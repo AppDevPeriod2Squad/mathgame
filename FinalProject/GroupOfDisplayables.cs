@@ -47,6 +47,10 @@ namespace FinalProject
             // Goes through all the Displayables in the group and evaluates them
             double tot = 0;
             Displayable prevDisp = null;
+            if (DisplayableGroup.Count > 0 && DisplayableGroup[0] is Number num)
+            {
+                tot += num.Val;
+            }
             foreach (Displayable disp in DisplayableGroup)
             {
                 if (disp is Number && prevDisp is Symbol)
@@ -58,14 +62,18 @@ namespace FinalProject
                         case SymbolType.Plus:
                             tot += number.Val;
                             break;
-                    }
+                        case SymbolType.Multiply:
+                            tot *= number.Val;
+                            break;
+                        case SymbolType.Division:
+                            tot /= number.Val;
+                            break;
+                    
+                }
                 }
                 prevDisp = disp;
             }
-            if (DisplayableGroup.Count > 0 && DisplayableGroup[0] is Number num)
-            {
-                tot += num.Val;
-            }
+            
             return tot;
         }
 

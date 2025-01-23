@@ -28,6 +28,8 @@ namespace FinalProject
             ImageSource = symbolType switch
             {
                 SymbolType.Plus => spriteManager.GetPlus(),
+                SymbolType.Multiply => spriteManager.GetMultiply(),
+                SymbolType.Division => spriteManager.GetDivision(),
                 _ => null
             };
             lastSavedSymbolType = symbolType;

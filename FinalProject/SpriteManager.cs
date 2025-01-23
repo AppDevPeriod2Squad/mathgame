@@ -25,6 +25,14 @@ namespace FinalProject
         {
             return ImageSource.FromFile("plus_1.png");
         }
+        public ImageSource GetMultiply()
+        {
+            return ImageSource.FromFile("multiply.png");
+        }
+        public ImageSource GetDivision()
+        {
+            return ImageSource.FromFile("division.png");
+        }
         public ImageSource GetFoodImage()
         {
             return ImageSource.FromFile("food.png");

@@ -8,6 +8,6 @@ namespace FinalProject
 {
     public enum SymbolType
     {
-        None,Plus
+        None,Plus,Multiply,Division
     }
 }

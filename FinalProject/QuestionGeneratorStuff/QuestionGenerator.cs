@@ -38,8 +38,41 @@ namespace FinalProject.QuestionGeneratorStuff
             }
             return max;
         }
+        private double GetProductExcludedNum()
+        {
+            double max = CorrectAnswer.EvaluateEquation();
+            double currentTotal = currentGeneratingGroup.EvaluateEquation();
+            if (currentTotal != 0)
+            {
+                max /= currentTotal;
+            }
+            
+            if (max < 1)
+            {
+                max = 1;
+            }
+           
+            return max;
+        }
+        private double GetDivisionExcludedNum()
+        {
+            double max = CorrectAnswer.EvaluateEquation();
+            double currentTotal = currentGeneratingGroup.EvaluateEquation();
+            if (currentTotal != 0)
+            {
+                max /= currentTotal;
+                max = 1 / max;
+            }
 
-        public QuestionAndAnswers Generate(QuestionSuperType superType, QuestionSubType subType=QuestionSubType.None, List<SymbolType> possibleSymbolTypes = null)
+            if (max < 1)
+            {
+                max = 1;
+            }
+
+            return max;
+        }
+
+            public QuestionAndAnswers Generate(QuestionSuperType superType, QuestionSubType subType=QuestionSubType.None, List<SymbolType> possibleSymbolTypes = null)
         {
             Answers = new List<Displayable>();
             int numOfNumbersInQuestion = 0;
@@ -53,6 +86,7 @@ namespace FinalProject.QuestionGeneratorStuff
             {
                 symbolTypes = new List<SymbolType>() { SymbolType.Plus};
             }
+            
             if (potentialTypes == null)
             {
                 potentialTypes = new List<ImageType>() { ImageType.Dice };
@@ -75,6 +109,24 @@ namespace FinalProject.QuestionGeneratorStuff
                     correctAnswerRange = new Range(1, 6);
                     promptString = "What adds up to {replace}?";
                     numOfAnswers = 4;
+                    break;
+                case QuestionSuperType.Multiplication:
+                    numOfNumbersInQuestion = 1;
+                    numOfNumbersInAnswers = 2;
+                    numOfAnswers = 4;
+                    promptString = "What multiplies to {replace}?";
+                    correctAnswerRange = new Range(1, 6);
+                    potentialAnswerRange = new Range(1, 6, changingDoNotIncludeNum: changingDoNotIncludeNum => GetProductExcludedNum());
+                    symbolTypes = new List<SymbolType>() { SymbolType.Multiply };
+                    break;
+                case QuestionSuperType.Division:
+                    numOfNumbersInQuestion = 1;
+                    numOfNumbersInAnswers = 2;
+                    numOfAnswers = 4;
+                    promptString = "What divides to {replace}?";
+                    correctAnswerRange = new Range(1, 6);
+                    potentialAnswerRange = new Range(1, 6, changingDoNotIncludeNum: changingDoNotIncludeNum => GetDivisionExcludedNum());
+                    symbolTypes = new List<SymbolType>() { SymbolType.Division };
                     break;
             }
 

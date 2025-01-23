@@ -62,7 +62,7 @@ public partial class GameTemplate : ContentPage
                     AbsoluteLayout.SetLayoutBounds(r, new Rect(0, 0, 1, 1));
                     AbsoluteLayout.SetLayoutFlags(r, AbsoluteLayoutFlags.All);
                     HorizontalStackLayout lc = new HorizontalStackLayout();
-                    Label l = new Label() { Text = "You were correct !", TextColor = Color.FromRgb(0, 100, 30), FontSize = 100 };
+                    Label l = new Label() { Text = "You were correct !", TextColor = Color.FromRgb(0, 100, 30)};
                     AbsoluteLayout.SetLayoutBounds(lc, new Rect(0, 0, 1, .1));
                     AbsoluteLayout.SetLayoutFlags(lc, AbsoluteLayoutFlags.All);
                     lc.Add(l);

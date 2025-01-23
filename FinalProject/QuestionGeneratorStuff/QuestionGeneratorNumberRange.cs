@@ -57,6 +57,10 @@ namespace FinalProject.QuestionGeneratorStuff
             else
             {
                 if (random.Next(0, 2) == 1){
+                    if (DoNotIncludeNumber < Min)
+                    {
+                        DoNotIncludeNumber = Min;
+                    }
                     return random.Next((int)Min, (int)DoNotIncludeNumber);
                 }
                 else

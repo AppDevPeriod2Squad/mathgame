@@ -31,4 +31,12 @@ public partial class NavPage : ContentPage
     {
         await Navigation.PushAsync(new BeachGamePage(database));
     }
+    private async void Multiply(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new MultiplicationGame(database));
+    }
+    private async void Division(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new DivisionGame(database));
+    }
 }

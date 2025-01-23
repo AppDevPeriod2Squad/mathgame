@@ -58,6 +58,7 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\Fonts\AcademyFilled3D.ttf" />
+	  <None Remove="Resources\Fonts\division.png" />
 	  <None Remove="Resources\Images\background.png" />
 	  <None Remove="Resources\Images\dice_1.png" />
 	  <None Remove="Resources\Images\dice_2.png" />
@@ -69,6 +70,11 @@
 	  <None Remove="Resources\Images\dino_happy.png" />
 	  <None Remove="Resources\Images\dino_sad.png" />
 	  <None Remove="Resources\Images\food.png" />
+	  <None Remove="Resources\Images\multiply.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiFont Include="Resources\Images\division.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -81,6 +87,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Games\DivisionGame.xaml.cs">
+	    <DependentUpon>DivisionGame.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Games\MultiplicationGame.xaml.cs">
+	    <DependentUpon>MultiplicationGame.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Games\GreaterGame.xaml.cs">
 	    <DependentUpon>GreaterGame.xaml</DependentUpon>
 	  </Compile>
@@ -90,6 +102,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Games\DivisionGame.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Games\MultiplicationGame.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Games\BeachGamePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
