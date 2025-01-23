@@ -20,10 +20,15 @@ public partial class NavPage : ContentPage
     }
     private async void Adding(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new AdditionGame());
+        await Navigation.PushAsync(new AdditionGame(database));
     }
     private async void Greater(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new GreaterGame());
+        await Navigation.PushAsync(new GreaterGame(database));
+    }
+
+    private async void Fish(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new BeachGamePage());
     }
 }
