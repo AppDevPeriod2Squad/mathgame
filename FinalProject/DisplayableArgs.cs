@@ -50,9 +50,12 @@ namespace FinalProject
             ClickedEventHandler = clickedEventHandler;
             Text = text;
         }
-        public DisplayableArgs Clone()
-        {
-            return (DisplayableArgs)MemberwiseClone();
+        public DisplayableArgs Clone() { 
+        
+            DisplayableArgs args = (DisplayableArgs)MemberwiseClone();
+            args.ImageHeight = this.ImageHeight;
+            args.ImageWidth = this.ImageWidth;
+            return args;
         }
         public void TransformLayoutBounds(String transforms)
         {

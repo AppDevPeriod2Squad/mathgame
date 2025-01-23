@@ -18,4 +18,12 @@ public partial class NavPage : ContentPage
     {
         await Navigation.PushAsync(new ConnectionsGamePage());
     }
+    private async void Adding(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new AdditionGame());
+    }
+    private async void Greater(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new GreaterGame());
+    }
 }
