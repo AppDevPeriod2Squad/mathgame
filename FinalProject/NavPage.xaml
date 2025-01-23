@@ -9,26 +9,31 @@
         <HorizontalStackLayout AbsoluteLayout.LayoutBounds="0.5, 0.4, -1, -1" 
                              AbsoluteLayout.LayoutFlags="PositionProportional" 
                              Spacing="20">
-            <Button Text="Dino Game" 
+            <ImageButton Source="https://static.vecteezy.com/system/resources/previews/007/066/635/non_2x/giganotosaurus-dinosaur-cartoon-colored-clipart-free-vector.jpg" 
                     Clicked="Dino" 
                     WidthRequest="150" 
                     HeightRequest="150"
                     CornerRadius="25" />
-            <Button Text="Matching Game" 
+            <ImageButton Source="https://ecdn.teacherspayteachers.com/thumbitem/Early-Matching-Activity-Templates-Tracing-Lines-to-Match-Clip-Art-Commercial-7132790-1671478221/original-7132790-3.jpg"
                     Clicked="Matching" 
                     WidthRequest="150" 
                     HeightRequest="150"
                     CornerRadius="25" />
-            <Button Text="Addition" 
+            <ImageButton Source="https://i.pinimg.com/736x/84/2f/b5/842fb5485391965509528a7b1540ff74.jpg"
                 Clicked="Adding" 
                 WidthRequest="150" 
                 HeightRequest="150"
                 CornerRadius="25" />
-            <Button Text="Greater" 
-            Clicked="Greater" 
+            <ImageButton Source="https://content.mycutegraphics.com/graphics/alligator/greater-than-alligator.png" 
+            Clicked="Fish" 
             WidthRequest="150" 
             HeightRequest="150"
             CornerRadius="25" />
-        </HorizontalStackLayout>    
+            <ImageButton Source="https://t4.ftcdn.net/jpg/02/74/20/69/360_F_274206901_Jt1PHZTbtwne17anw5eD9oABxStNJhYT.jpg"
+Clicked="Greater" 
+WidthRequest="150" 
+HeightRequest="150"
+CornerRadius="25" />
+        </HorizontalStackLayout>
     </AbsoluteLayout>
 </ContentPage>

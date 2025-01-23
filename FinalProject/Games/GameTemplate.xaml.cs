@@ -12,11 +12,19 @@ public partial class GameTemplate : ContentPage
     public QuestionAndAnswers question;
     public QuestionSuperType questionType;
     public AbsoluteLayout displayLayout;
+    protected Database database;
+    User user;
     public GameTemplate()
 	{
 		InitializeComponent();
-        
     }
+
+    public async void GetUser()
+    {
+        user = await database.GetUserAsync();
+
+    }
+
     public void QuestionSetup(AbsoluteLayout layout)
     {
         
@@ -50,11 +58,28 @@ public partial class GameTemplate : ContentPage
         {
             if (args.WasCorrect)
             {
-                displayLayout.Add(new Label() { Text = "You were correct !", TextColor = Color.FromRgb(0, 100, 30) });
+                displayLayout.Add(new Label() { Text = "You were correct !", TextColor = Color.FromRgb(0, 100, 30), FontSize=100 });
+                int n = new Random().Next(10);
+                if (n < 4)
+                {
+                    user.Pennies += new Random().Next(1, 10);
+                }
+                else if (n < 7) {
+                    user.Nickels += new Random().Next(1, 7);
+                }
+                else if (n < 9)
+                {
+                    user.Dimes += new Random().Next(1, 5);
+                } else
+                {
+                    user.Quarters += new Random().Next(1, 3);
+                }
+                database.UpdateExistingUserAsync(user);
+               
             }
             else
             {
-                displayLayout.Add(new Label() { Text = "You were wrong :(", TextColor = Color.FromRgb(100,30,0) });
+                displayLayout.Add(new Label() { Text = "You were wrong :(", TextColor = Color.FromRgb(100,30,0), FontSize = 100 });
             }
         }
     }
