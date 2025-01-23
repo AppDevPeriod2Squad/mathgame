@@ -99,7 +99,7 @@ namespace FinalProject
             double optionWidth = (totalOptionsWidth) / DisplayableGroup.Count;
             // the args for each indiv displayable
             
-            indivArgs.TransformLayoutBounds($"0,0,{-indivArgs.ImageWidth + optionWidth},0");
+            indivArgs.TransformLayoutBounds($"{spacing},0,{-indivArgs.ImageWidth + optionWidth},0");
             indivArgs.ClickedEventHandler = new EventHandler((sender, e) => GroupClicked(sender, e));
             double amnt = DisplayableGroup.Count;
             double pow = Math.Log(optionWidth) / Math.Log(1/2.0);

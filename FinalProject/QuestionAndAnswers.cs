@@ -33,7 +33,7 @@ namespace FinalProject
             questionHandler = questionClickedHandler;
             QuestionPrompt = questionPrompt;
             SpacingBetweenQuestions = spacingBetweenQuestions;
-            OptionsDisplay = new GroupOfDisplayables(ConvertToGroupedList(choices), spacingBetweenDisplayables: 0.011);
+            OptionsDisplay = new GroupOfDisplayables(ConvertToGroupedList(choices), spacingBetweenDisplayables: 0.025);
             
             //foreach (GroupOfDisplayables g in OptionsDisplay.DisplayableGroup)
             //{
