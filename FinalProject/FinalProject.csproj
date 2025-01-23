@@ -81,15 +81,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Games\GreaterGame.xaml.cs">
+	    <DependentUpon>GreaterGame.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="NavPage.xaml.cs">
 	    <DependentUpon>NavPage.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="AdditionGame.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="BuyAnimation.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -97,6 +97,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="DinoGame.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Games\GreaterGame.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="NavPage.xaml">

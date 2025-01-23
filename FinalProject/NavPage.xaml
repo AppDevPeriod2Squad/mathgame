@@ -19,6 +19,16 @@
                     WidthRequest="150" 
                     HeightRequest="150"
                     CornerRadius="25" />
-        </HorizontalStackLayout>
+            <Button Text="Addition" 
+                Clicked="Adding" 
+                WidthRequest="150" 
+                HeightRequest="150"
+                CornerRadius="25" />
+            <Button Text="Greater" 
+            Clicked="Greater" 
+            WidthRequest="150" 
+            HeightRequest="150"
+            CornerRadius="25" />
+        </HorizontalStackLayout>    
     </AbsoluteLayout>
 </ContentPage>

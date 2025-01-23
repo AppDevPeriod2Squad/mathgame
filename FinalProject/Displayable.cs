@@ -41,16 +41,23 @@ namespace FinalProject
                 Spacing = args.Spacing,
                 Orientation = args.StackLayoutOrientation
             };
+            //temp
+            stackLayout.Padding = 0;
+            stackLayout.Padding = 0;
+
             // checks if parentlayout is absolutelayout, and if it is will assign new variable "absoluteLayout" to parentlayout
             if (parentLayout is AbsoluteLayout absoluteLayout && !string.IsNullOrWhiteSpace(args.AbsoluteLayoutBounds))
             {
                 var bounds = ParseBounds(args.AbsoluteLayoutBounds);
                 AbsoluteLayout.SetLayoutBounds(stackLayout, bounds);
-                AbsoluteLayout.SetLayoutFlags(absoluteLayout, args.AbsoluteLayoutFlags);
-                absoluteLayout.Children.Add(stackLayout);
+                AbsoluteLayout.SetLayoutFlags(stackLayout, args.AbsoluteLayoutFlags);
+                //absoluteLayout.Children.Add(stackLayout);
+                Random r = new Random();
+                //stackLayout.Background = Color.FromRgb(r.Next(0,100), r.Next(0, 100), r.Next(0, 100));
                 AbsLayout = absoluteLayout;
                 args.ImageHeight = bounds.Height;
-                args.ImageWidth = bounds.Width - 2 * args.Padding - 2 * args.Spacing;
+                args.ImageWidth = bounds.Width;
+
             }
             else
             {
@@ -68,52 +75,48 @@ namespace FinalProject
                 // adds the certain View to stackLayout depending on what viewType
                 switch (args.ViewType)
                 {
-                    case ViewType.Image:
+                    case ViewType.Image:  
                         var image = new Image
                         {
                             Source = ImageSource,
                             Aspect = Aspect.AspectFit,
-                            HeightRequest = args.ImageHeight,
-                            WidthRequest = args.ImageWidth,
+                            HeightRequest = -1,
+                            WidthRequest = -1,
                             HorizontalOptions = args.HorizontalOptions.Value,
                             VerticalOptions = args.VerticalOptions.Value
                             
                         };
-                        stackLayout.Children.Add(image);
+                        var bounds = ParseBounds(args.AbsoluteLayoutBounds);
+                        AbsoluteLayout.SetLayoutBounds(image, bounds);
+                        AbsoluteLayout.SetLayoutFlags(image, args.AbsoluteLayoutFlags);
+                        if (parentLayout is AbsoluteLayout absoluteLayout2)
+                        {
+                            absoluteLayout2.Children.Add(image);
+                        }
                         break;
                     case ViewType.ImageButton:
                         var button = new ImageButton
                         {
-                            HeightRequest = args.ImageHeight,
-                            WidthRequest = args.ImageWidth,
+                            WidthRequest = -1,
+                            HeightRequest = -1,
                             HorizontalOptions = args.HorizontalOptions.Value,
                             VerticalOptions = args.VerticalOptions.Value,
-                            Source=ImageSource,
-                            Aspect=Aspect.AspectFit,   
-                            
-                        };
-                        var textButton = new Button
-                        {
-                            HeightRequest = args.ImageHeight,
-                            WidthRequest = args.ImageWidth,
-                            HorizontalOptions = args.HorizontalOptions.Value,
-                            VerticalOptions = args.VerticalOptions.Value,
-                            Text = args.Text,
-                            FontSize = args.TextFontSize,
-                            TextColor = Colors.Black,
-                            FontAttributes = FontAttributes.Bold,
-                            BorderWidth = 10, // prob make these all options in the future to be passed in along with args
-                            BackgroundColor = Color.FromRgba(0, 0, 0, 0),
-                            FontFamily = "Academy"
-                            
+                            Source = ImageSource,
+                            Aspect = Aspect.AspectFit,
 
                         };
+                        
+                        
                         button.Clicked += args.ClickedEventHandler;
-                        textButton.Clicked += args.ClickedEventHandler;
-                        AbsoluteLayout stackOfButtons = new AbsoluteLayout();
-                        stackOfButtons.Add(button);
-                        stackOfButtons.Add(textButton);
-                        stackLayout.Children.Add(stackOfButtons);
+                        var bounds2 = ParseBounds(args.AbsoluteLayoutBounds);
+                        AbsoluteLayout.SetLayoutBounds(button, bounds2);
+                        AbsoluteLayout.SetLayoutFlags(button, args.AbsoluteLayoutFlags);
+                        if (parentLayout is AbsoluteLayout absoluteLayout3)
+                        {
+                            absoluteLayout3.Children.Add(button);
+                        }
+
+
                         break;
                     case ViewType.None:
                         break;
@@ -129,11 +132,19 @@ namespace FinalProject
                     Text = args.Text,
                     HorizontalOptions = LayoutOptions.Center,
                     VerticalOptions = LayoutOptions.Center,
-                    FontSize = args.TextFontSize,
-                    
+                    TextColor = Color.FromRgb(0, 0, 0)
+                    //FontSize = args.TextFontSize,
+
 
                 };
-                stackLayout.Children.Add(label);
+                var stack = new HorizontalStackLayout();
+                stack.HorizontalOptions = LayoutOptions.Center;
+                stack.VerticalOptions = LayoutOptions.Start;
+                var bounds = ParseBounds(args.AbsoluteLayoutBounds);
+                AbsoluteLayout.SetLayoutBounds(stack, bounds);
+                AbsoluteLayout.SetLayoutFlags(stack, args.AbsoluteLayoutFlags);
+                parentLayout.Children.Add(stack);
+                stack.Add(label);
             }
             
             // checks if wants to actually add the Layout to parent layout 
@@ -141,7 +152,7 @@ namespace FinalProject
             Args = args;
         }
 
-        private Rect ParseBounds(string bounds)
+        protected Rect ParseBounds(string bounds)
         {
             var parts = bounds.Split(',');
             if (parts.Length != 4)
