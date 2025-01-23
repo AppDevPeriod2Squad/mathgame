@@ -66,6 +66,15 @@
                     CornerRadius="25" />
             <Label Text="Divide-game" HorizontalOptions="Center"  FontSize="Subtitle"/>
             </VerticalStackLayout>
+            <VerticalStackLayout>
+                <ImageButton Source="https://ecdn.teacherspayteachers.com/thumbitem/Early-Matching-Activity-Templates-Tracing-Lines-to-Match-Clip-Art-Commercial-7132790-1671478221/original-7132790-3.jpg"
+                     Clicked="Subtraction" 
+                     WidthRequest="150" 
+                     HeightRequest="150"
+                     CornerRadius="25" />
+                <Label Text="Subtraction-game" HorizontalOptions="Center"  FontSize="Subtitle"/>
+            </VerticalStackLayout>
+
 
 
 

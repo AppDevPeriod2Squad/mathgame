@@ -33,6 +33,10 @@ namespace FinalProject
         {
             return ImageSource.FromFile("division.png");
         }
+        public ImageSource GetMinus()
+        {
+            return ImageSource.FromFile("minus.png");
+        }
         public ImageSource GetFoodImage()
         {
             return ImageSource.FromFile("food.png");

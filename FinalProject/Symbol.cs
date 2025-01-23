@@ -30,6 +30,7 @@ namespace FinalProject
                 SymbolType.Plus => spriteManager.GetPlus(),
                 SymbolType.Multiply => spriteManager.GetMultiply(),
                 SymbolType.Division => spriteManager.GetDivision(),
+                SymbolType.Minus => spriteManager.GetMinus(),
                 _ => null
             };
             lastSavedSymbolType = symbolType;

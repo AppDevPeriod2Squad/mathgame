@@ -70,6 +70,7 @@
 	  <None Remove="Resources\Images\dino_happy.png" />
 	  <None Remove="Resources\Images\dino_sad.png" />
 	  <None Remove="Resources\Images\food.png" />
+	  <None Remove="Resources\Images\Minus.png" />
 	  <None Remove="Resources\Images\multiply.png" />
 	</ItemGroup>
 
@@ -87,6 +88,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Games\SubtractionGame.xaml.cs">
+	    <DependentUpon>SubtractionGame.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Games\DivisionGame.xaml.cs">
 	    <DependentUpon>DivisionGame.xaml</DependentUpon>
 	  </Compile>
@@ -102,6 +106,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Games\SubtractionGame.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Games\DivisionGame.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

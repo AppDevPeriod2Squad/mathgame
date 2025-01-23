@@ -38,6 +38,17 @@ namespace FinalProject.QuestionGeneratorStuff
             }
             return max;
         }
+        private double GetDifferenceExcludedNum()
+        {
+            double max = CorrectAnswer.EvaluateEquation();
+            double currentTotal = currentGeneratingGroup.EvaluateEquation();
+            max = currentTotal - max;
+            if (max < 1)
+            {
+                max = 1;
+            }
+            return max;
+        }
         private double GetProductExcludedNum()
         {
             double max = CorrectAnswer.EvaluateEquation();
@@ -127,6 +138,15 @@ namespace FinalProject.QuestionGeneratorStuff
                     correctAnswerRange = new Range(1, 6);
                     potentialAnswerRange = new Range(1, 6, changingDoNotIncludeNum: changingDoNotIncludeNum => GetDivisionExcludedNum());
                     symbolTypes = new List<SymbolType>() { SymbolType.Division };
+                    break;
+                case QuestionSuperType.Subtraction:
+                    numOfNumbersInQuestion = 1;
+                    numOfNumbersInAnswers = 2;
+                    potentialAnswerRange = new Range(1, 6, changingDoNotIncludeNum: changingDoNotIncludeNum => GetDifferenceExcludedNum());
+                    correctAnswerRange = new Range(1, 6);
+                    promptString = "What subtracts to {replace}?";
+                    numOfAnswers = 4;
+                    symbolTypes = new List<SymbolType>() { SymbolType.Minus };
                     break;
             }
 

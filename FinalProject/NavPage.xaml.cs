@@ -39,4 +39,8 @@ public partial class NavPage : ContentPage
     {
         await Navigation.PushAsync(new DivisionGame(database));
     }
+    private async void Subtraction(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new SubtractionGame(database));
+    }
 }

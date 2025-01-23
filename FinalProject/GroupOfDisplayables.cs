@@ -68,8 +68,11 @@ namespace FinalProject
                         case SymbolType.Division:
                             tot /= number.Val;
                             break;
-                    
-                }
+                        case SymbolType.Minus:
+                            tot -= number.Val;
+                            break;
+
+                    }
                 }
                 prevDisp = disp;
             }
