@@ -48,12 +48,7 @@ public partial class GameTemplate : ContentPage
     public void QuestionClicked(object sender, EventArgs e)
     {
         
-        if (AutoGenerate)
-        {
-            question = generator.Generate(questionType);
-            question.Display(displayLayout, new DisplayableArgs(absoluteLayoutBounds: "0,0,1,1", absoluteLayoutFlags: AbsoluteLayoutFlags.All));
-            
-        }
+        
         if (e is QuestionEventArgs args)
         {
             Answered = true;
@@ -66,7 +61,12 @@ public partial class GameTemplate : ContentPage
                     displayLayout.Add(r);
                     AbsoluteLayout.SetLayoutBounds(r, new Rect(0, 0, 1, 1));
                     AbsoluteLayout.SetLayoutFlags(r, AbsoluteLayoutFlags.All);
-                    displayLayout.Add(new Label() { Text = "You were correct !", TextColor = Color.FromRgb(0, 100, 30), FontSize = 100 });
+                    HorizontalStackLayout lc = new HorizontalStackLayout();
+                    Label l = new Label() { Text = "You were correct !", TextColor = Color.FromRgb(0, 100, 30), FontSize = 100 };
+                    AbsoluteLayout.SetLayoutBounds(lc, new Rect(0, 0, 1, .1));
+                    AbsoluteLayout.SetLayoutFlags(lc, AbsoluteLayoutFlags.All);
+                    lc.Add(l);
+                    displayLayout.Add(lc);
                 }
 
                 int n = new Random().Next(10);
@@ -96,10 +96,21 @@ public partial class GameTemplate : ContentPage
                     displayLayout.Add(r);
                     AbsoluteLayout.SetLayoutBounds(r, new Rect(0, 0, 1, 1));
                     AbsoluteLayout.SetLayoutFlags(r, AbsoluteLayoutFlags.All);
-                    displayLayout.Add(new Label() { Text = "You were wrong :(", TextColor = Color.FromRgb(100, 30, 0), FontSize = 100 });
+                    HorizontalStackLayout lc = new HorizontalStackLayout();
+                    Label l = new Label() { Text = "You were wrong :(", TextColor = Color.FromRgb(100, 30, 0)};
+                    AbsoluteLayout.SetLayoutBounds(lc, new Rect(0, 0, 1, .1));
+                    AbsoluteLayout.SetLayoutFlags(lc, AbsoluteLayoutFlags.All);
+                    displayLayout.Add(lc);
+                    lc.Add(l);
                 }
                 
             }
+        }
+        if (AutoGenerate)
+        {
+            question = generator.Generate(questionType);
+            question.Display(displayLayout, new DisplayableArgs(absoluteLayoutBounds: "0,0,1,1", absoluteLayoutFlags: AbsoluteLayoutFlags.All));
+
         }
 
     }

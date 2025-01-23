@@ -88,7 +88,7 @@ namespace FinalProject
             // finds how wide each of the individual Displayables in the group will be to evenly space them
             double totalOptionsWidth = Args.ImageWidth;
             //double optionWidth = (totalOptionsWidth-SpacingBetweenDisplayables*(DisplayableGroup.Count-1)) / DisplayableGroup.Count;
-            double optionWidth = (totalOptionsWidth )/ DisplayableGroup.Count - 2 * spacing;
+            double optionWidth = (totalOptionsWidth) / DisplayableGroup.Count;
             // the args for each indiv displayable
             
             indivArgs.TransformLayoutBounds($"0,0,{-indivArgs.ImageWidth + optionWidth},0");
@@ -96,7 +96,7 @@ namespace FinalProject
             double amnt = DisplayableGroup.Count;
             double pow = Math.Log(optionWidth) / Math.Log(1/2.0);
             transformAmnt = (1 / 2.0) * Math.Pow(10, -(pow - 1));
-            
+            optionWidth -= 2 * spacing;
             foreach (var choice in DisplayableGroup)
             {
                 //    if ((indivArgs.AbsoluteLayoutBounds[2]).ToString() != "6")

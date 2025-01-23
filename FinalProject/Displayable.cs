@@ -132,7 +132,8 @@ namespace FinalProject
                     Text = args.Text,
                     HorizontalOptions = LayoutOptions.Center,
                     VerticalOptions = LayoutOptions.Center,
-                    TextColor = Color.FromRgb(0, 0, 0)
+                    TextColor = Color.FromRgb(0, 0, 0),
+                    FontSize = 40
                     //FontSize = args.TextFontSize,
 
 

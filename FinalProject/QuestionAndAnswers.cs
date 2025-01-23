@@ -33,7 +33,8 @@ namespace FinalProject
             questionHandler = questionClickedHandler;
             QuestionPrompt = questionPrompt;
             SpacingBetweenQuestions = spacingBetweenQuestions;
-            OptionsDisplay = new GroupOfDisplayables(ConvertToGroupedList(choices), spacingBetweenDisplayables: spacingBetweenQuestions);
+            OptionsDisplay = new GroupOfDisplayables(ConvertToGroupedList(choices), spacingBetweenDisplayables: 0.011);
+            
             //foreach (GroupOfDisplayables g in OptionsDisplay.DisplayableGroup)
             //{
             //    Random r = new Random();
@@ -75,7 +76,7 @@ namespace FinalProject
             OptionsDisplay.Display(parentLayout, temp);
 
             var temp2 = args.Clone();
-            temp.TransformLayoutBounds($"0,0,0,{-temp.ImageHeight + temp.ImageHeight / 6}");
+            temp.TransformLayoutBounds($"0,0,0,{-temp.ImageHeight + temp.ImageHeight / 3}");
             QuestionPrompt.Display(parentLayout, temp2);
         }
         public void ButtonClicked(Object sender, EventArgs e)
