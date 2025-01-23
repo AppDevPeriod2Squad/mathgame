@@ -38,13 +38,20 @@ namespace FinalProject
 
         public DinoGame(Database database)
         {
-            
             InitializeComponent();
             BindingContext = this;
             db = database;
+            InitializeGameAsync();
+        }
+        private async void InitializeGameAsync()
+        {
+            await DisplayInstructions();
             InitializeGame();
         }
-
+        private async Task DisplayInstructions()
+        {
+            await DisplayAlert("Instructions", $"Drag the dinosaur to make sure it only eats the bigger number. If you do not eat the bigger number you will lose a life.", "OK");
+        }
         private async void InitializeGame()
         {
             try

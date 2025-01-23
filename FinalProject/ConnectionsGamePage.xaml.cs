@@ -31,7 +31,17 @@ namespace FinalProject
         {
             InitializeComponent();
             db = database;
+            InitializeGameAsync();
+        }
+        private async void InitializeGameAsync()
+        {
+            await DisplayInstructions();
             InitializeGame();
+        }
+
+        private async Task DisplayInstructions()
+        {
+            await DisplayAlert("Instructions", $"Group the items into 4 groups of 4. Each item in the group should have the same value (number)", "OK");
         }
 
         private async void AwardMoney(int score)
