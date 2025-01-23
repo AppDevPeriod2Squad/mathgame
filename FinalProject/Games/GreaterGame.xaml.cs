@@ -14,6 +14,6 @@ public partial class GreaterGame : GameTemplate
         InitializeComponent();
         questionType = QuestionSuperType.FindGreatest;
         generator = new QuestionGenerator(new EventHandler((sender, e) => QuestionClicked(sender, e)), potentialAnswerTypes: new List<ImageType>() { ImageType.Dice,ImageType.TenFrames});
-        QuestionSetup(mainLayout);
+        QuestionSetup(mainLayout,db);
     }
 }

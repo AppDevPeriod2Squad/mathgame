@@ -90,7 +90,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="BeachGamePage.xaml">
+	  <MauiXaml Update="Games\BeachGamePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="BuyAnimation.xaml">

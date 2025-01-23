@@ -29,6 +29,6 @@ public partial class NavPage : ContentPage
 
     private async void Fish(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new BeachGamePage());
+        await Navigation.PushAsync(new BeachGamePage(database));
     }
 }

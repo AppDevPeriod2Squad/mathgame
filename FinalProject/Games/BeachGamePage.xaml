@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<local:GamePage
+<local:GameTemplate
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:FinalProject"
     x:Class="FinalProject.BeachGamePage"
-    Title="BeachGame"
+    xmlns:local="clr-namespace:FinalProject"
     NavigationPage.HasNavigationBar="False"
-    BackgroundImageSource="beach.png">
+    >
 
     <!-- 
         We use a Grid so we can layer:
@@ -18,8 +17,9 @@
         <!-- The layout for fish & trash animations -->
         <AbsoluteLayout x:Name="gameLayout"
                         VerticalOptions="FillAndExpand"
-                        HorizontalOptions="FillAndExpand" />
-
+                        HorizontalOptions="FillAndExpand"
+                        />
+        
         <!-- Top bar to hold our score & time labels side by side -->
         <StackLayout Orientation="Horizontal"
                      HorizontalOptions="Center"
@@ -39,6 +39,7 @@
                    HorizontalTextAlignment="Center"
                    VerticalTextAlignment="Center"
                    Margin="10,0,10,0"/>
+            
         </StackLayout>
 
         <!-- Feedback Label displayed in center of the screen -->
@@ -50,4 +51,4 @@
                VerticalOptions="Center"/>
     </Grid>
 
-</local:GamePage>
+</local:GameTemplate>

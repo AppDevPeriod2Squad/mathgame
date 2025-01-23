@@ -1,3 +1,4 @@
+using FinalProject.QuestionGeneratorStuff;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Layouts;
 using System;
@@ -7,16 +8,17 @@ using System.Threading.Tasks;
 
 namespace FinalProject
 {
-    public partial class BeachGamePage : GamePage
+    public partial class BeachGamePage : GameTemplate
     {
+        
         // Game State
         private bool _isLayoutReady;
         private bool _isGamePaused; 
         private bool _isGameOver;  
         private int _score;
         private int _itemsClicked;   
-        private int _timeLeft = 90;  
-
+        private int _timeLeft = 90;
+ 
         // Random Number Generator
         private readonly Random _rng = new Random();
         private User user;
@@ -61,6 +63,10 @@ namespace FinalProject
             db = database;
             InitalizeDatabase();
             SizeChanged += BeachGamePage_SizeChanged;
+            GetContentPage().BackgroundImageSource = "beach.png";
+            questionType = QuestionSuperType.Addition;
+            generator = new QuestionGenerator(new EventHandler((sender, e) => QuestionClicked(sender, e)), potentialAnswerTypes: new List<ImageType>() { ImageType.TenFrames });
+            
         }
 
         private void BeachGamePage_SizeChanged(object sender, EventArgs e)
@@ -77,6 +83,30 @@ namespace FinalProject
         /// <summary>
         /// Continuously spawns 1–3 items every 2 seconds, until the game is over.
         /// </summary>
+        private async void CheckIfQuestionAnswered()
+        {
+            if (Answered && WasCorrect)
+            {
+                // Correct
+                await ShowFeedback("CORRECT", Colors.Green);
+                _isGamePaused = false;
+                Answered = false;
+                WasCorrect = false;
+                gameLayout.Clear();
+
+            }
+            else if (Answered)
+            {
+                // Incorrect
+                AddScore(-10);
+                await ShowFeedback("INCORRECT", Colors.Red);
+                _isGamePaused = false;
+                Answered = false;
+                WasCorrect = false;
+                gameLayout.Clear();
+
+            }
+        }
         private void StartGameLoop()
         {
             Device.StartTimer(TimeSpan.FromSeconds(2), () =>
@@ -85,7 +115,10 @@ namespace FinalProject
                 if (_isGameOver) return false;
 
                 // If game is paused (math question), skip spawns but keep timer alive
-                if (_isGamePaused) return true;
+                if (_isGamePaused) {
+                    CheckIfQuestionAnswered();
+                    return true;
+                };
 
                 // Otherwise spawn 1–3 items
                 int count = _rng.Next(1, 4);
@@ -95,6 +128,7 @@ namespace FinalProject
                 }
                 return true;
             });
+
         }
 
         /// <summary>
@@ -157,7 +191,8 @@ namespace FinalProject
                 gameLayout.Children.Remove(itemImage);
 
                 _itemsClicked++;
-                if (_itemsClicked % 10 == 0)
+                // temp change to 1
+                if (_itemsClicked % 1 == 0)
                 {
                     await PauseGameAndShowQuestion();
                 }
@@ -260,34 +295,22 @@ namespace FinalProject
             int b = _rng.Next(1, 11);
             int correctAnswer = a + b;
 
-            string userEntry = await DisplayPromptAsync(
-                "Math Question",
-                $"What is {a} + {b}?",
-                accept: "OK",
-                cancel: "Cancel",
-                keyboard: Keyboard.Numeric);
+            //string userEntry = await DisplayPromptAsync(
+            //    "Math Question",
+            //    $"What is {a} + {b}?",
+            //    accept: "OK",
+            //    cancel: "Cancel",
+            //    keyboard: Keyboard.Numeric);
 
             // If user cancels or provides non-integer => force wrong
-            int userVal;
-            bool valid = int.TryParse(userEntry, out userVal);
-
-            if (valid && userVal == correctAnswer)
-            {
-                // Correct
-                await ShowFeedback("CORRECT", Colors.Green);
-            }
-            else
-            {
-                // Incorrect
-                AddScore(-10);
-                await ShowFeedback("INCORRECT", Colors.Red);
-            }
+            //int userVal;
+            //bool valid = int.TryParse(userEntry, out userVal);
+            QuestionSetup(gameLayout, db,doDisplay: true, doAuto: false, displayWhiteBackground:false);
+            
+            
 
             // Resume if game is still going
-            if (!_isGameOver)
-            {
-                _isGamePaused = false;
-            }
+            
         }
 
        
