@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<local:GamePage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:FinalProject"
+    x:Class="FinalProject.BeachGamePage"
+    Title="BeachGame"
+    NavigationPage.HasNavigationBar="False"
+    BackgroundImageSource="beach.png">
+
+    <AbsoluteLayout x:Name="gameLayout"
+                    VerticalOptions="FillAndExpand"
+                    HorizontalOptions="FillAndExpand">
+    </AbsoluteLayout>
+
+</local:GamePage>
