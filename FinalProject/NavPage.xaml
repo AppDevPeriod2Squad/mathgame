@@ -6,10 +6,24 @@
              xmlns:local="clr-namespace:FinalProject"
              NavigationPage.HasNavigationBar="False">
     <AbsoluteLayout x:Name="container" Background="MidnightBlue">
-        <HorizontalStackLayout AbsoluteLayout.LayoutBounds="0.5, 0.4, -1, -1" 
-                             AbsoluteLayout.LayoutFlags="PositionProportional" 
-                             Spacing="35">
-            <VerticalStackLayout>
+        <ScrollView AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+            
+        
+        <Grid AbsoluteLayout.LayoutBounds=".5, 0, 1, 1" 
+                             AbsoluteLayout.LayoutFlags="All" 
+                             >
+                <Grid.ColumnDefinitions>
+                    
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="3*"/>
+                </Grid.RowDefinitions>
+            <VerticalStackLayout Grid.Row="0" Grid.Column="0">
                 <ImageButton Source="https://static.vecteezy.com/system/resources/previews/007/066/635/non_2x/giganotosaurus-dinosaur-cartoon-colored-clipart-free-vector.jpg" 
                 Clicked="Dino" 
                 WidthRequest="150" 
@@ -17,7 +31,7 @@
                 CornerRadius="25" />
                 <Label Text="Dino-game" HorizontalOptions="Center"  FontSize="Subtitle"/>
             </VerticalStackLayout>
-            <VerticalStackLayout>
+            <VerticalStackLayout Grid.Row="0" Grid.Column="1">
                 <ImageButton Source="https://content.mycutegraphics.com/graphics/alligator/greater-than-alligator.png" 
             Clicked="Fish" 
             WidthRequest="150" 
@@ -25,7 +39,7 @@
             CornerRadius="25" />
                 <Label Text="Fish-game" HorizontalOptions="Center"  FontSize="Subtitle"/>
             </VerticalStackLayout>
-            <VerticalStackLayout>
+            <VerticalStackLayout Grid.Row="0" Grid.Column="2">
                 <ImageButton Source="https://t4.ftcdn.net/jpg/02/74/20/69/360_F_274206901_Jt1PHZTbtwne17anw5eD9oABxStNJhYT.jpg"
                 Clicked="Greater" 
                 WidthRequest="150" 
@@ -33,7 +47,7 @@
                 CornerRadius="25" />
                 <Label Text="Which-is-Greater-game" HorizontalOptions="Center"  FontSize="Subtitle"/>
             </VerticalStackLayout>
-            <VerticalStackLayout>
+            <VerticalStackLayout Grid.Row="1" Grid.Column="0">
                 <ImageButton Source="https://i.pinimg.com/736x/84/2f/b5/842fb5485391965509528a7b1540ff74.jpg"
                 Clicked="Adding" 
                 WidthRequest="150" 
@@ -41,7 +55,7 @@
                 CornerRadius="25" />
                 <Label Text="Addition-game" HorizontalOptions="Center"  FontSize="Subtitle"/>
             </VerticalStackLayout>
-            <VerticalStackLayout>
+            <VerticalStackLayout Grid.Row="1" Grid.Column="1">
                 <ImageButton Source="https://ecdn.teacherspayteachers.com/thumbitem/Early-Matching-Activity-Templates-Tracing-Lines-to-Match-Clip-Art-Commercial-7132790-1671478221/original-7132790-3.jpg"
                     Clicked="Matching" 
                     WidthRequest="150" 
@@ -50,7 +64,7 @@
                 <Label Text="Matching-game" HorizontalOptions="Center"  FontSize="Subtitle"/>
             </VerticalStackLayout>
 
-            <VerticalStackLayout>
+            <VerticalStackLayout Grid.Row="1" Grid.Column="2">
             <ImageButton Source="https://ecdn.teacherspayteachers.com/thumbitem/Early-Matching-Activity-Templates-Tracing-Lines-to-Match-Clip-Art-Commercial-7132790-1671478221/original-7132790-3.jpg"
                     Clicked="Multiply" 
                     WidthRequest="150" 
@@ -58,7 +72,7 @@
                     CornerRadius="25" />
             <Label Text="Mult-game" HorizontalOptions="Center"  FontSize="Subtitle"/>
             </VerticalStackLayout>
-            <VerticalStackLayout>
+            <VerticalStackLayout Grid.Row="2" Grid.Column="0">
                 <ImageButton Source="https://ecdn.teacherspayteachers.com/thumbitem/Early-Matching-Activity-Templates-Tracing-Lines-to-Match-Clip-Art-Commercial-7132790-1671478221/original-7132790-3.jpg"
                     Clicked="Division" 
                     WidthRequest="150" 
@@ -66,7 +80,7 @@
                     CornerRadius="25" />
             <Label Text="Divide-game" HorizontalOptions="Center"  FontSize="Subtitle"/>
             </VerticalStackLayout>
-            <VerticalStackLayout>
+            <VerticalStackLayout Grid.Row="2" Grid.Column="1">
                 <ImageButton Source="https://ecdn.teacherspayteachers.com/thumbitem/Early-Matching-Activity-Templates-Tracing-Lines-to-Match-Clip-Art-Commercial-7132790-1671478221/original-7132790-3.jpg"
                      Clicked="Subtraction" 
                      WidthRequest="150" 
@@ -78,6 +92,7 @@
 
 
 
-        </HorizontalStackLayout>
+        </Grid>
+        </ScrollView>
     </AbsoluteLayout>
 </ContentPage>

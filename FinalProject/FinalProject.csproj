@@ -70,6 +70,7 @@
 	  <None Remove="Resources\Images\dino_happy.png" />
 	  <None Remove="Resources\Images\dino_sad.png" />
 	  <None Remove="Resources\Images\food.png" />
+	  <None Remove="Resources\Images\gold_multiplication.jpg" />
 	  <None Remove="Resources\Images\Minus.png" />
 	  <None Remove="Resources\Images\multiply.png" />
 	</ItemGroup>

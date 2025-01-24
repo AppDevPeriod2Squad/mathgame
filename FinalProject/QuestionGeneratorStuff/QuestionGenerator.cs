@@ -132,7 +132,7 @@ namespace FinalProject.QuestionGeneratorStuff
                     break;
                 case QuestionSuperType.Division:
                     numOfNumbersInQuestion = 1;
-                    numOfNumbersInAnswers = 2;
+                    numOfNumbersInAnswers = 3;
                     numOfAnswers = 4;
                     promptString = "What divides to {replace}?";
                     correctAnswerRange = new Range(1, 6);
