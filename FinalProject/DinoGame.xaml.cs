@@ -418,6 +418,15 @@ namespace FinalProject
                         case 50:
                             CurrentFallSpeed = 0.06;
                             break;
+                        case 100:
+                            CurrentFallSpeed = 0.08;
+                            break;
+                        case 150:
+                            CurrentFallSpeed = 0.09;
+                            break;
+                        case 200:
+                            CurrentFallSpeed = 0.1;
+                            break;
                     }
 
 
