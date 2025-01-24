@@ -191,8 +191,8 @@ namespace FinalProject
                 gameLayout.Children.Remove(itemImage);
 
                 _itemsClicked++;
-                // temp change to 1
-                if (_itemsClicked % 1 == 0)
+                
+                if (_itemsClicked % 10 == 0)
                 {
                     await PauseGameAndShowQuestion();
                 }
