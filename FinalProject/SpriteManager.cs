@@ -28,7 +28,7 @@ namespace FinalProject
         public ImageSource GetMultiply()
         {
             Random r = new Random();
-            if (r.Next(0,25) == 1)
+            if (r.Next(0,10) == 1)
             {
                 return ImageSource.FromFile("golden_multiplication.jpg");
             }
