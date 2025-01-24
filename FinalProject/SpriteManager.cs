@@ -30,7 +30,7 @@ namespace FinalProject
             Random r = new Random();
             if (r.Next(0,10) == 1)
             {
-                return ImageSource.FromFile("golden_multiplication.jpg");
+                return ImageSource.FromFile("gold_multiplication.jpg");
             }
             return ImageSource.FromFile("multiply.png");
         }
